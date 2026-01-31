@@ -27,6 +27,7 @@ var vel : Vector3 = Vector3.ZERO
 var moving : bool = true
 var stick_position : Vector3
 var stick_is_floor : bool = false
+var player_number : int = -1
 
 
 func _ready() -> void:

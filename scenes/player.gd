@@ -16,10 +16,11 @@ const FOV = 100
 
 # movement
 const MAX_SPEED = 10.0
-const ACCEL = 70.0
+const ACCEL = 20.0
 const GRAVITY = 9.0
 const TERMINAL_VELOCITY = 30.0
-const DRAG = 50.0
+const WEAK_DRAG = 10.0
+const STRONG_DRAG = 20.0
 const DEADZOME = 0.1
 const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 
@@ -29,11 +30,13 @@ const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 
 const JUMP_VEL = 15.0
 
-var vel2D : Vector2 = Vector2.ZERO
 var gravity_switched : bool = false
+var vel2D : Vector2 = Vector2.ZERO
 
 # alt move
 const SLOWDOWN_TIME = 1.0
+const MIN_SLIDE_SPEED = 10.0
+
 @export var slide_ray: RayCast3D
 
 var slowdown : float = -1.0
@@ -41,7 +44,9 @@ var is_sliding = false:
 	set(val):
 		is_sliding = val
 		animation_player.play("initiate_slide" if is_sliding else "exit_slide", 0.05)
+
 var slide_speed : float = 0.0
+var slide_direction : Vector2
 
 
 # zoom
@@ -70,17 +75,22 @@ func _physics_process(delta: float) -> void:
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
 			
-		vel2D = vel2D.normalized() * clamp(vel2D.length() - DRAG * delta, 0.0, MAX_SPEED)
+		vel2D = vel2D.normalized() * (vel2D.length() - (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG) * delta)
 		
-		velocity.z = vel2D.x
-		velocity.x = vel2D.y
+		velocity.z = vel2D.x * delta * 60.0
+		velocity.x = vel2D.y * delta * 60.0
 		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
 	else:
+		vel2D = slide_direction * slide_speed
+		velocity.x = vel2D.y * delta * 60.0
+		velocity.z = vel2D.x * delta * 60.0
+		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
+		
 		slide_ray.force_raycast_update()
-		if not slide_ray.is_colliding():
+		if not slide_ray.is_colliding() or is_on_wall():
 			is_sliding = false
-	
-	
+		
+	slide_ray.force_raycast_update()
 	move_and_slide()
 	
 	if zoom:
@@ -120,28 +130,47 @@ func _input(event: InputEvent) -> void:
 				active_projectile.explode()
 			else:
 				if active_projectile.stick_is_floor:
-					active_projectile.create_floor_hole()
+					active_projectile.create_floor_hole(player_number)
 				else:
-					active_projectile.create_wall_hole()
+					active_projectile.create_wall_hole(player_number)
 		else:
 			shoot()
 	
 	if event.is_action_pressed("secondary"):
 		if active_projectile:
 			if active_projectile.pillard:
-				active_projectile.create_floor_hole()
+				active_projectile.create_floor_hole(player_number)
 				active_projectile.explode()
 			else:
-				active_projectile.create_vertical_pillar()
+				active_projectile.create_vertical_pillar(player_number)
 				active_projectile.pillared = true
 	
-	if event.is_action_pressed("alt_move"):
+	if event.is_action_pressed("slide"):
+		print(slide_ray.is_colliding())
 		slide_ray.force_raycast_update()
+		print(slide_ray.is_colliding())
 		if slide_ray.is_colliding():
+			print("b")
 			is_sliding = true
 			slide_speed = Vector2(abs(velocity.x), abs(velocity.z)).length()
-			if not is_on_floor() and velocity.y * gravity_mult():
-				pass
+			slide_direction = Vector2(velocity.z, velocity.x).normalized()
+			
+			if Util.fzero(slide_speed):
+				slide_speed = MIN_SLIDE_SPEED
+				print(rotation.y)
+				slide_direction = Vector2.RIGHT.rotated(rotation.y + PI)
+			else:
+				slide_speed = max(slide_speed, MIN_SLIDE_SPEED)
+			
+			if velocity.y * gravity_mult():
+				slide_speed += abs(velocity.y)
+	if event.is_action_released("slide"):
+		if is_sliding: # doinf it this way is nesisiary
+			is_sliding = false
+			
+			
+				
+			
 		
 
 
@@ -154,5 +183,6 @@ func shoot():
 	inst.type = projectile_mode
 	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
 	inst.model_start_pos = model_projectile_spawn.global_position
+	inst.player_number = player_number
 	Global.projectile_parent.add_child(inst)
 	active_projectile = inst
