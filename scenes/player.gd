@@ -1,12 +1,15 @@
+class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 
+
 @export var crosshair : DrawCrosshair 
 @export var actual_projectile_spawn: Marker3D
 @export var model_projectile_spawn: Marker3D
+@export var animation_player: AnimationPlayer
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -20,11 +23,26 @@ const DRAG = 50.0
 const DEADZOME = 0.1
 const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 
+
+
 @export var camera : Camera3D
 
 const JUMP_VEL = 15.0
 
 var vel2D : Vector2 = Vector2.ZERO
+var gravity_switched : bool = false
+
+# alt move
+const SLOWDOWN_TIME = 1.0
+@export var slide_ray: RayCast3D
+
+var slowdown : float = -1.0
+var is_sliding = false:
+	set(val):
+		is_sliding = val
+		animation_player.play("initiate_slide" if is_sliding else "exit_slide", 0.05)
+var slide_speed : float = 0.0
+
 
 # zoom
 const ZOOM_AMMOUNT = 0.4
@@ -39,19 +57,29 @@ var active_projectile : Area3D
 func _ready() -> void:
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
+	set_collision_layer_value(player_number + 1, true)
+
+func gravity_mult() -> float:
+	return -1.0 if gravity_switched else 1.0
 
 func _physics_process(delta: float) -> void:
-	var dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
-		Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
-	
-	if dir.length() > DEADZOME:
-		vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
+	if not is_sliding:
+		var dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
+			Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
 		
-	vel2D = vel2D.normalized() * clamp(vel2D.length() - DRAG * delta, 0.0, MAX_SPEED)
+		if dir.length() > DEADZOME:
+			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
+			
+		vel2D = vel2D.normalized() * clamp(vel2D.length() - DRAG * delta, 0.0, MAX_SPEED)
+		
+		velocity.z = vel2D.x
+		velocity.x = vel2D.y
+		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
+	else:
+		slide_ray.force_raycast_update()
+		if not slide_ray.is_colliding():
+			is_sliding = false
 	
-	velocity.z = vel2D.x
-	velocity.x = vel2D.y
-	velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
 	
 	move_and_slide()
 	
@@ -106,6 +134,15 @@ func _input(event: InputEvent) -> void:
 			else:
 				active_projectile.create_vertical_pillar()
 				active_projectile.pillared = true
+	
+	if event.is_action_pressed("alt_move"):
+		slide_ray.force_raycast_update()
+		if slide_ray.is_colliding():
+			is_sliding = true
+			slide_speed = Vector2(abs(velocity.x), abs(velocity.z)).length()
+			if not is_on_floor() and velocity.y * gravity_mult():
+				pass
+		
 
 
 func add_force(force: Vector3):
