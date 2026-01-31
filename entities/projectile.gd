@@ -72,15 +72,27 @@ func _on_body_entered(body: Node3D) -> void:
 	moving = false
 
 
+var max_dist : float = 1.;
+#var falloff : float = 2.;
+@export var falloff : Curve;
+
 # for all of these keep in min that "up/down" is relitive
 func explode(): # forces all players within a radius away
+	for player : Player in Global.players:
+		var dir = self.position - player.position;
+		var force_mag = falloff.sample(max(0, max_dist - dir.length(), 0))
+		#player.add_force(dir.normalized() * force_mag)
+		emit_signal("add force", player.player_number, dir.normalized() * force_mag)
 	pass
 
-func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole
+func create_floor_hole(player_number : int): # floor hole, should also force nearby players down into new floor hole
+	emit_signal("create_floor_hole", player_number)
 	pass
 
-func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
+func create_wall_hole(player_number : int): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
+	emit_signal("create_floor_hole", player_number)
 	pass
 
-func create_vertical_pillar(): # creates a solid vertical pillar, players above it get forced up
+func create_vertical_pillar(player_number : int): # creates a solid vertical pillar, players above it get forced up
+	emit_signal("create_floor_hole", player_number)
 	pass

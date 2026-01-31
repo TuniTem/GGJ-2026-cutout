@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cisjs87w3mxsx" path="res://entities/projectile.gd" id="1_46mfb"]
 
+[sub_resource type="Curve" id="Curve_46mfb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.53386456, 0.53601027), -1.8141781, -1.8141781, 0, 0, Vector2(0.75697213, 0), -1.2966362, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46mfb"]
 albedo_color = Color(1, 0, 0, 1)
 
@@ -12,6 +16,7 @@ radius = 0.1
 script = ExtResource("1_46mfb")
 model = NodePath("Model")
 ray_cast = NodePath("RayCast")
+falloff = SubResource("Curve_46mfb")
 
 [node name="Model" type="CSGSphere3D" parent="." unique_id=1768119718]
 material_override = SubResource("StandardMaterial3D_46mfb")

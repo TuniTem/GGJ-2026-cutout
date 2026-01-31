@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Global="*uid://1h163fasjfdy"
 Util="*uid://dh57icc04lx8"
+InputBuffer="*uid://dxuydwosxhx2e"
 
 [global_group]
 
