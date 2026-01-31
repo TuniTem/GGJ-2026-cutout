@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dvmggulbuak6s"]
+
+[ext_resource type="Script" uid="uid://dyrnb1xqjnjhw" path="res://scenes/draw_crosshair.gd" id="1_yta86"]
+
+[node name="Crosshair" type="Node2D" unique_id=110965933]
+rotation = 0.7853982
+script = ExtResource("1_yta86")
+crosshair = true
+square = true
+FLASH_COLOR = Color(0.92086166, 0.8322462, 0, 1)
+FLASH_SPEED = 5.0
+FREE_ROTATION = 45.0
+TRANSITION_SPEED = 10.0
+CROSS_RADIUS = 0.0
+CROSS_MAX_LENGTH = 9.7197
+CROSS_LINE_MULT = Array[float]([1.0, 1.0])
+SQUARE_SIZE = 39.6262
+CIRCLE_RADIUS = 24.2913
+DOT_SIZE = 2.0
+DOT_ALPHA = 0.5986
