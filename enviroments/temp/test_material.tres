@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://x6xuflv3kbvo"]
+
+[ext_resource type="Shader" uid="uid://o31c7rsuruqt" path="res://enviroments/temp/test_material.gdshader" id="1_8mve2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6fs6j"]
+render_priority = 0
+shader = ExtResource("1_8mve2")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/thickness = 0.13999999687072
+
+[resource]
+next_pass = SubResource("ShaderMaterial_6fs6j")
+shading_mode = 2
