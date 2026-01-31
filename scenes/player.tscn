@@ -56,13 +56,12 @@ _data = {
 &"initiate_slide": SubResource("Animation_qhqgy")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "animation_player", "camera", "slide_ray") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "animation_player", "camera") groups=["player"]]
 script = ExtResource("1_3vyb7")
 actual_projectile_spawn = NodePath("Camera3D/ProjectileActualSpawn")
 model_projectile_spawn = NodePath("Camera3D/ProjectileModelSpawn")
 animation_player = NodePath("AnimationPlayer")
 camera = NodePath("Camera3D")
-slide_ray = NodePath("SlideRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=360482962]
 shape = SubResource("CapsuleShape3D_u8vuu")
