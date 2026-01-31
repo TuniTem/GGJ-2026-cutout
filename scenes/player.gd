@@ -1,6 +1,12 @@
 extends CharacterBody3D
-#
+
+var player_number : int = -1
+
+const PROJECTILE = preload("uid://dgpicqgfhtwwf")
+
 @export var crosshair : DrawCrosshair 
+@export var actual_projectile_spawn: Marker3D
+@export var model_projectile_spawn: Marker3D
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -26,10 +32,15 @@ const ZOOM_SPEED = 10.0
 const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
 
-func _ready() -> void:
-	pass
+# shooting
+var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
+var active_projectile : Area3D
 
-func _process(delta: float) -> void:
+func _ready() -> void:
+	Global.players.append(self)
+	player_number = Global.get_player_number(self)
+
+func _physics_process(delta: float) -> void:
 	var dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
 		Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
 	
@@ -59,7 +70,6 @@ func _input(event: InputEvent) -> void:
 		rotation.y += -delta_look_dir.x
 		camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
 	
-	
 	if event.is_action_pressed("zoom"):
 		zoom = true
 		crosshair.dot = true
@@ -67,12 +77,45 @@ func _input(event: InputEvent) -> void:
 		crosshair.CROSS_RADIUS = 20.0
 		crosshair.flash(1.0)
 	
-	elif event.is_action_released("zoom"):
+	if event.is_action_released("zoom"):
 		zoom = false
 		crosshair.dot = false
 		crosshair.square = true
 		crosshair.CROSS_RADIUS = 0
 	
-	elif event.is_action_pressed("jump") and is_on_floor():
+	if event.is_action_pressed("jump") and is_on_floor():
 		jump()
-		
+	
+	if event.is_action_pressed("primary"):
+		if active_projectile:
+			if active_projectile.moving:
+				active_projectile.explode()
+			else:
+				if active_projectile.stick_is_floor:
+					active_projectile.create_floor_hole()
+				else:
+					active_projectile.create_wall_hole()
+		else:
+			shoot()
+	
+	if event.is_action_pressed("secondary"):
+		if active_projectile:
+			if active_projectile.pillard:
+				active_projectile.create_floor_hole()
+				active_projectile.explode()
+			else:
+				active_projectile.create_vertical_pillar()
+				active_projectile.pillared = true
+
+
+func add_force(force: Vector3):
+	pass
+
+func shoot():
+	var inst = PROJECTILE.instantiate()
+	inst.position = actual_projectile_spawn.global_position
+	inst.type = projectile_mode
+	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
+	inst.model_start_pos = model_projectile_spawn.global_position
+	Global.projectile_parent.add_child(inst)
+	active_projectile = inst

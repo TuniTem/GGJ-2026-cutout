@@ -4,8 +4,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
-[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("camera")]
+[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "camera") groups=["player"]]
 script = ExtResource("1_3vyb7")
+actual_projectile_spawn = NodePath("Camera3D/ProjectileActualSpawn")
+model_projectile_spawn = NodePath("Camera3D/ProjectileModelSpawn")
 camera = NodePath("Camera3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=360482962]
@@ -14,3 +16,9 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1502624484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6714675, 0)
 fov = 97.609856
+
+[node name="ProjectileActualSpawn" type="Marker3D" parent="Camera3D" unique_id=1839916550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7900528)
+
+[node name="ProjectileModelSpawn" type="Marker3D" parent="Camera3D" unique_id=1152649089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48710883, -0.38957798, -0.7900528)
