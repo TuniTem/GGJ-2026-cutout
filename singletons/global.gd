@@ -14,8 +14,10 @@ var avalible_controllers : Array[int] = []
 #Multiplayer Settings
 var player_count = 2
 var use_subwindows = true
-
 var max_score : int = 5
+
+enum Team {None, Light, Dark}
+var winner : Team = Team.None
 
 
 func _ready() -> void:

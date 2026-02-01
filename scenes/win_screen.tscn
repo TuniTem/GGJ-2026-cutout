@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crekgrf0q0tww"]
 
 [ext_resource type="Texture2D" uid="uid://cwdp6jyjogm72" path="res://ui/win/Splat.png" id="1_0lrm4"]
-[ext_resource type="Script" uid="uid://cn6habh35pste" path="res://scenes/win_screen.gd" id="1_6s1kg"]
+[ext_resource type="Script" path="res://scenes/win_screen.gd" id="1_6s1kg"]
 [ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://fonts/ferritecore/FerriteCoreDX-Black.otf" id="1_erk2x"]
 [ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
 [ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://ui/win/Eclipso.png" id="2_e41g7"]
