@@ -69,6 +69,7 @@ func _ready() -> void:
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
 	device_id = Global.request_controller_id(self)
+	print("d ", device_id)
 	
 	if device_id == -1:
 		using_controller = false
@@ -121,8 +122,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if using_controller:
-		#look_dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
-			#event.get_action_strength("left") - event.get_action_strength("right")).normalized()
+		look_dir = -Vector2(Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id)),
+		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id))).normalized()
 			
 		if not Util.fzero(look_dir.length()):
 			var delta_look_dir = look_dir * SENSITIVITY * delta * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0) * 5.0
@@ -157,6 +158,7 @@ func _input(event: InputEvent) -> void:
 		
 		dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
 			event.get_action_strength("left") - event.get_action_strength("right")).normalized()
+		
 	
 	if event.is_action_pressed("zoom"):
 		zoom = true
@@ -194,19 +196,22 @@ func _input(event: InputEvent) -> void:
 		else:
 			shoot()
 	
-	#if event.is_action_pressed("secondary"):
-		#if active_projectile:
-			#if active_projectile.pillard:
-				#active_projectile.create_floor_hole()
-				#active_projectile.explode()
-			#else:
-				#active_projectile.create_vertical_pillar()
-				#active_projectile.pillared = true
+	if event.is_action_pressed("secondary"):
+		if active_projectile:
+			if active_projectile.pillard:
+				active_projectile.create_floor_hole()
+				active_projectile.explode()
+			else:
+				active_projectile.create_vertical_pillar()
+				active_projectile.pillared = true
 	
 	if event.is_action_pressed("slide"):
 		is_sliding = true
 		slide_speed = Vector2(abs(velocity.x), abs(velocity.z)).length()
+		print("d", dir)
 		slide_direction = dir.rotated(rotation.y + PI)
+		print("rot", dir.rotated(rotation.y + PI))
+		print(Util.fzero(slide_speed))
 		
 		if Util.fzero(slide_speed):
 			slide_speed = MIN_SLIDE_SPEED
@@ -216,6 +221,9 @@ func _input(event: InputEvent) -> void:
 		
 		if velocity.y * gravity_mult():
 			slide_speed += abs(velocity.y)
+		
+		print("speed ", slide_speed)
+		print("dir ", slide_direction)
 	
 	if event.is_action_released("slide"):
 		if is_sliding: # doinf it this way is nesisiary

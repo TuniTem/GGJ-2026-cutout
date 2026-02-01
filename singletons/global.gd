@@ -14,6 +14,7 @@ var avalible_controllers : Array[int] = []
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	update_controllers()
+	print(avalible_controllers)
 
 func update_controllers(): 
 	avalible_controllers = Input.get_connected_joypads()
