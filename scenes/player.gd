@@ -198,7 +198,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("secondary"):
 		if active_projectile:
-			if active_projectile.pillard:
+			if active_projectile.pillared:
 				active_projectile.create_floor_hole()
 				active_projectile.explode()
 			else:
