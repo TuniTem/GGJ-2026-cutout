@@ -61,6 +61,9 @@ const ZOOM_SPEED = 10.0
 const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
 
+#in seconds
+var SHOOTING_COOLDOWN = 2.
+var can_shoot = true
 # shooting
 var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
 var active_projectile : Area3D
@@ -206,22 +209,16 @@ func _input(event: InputEvent) -> void:
 			movement_ctrl_stored_speed = 0.0
 			is_movement_ctrl_pressed = false
 	
-	if event.is_action_pressed("primary") and (event.get_action_strength("primary") > prev_trigger) and event.get_action_strength("primary") == 1.0:
-		prev_trigger = event.get_action_strength("primary")
-		#print("fire")
-		if active_projectile:
-			if active_projectile.moving:
-				active_projectile.explode()
-				active_projectile.queue_free()
-			#else:
-				##if active_projectile.stick_is_floor:
-				#active_projectile.create_floor_hole()
-				#active_projectile.queue_free()
-				#else:
-					#active_projectile.create_wall_hole()
-			
-		else:
+	if event.is_action_pressed("primary"):
+		if can_shoot:
+			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
+			c.call()
+			can_shoot = false
 			shoot()
+			
+#		if active_projectile:
+#			active_projectile.explode()
+#			active_projectile.queue_free()
 	
 	if event.is_action_pressed("grow"):
 		#print("a")
