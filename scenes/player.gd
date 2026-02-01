@@ -7,7 +7,6 @@ var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 
-
 @export var crosshair : DrawCrosshair 
 @export var actual_projectile_spawn: Marker3D
 @export var model_projectile_spawn: Marker3D
@@ -88,7 +87,10 @@ func _physics_process(delta: float) -> void:
 		if not using_controller:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
 			Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
-		
+		else:
+			dir = Vector2(Input.get_action_strength("forward_" + str(device_id)) - Input.get_action_strength("backward_" + str(device_id)), 
+			Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))).normalized()
+			
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
 
@@ -119,7 +121,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	if using_controller:
-		
+		#look_dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
+			#event.get_action_strength("left") - event.get_action_strength("right")).normalized()
+			
 		if not Util.fzero(look_dir.length()):
 			var delta_look_dir = look_dir * SENSITIVITY * delta * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0) * 5.0
 			rotation.y += -delta_look_dir.x
@@ -150,8 +154,7 @@ func _input(event: InputEvent) -> void:
 			camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
 	else:
 		if device_id != event.device: return
-		look_dir = -Vector2(event.get_action_strength("look_left") - event.get_action_strength("look_right"), 
-			event.get_action_strength("look_up") - event.get_action_strength("look_down"))
+		
 		dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
 			event.get_action_strength("left") - event.get_action_strength("right")).normalized()
 	
