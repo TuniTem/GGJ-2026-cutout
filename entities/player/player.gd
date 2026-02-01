@@ -2,10 +2,11 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
-var using_controller : bool = false
+var using_controller : bool = true
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
+const CROSSHAIR = preload("uid://dvmggulbuak6s")
 
 @export var crosshair : DrawCrosshair 
 @export var actual_projectile_spawn: Marker3D
@@ -66,7 +67,7 @@ var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
 var active_projectile : Area3D
 var look_dir : Vector2
 
-func _ready() -> void:
+func _init() -> void:
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
@@ -74,7 +75,12 @@ func _ready() -> void:
 	
 	if device_id == -1:
 		using_controller = false
+	
 		
+func _ready() -> void:
+	crosshair = CROSSHAIR.instantiate()
+	self.get_parent().add_child.call_deferred(crosshair)
+	pass
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0

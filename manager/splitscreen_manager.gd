@@ -1,7 +1,13 @@
 extends Node
 
-const BASE_PLAYER = preload("res://scenes/player.tscn")
-const DUMMY_VIEWPORT_IMAGE = null
+
+const DUMMY_VIEWPORT_IMAGES = [
+	"uid://djovo05un28dv",
+	"uid://c0qemv0dgfahb",
+	"uid://chogc5scvav3s",
+	"uid://fy6t4lcfp7sb",
+	"uid://hsqifgs8wgiq"
+]
 
 @onready
 var GRID_CONTAINER = $GridContainer
@@ -24,14 +30,15 @@ func _on_start_splitscreen() -> void:
 	
 	if(player_count % 2 != 0): #we only ever need one dummy viewport
 		dummy_viewport()
-		
-#	for i in subviewports:
-#		subviewports[i].size = subviewports[i].get_parent().size()
-
 	pass # Replace with function body.
 
 
 func dummy_viewport():
+	var text_rect = TextureRect.new()
+	text_rect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text_rect.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	text_rect.texture = DUMMY_VIEWPORT_IMAGES.pick_random()
+	GRID_CONTAINER.add_child(text_rect)
 	pass
 
 var subviewports : Array[SubViewport] 

@@ -89,7 +89,6 @@ var transitions : Dictionary = {
 var curr_color : Color = Color.WHITE
 var simplify : bool = false
 
-
 func _process(delta: float) -> void:
 	for key in transitions.keys():
 		if transitions[key] != float(get(key)):

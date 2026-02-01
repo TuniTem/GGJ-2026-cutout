@@ -1,18 +1,15 @@
 [gd_scene format=3 uid="uid://c2gi6vj24lt6m"]
 
 [ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://enviroments/battle_ground/level geometry/level_level.res" id="1_uj0mu"]
-[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://entities/player/player.tscn" id="2_uj0mu"]
 [ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="3_l57hg"]
 [ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="4_2kcb3"]
+[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://entities/player/crosshair.tscn" id="5_uj0mu"]
 
 [node name="Node3D" type="Node3D" unique_id=996328523]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1320913263]
 use_collision = true
 mesh = ExtResource("1_uj0mu")
-
-[node name="Player" parent="." unique_id=606600753 instance=ExtResource("2_uj0mu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.252, -6.414831, -46.853)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=220339889]
 transform = Transform3D(0.8585127, 0.14112963, 0.4929892, 0, 0.961382, -0.27521795, -0.51279235, 0.23627812, 0.8253586, 0, 0, 0)
@@ -22,3 +19,5 @@ transform = Transform3D(0.8585127, 0.14112963, 0.4929892, 0, 0.961382, -0.275217
 [node name="Node" type="Node" parent="." unique_id=804179181 node_paths=PackedStringArray("map_mesh")]
 script = ExtResource("4_2kcb3")
 map_mesh = NodePath("../CSGMesh3D")
+
+[node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("5_uj0mu")]
