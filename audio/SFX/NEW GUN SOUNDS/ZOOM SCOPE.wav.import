@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://coxjm3t7ch2y6"
+path="res://.godot/imported/ZOOM SCOPE.wav-b0b3c6b19484de4989ac6932ad496018.sample"
+
+[deps]
+
+source_file="res://audio/SFX/NEW GUN SOUNDS/ZOOM SCOPE.wav"
+dest_files=["res://.godot/imported/ZOOM SCOPE.wav-b0b3c6b19484de4989ac6932ad496018.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

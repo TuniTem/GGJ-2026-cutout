@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://drow8k6njggf"
+path="res://.godot/imported/12-Eclipso-OvercommittedAgain.wav-27b653ea87a7507414b86e663870ee6b.sample"
+
+[deps]
+
+source_file="res://audio/SFX/ECLIPSO VOICE/12-Eclipso-OvercommittedAgain.wav"
+dest_files=["res://.godot/imported/12-Eclipso-OvercommittedAgain.wav-27b653ea87a7507414b86e663870ee6b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
