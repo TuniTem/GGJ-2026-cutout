@@ -14,9 +14,9 @@ radius = 0.1
 
 [node name="Projectile" type="Area3D" unique_id=1817545327 node_paths=PackedStringArray("model", "ray_cast")]
 script = ExtResource("1_46mfb")
+falloff = SubResource("Curve_46mfb")
 model = NodePath("Model")
 ray_cast = NodePath("RayCast")
-falloff = SubResource("Curve_46mfb")
 
 [node name="Model" type="CSGSphere3D" parent="." unique_id=1768119718]
 material_override = SubResource("StandardMaterial3D_46mfb")

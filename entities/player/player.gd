@@ -4,6 +4,7 @@ extends CharacterBody3D
 var player_number : int = -1
 var using_controller : bool = true
 var device_id: int = -1
+var song_leader : bool = false
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 
@@ -17,7 +18,7 @@ const SENSITIVITY = 1.0
 const FOV = 100
 
 # movement
-const MAX_SPEED = 10.0
+const MAX_SPEED = 20.0
 const ACCEL = 20.0
 const GRAVITY = 9.0
 const TERMINAL_VELOCITY = 30.0
@@ -32,7 +33,11 @@ const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 const JUMP_VEL = 7.5
 
 var dir : Vector2
-var gravity_switched : bool = false
+var gravity_switched : bool = false:
+	set(val):
+		if val != gravity_switched:
+			SFX.play("swap")
+		gravity_switched = val
 var vel2D : Vector2 = Vector2.ZERO
 
 # alt move
@@ -49,6 +54,7 @@ var is_sliding = false:
 	set(val):
 		is_sliding = val
 		animation_player.play("initiate_slide" if is_sliding else "exit_slide", 0.05)
+		if is_sliding: SFX.play("slide")
 
 var slide_speed : float = 0.0
 var slide_direction : Vector2
@@ -62,7 +68,7 @@ const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
 
 #in seconds
-var SHOOTING_COOLDOWN = 2.
+var SHOOTING_COOLDOWN = 0.5
 var can_shoot = true
 # shooting
 var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
@@ -87,11 +93,19 @@ var prev_vel : Vector3
 var is_movement_ctrl_pressed : bool = false
 var is_jump_pressed : bool = false
 var prev_trigger : float = 0.0
+const FOOTSTEP_INTERVAL = 5.0
+var footstep_timer : float = FOOTSTEP_INTERVAL
 func _physics_process(delta: float) -> void:
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
-	if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched): can_slide = true
+	if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched): 
+		if can_slide == false:
+			SFX.play("land")
+		can_slide = true
+		
+		
+		
 	if not is_sliding:
 		if not using_controller:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
@@ -102,6 +116,11 @@ func _physics_process(delta: float) -> void:
 			
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
+			if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched):
+				footstep_timer -= delta
+				if footstep_timer < 0.0:
+					footstep_timer += min(FOOTSTEP_INTERVAL / vel2D.length(), 0.4)
+					SFX.play("footstep")
 
 		vel2D = vel2D.normalized() * (vel2D.length() - (MEGA_DRAG if is_movement_ctrl_pressed else (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG)) * delta)
 		
@@ -155,6 +174,7 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerpf(camera.fov, FOV, delta * ZOOM_SPEED)
 
 func jump():
+	SFX.play("jump")
 	if is_sliding:
 		velocity.y = slide_speed * gravity_mult()
 		is_sliding = false
@@ -163,6 +183,7 @@ func jump():
 		velocity.y = JUMP_VEL
 
 func bounce(): 
+	SFX.play("bounce")
 	velocity = -(prev_vel.reflect(get_wall_normal()) - get_wall_normal())
 	vel2D = Vector2(velocity.z, velocity.x)
 
@@ -185,11 +206,13 @@ func _input(event: InputEvent) -> void:
 		
 	
 	if event.is_action_pressed("zoom"):
+		SFX.play("scope")
 		zoom = true
 		crosshair.dot = true
 		crosshair.square = false
 		crosshair.CROSS_RADIUS = 20.0
 		crosshair.flash(1.0)
+		
 	
 	if event.is_action_released("zoom"):
 		zoom = false
@@ -198,37 +221,45 @@ func _input(event: InputEvent) -> void:
 		crosshair.CROSS_RADIUS = 0
 	
 	if event.is_action_pressed("jump"):
+		MusicController.slow_down()
 		is_jump_pressed = true
 		if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched):
 			jump()
 			movement_ctrl_stored_speed = 0.0
 			
 		elif movement_ctrl_stored_speed != 0.0:
+			SFX.play("dash")
 			velocity = get_look_dir() * movement_ctrl_stored_speed
 			vel2D = Vector2(velocity.z, velocity.x)
 			movement_ctrl_stored_speed = 0.0
 			is_movement_ctrl_pressed = false
+			
 	
 	if event.is_action_pressed("primary"):
-		if can_shoot:
+		if active_projectile and active_projectile.inactive < 0:
+			SFX.play("explode")
+			active_projectile.explode()
+			active_projectile.queue_free()
+		
+		elif can_shoot:
 			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
 			c.call()
 			can_shoot = false
 			shoot()
 			
-#		if active_projectile:
-#			active_projectile.explode()
-#			active_projectile.queue_free()
+		
 	
 	if event.is_action_pressed("grow"):
 		#print("a")
 		if active_projectile:
 			#print("b")
+			SFX.play("grow")
 			active_projectile.create_vertical_pillar()
 			active_projectile.queue_free()
 	
 	if event.is_action_pressed("hole"):
 		if active_projectile:
+			SFX.play("hole")
 			active_projectile.create_floor_hole()
 			active_projectile.explode()
 			active_projectile.queue_free()
@@ -250,12 +281,15 @@ func _input(event: InputEvent) -> void:
 			slide_speed += abs(velocity.y)
 	
 	if event.is_action_released("slide"):
+		#SFX.play("slide")
 		if is_sliding: # doinf it this way is nesisiary
 			is_sliding = false
 			
 	if event.is_action_pressed("movement_ctrl"):
+		SFX.play("quick_stop")
 		is_movement_ctrl_pressed = true
 		if movement_ctrl_timer < 1.0:
+			
 			movement_ctrl_timer = MOVEMENT_CONTROL_VEL_TIME
 			movement_ctrl_stored_speed = velocity.length()
 	

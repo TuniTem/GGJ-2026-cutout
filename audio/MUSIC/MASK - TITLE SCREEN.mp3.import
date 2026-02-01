@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/MASK - TITLE SCREEN.mp3-3f75552672d2bb6a58e3a
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

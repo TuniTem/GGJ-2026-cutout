@@ -13,7 +13,7 @@ const PROJECTILE_STATS :  Dictionary = {
 		"speed" : 30.0,
 		"gravity" : 13.0,
 		"offset_correction_time": 0.3
-	},
+	}
 }
 
 
@@ -29,11 +29,19 @@ var stick_position : Vector3
 var stick_is_floor : bool = false
 var player_number : int = -1
 var gravity_switched : bool = false
+var inactive : int = 2
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
+	match type:
+		Global.ProjectileType.HIGH_VELOCITY:
+			SFX.play("shoot_high")
+		
+		Global.ProjectileType.LOW_VELOCITY:
+			SFX.play("shoot_low")
+	print("hi")
 	model.global_position = model_start_pos
 	var tween : Tween = create_tween()
 	tween.tween_property(model, "position", Vector3.ZERO, PROJECTILE_STATS[type]["offset_correction_time"]).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -41,6 +49,8 @@ func _ready() -> void:
 	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"]
 
 func _physics_process(delta: float) -> void:
+	inactive -= 1
+	print(position)
 	if moving:
 		vel.y -= PROJECTILE_STATS[type]["gravity"] * delta * gravity_mult()
 		position += vel * delta

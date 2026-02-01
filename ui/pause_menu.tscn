@@ -4,14 +4,50 @@
 [ext_resource type="Theme" uid="uid://b8nwex6ti4udm" path="res://ui/pause_theme.tres" id="2_avurv"]
 [ext_resource type="Shader" uid="uid://bdxe6w2ip2kfk" path="res://ui/shaders/ui_blur.gdshader" id="2_ejwgg"]
 [ext_resource type="PackedScene" uid="uid://d87ma4k3epkr" path="res://ui/main_menu.tscn" id="2_npydk"]
-[ext_resource type="Texture2D" uid="uid://ctojnwwg1g60x" path="res://ui/imgs/panel_background.png" id="3_fob5h"]
-[ext_resource type="AudioStream" uid="uid://b4upl7qeodcl4" path="res://audio/SFX/UI/UI - SCROLL.wav" id="3_j3kxr"]
-[ext_resource type="AudioStream" uid="uid://bdc4n7ni3vurh" path="res://audio/SFX/UI/UI - SELECT 2.wav" id="4_vovkw"]
+[ext_resource type="Texture2D" uid="uid://m887eomrj2vi" path="res://ui/imgs/panel_background.png" id="3_fob5h"]
+[ext_resource type="AudioStream" uid="uid://b5qd03mwlp5qm" path="res://audio/SFX/UI/UI - SCROLL.wav" id="3_j3kxr"]
+[ext_resource type="AudioStream" uid="uid://b3fwhfjc2hnl2" path="res://audio/SFX/UI/UI - SELECT 2.wav" id="4_vovkw"]
+[ext_resource type="FontFile" uid="uid://n78tuhqiigdc" path="res://fonts/ferritecore/FerriteCoreDX-Display.otf" id="8_fijdv"]
+[ext_resource type="Texture2D" uid="uid://fon24sa63yn4" path="res://2DAssests/UI/grabber.PNG" id="9_lpidc"]
+[ext_resource type="Script" uid="uid://cguosb7oljeie" path="res://ui/audio_slider.gd" id="10_b1mq0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fob5h"]
 shader = ExtResource("2_ejwgg")
 shader_parameter/radius = 6.0
 shader_parameter/strength = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_reb5t"]
+base_font = ExtResource("8_fijdv")
+spacing_glyph = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_jcxce"]
+line_spacing = 3.029
+font = SubResource("FontVariation_reb5t")
+font_size = 33
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_72dg2"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vwb3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnge7"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=349166431]
 script = ExtResource("1_50142")
@@ -70,6 +106,60 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Main Menu"
 
+[node name="VBoxContainer3" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1583858627]
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3" unique_id=1280216692]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer" unique_id=795505406]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_jcxce")
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer" unique_id=1522752819]
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("9_lpidc")
+theme_override_icons/grabber_highlight = ExtResource("9_lpidc")
+theme_override_icons/grabber_disabled = ExtResource("9_lpidc")
+theme_override_icons/tick = ExtResource("9_lpidc")
+theme_override_styles/slider = SubResource("StyleBoxFlat_72dg2")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_0vwb3")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_xnge7")
+max_value = 1.0
+step = 0.01
+value = 0.5
+script = ExtResource("10_b1mq0")
+bus = "Music"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3" unique_id=2137407768]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=1088603205]
+layout_mode = 2
+text = "SFX"
+label_settings = SubResource("LabelSettings_jcxce")
+horizontal_alignment = 1
+
+[node name="HSlider3" type="HSlider" parent="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2" unique_id=1159223603]
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("9_lpidc")
+theme_override_icons/grabber_highlight = ExtResource("9_lpidc")
+theme_override_icons/grabber_disabled = ExtResource("9_lpidc")
+theme_override_icons/tick = ExtResource("9_lpidc")
+theme_override_styles/slider = SubResource("StyleBoxFlat_72dg2")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_0vwb3")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_xnge7")
+max_value = 1.0
+step = 0.01
+value = 0.5
+script = ExtResource("10_b1mq0")
+bus = "SFX"
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1742004907]
 
 [connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
@@ -78,3 +168,5 @@ text = "Main Menu"
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ResetLevelButton" to="." method="_on_reset_level_button_pressed"]
 [connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="value_changed" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer/HSlider" to="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2/HSlider3" to="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2/HSlider3" method="_on_value_changed"]

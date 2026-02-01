@@ -2,12 +2,12 @@ extends Control
 @export var level_to_load : PackedScene
 @export var button_hover_sfx : AudioStream
 @export var button_click_sfx : AudioStream
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	pass # Replace with function body.
+	MusicController.switch_song("advanced", 3.0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	pass
 
