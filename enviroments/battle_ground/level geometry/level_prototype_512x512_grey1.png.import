@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5jypxi2x6bjt"
-path.s3tc="res://.godot/imported/level_prototype_512x512_grey1.png-612bccf917bfab444970b127b3f412d9.s3tc.ctex"
+path.s3tc="res://.godot/imported/level_prototype_512x512_grey1.png-32149288c84cb988c4bff11c75b7aafe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://3DAssets/level geometry/level_prototype_512x512_grey1.png"
-dest_files=["res://.godot/imported/level_prototype_512x512_grey1.png-612bccf917bfab444970b127b3f412d9.s3tc.ctex"]
+source_file="res://enviroments/battle_ground/level geometry/level_prototype_512x512_grey1.png"
+dest_files=["res://.godot/imported/level_prototype_512x512_grey1.png-32149288c84cb988c4bff11c75b7aafe.s3tc.ctex"]
 
 [params]
 

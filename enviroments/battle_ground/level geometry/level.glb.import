@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://byy8x2ptyfjjh"
-path="res://.godot/imported/level.glb-34a7514a2682fb72387f2c7d8eb3a9f7.scn"
+path="res://.godot/imported/level.glb-9d73723e8fa6acb557f43dc2d10d920e.scn"
 
 [deps]
 
-source_file="res://3DAssets/level geometry/level.glb"
-dest_files=["res://.godot/imported/level.glb-34a7514a2682fb72387f2c7d8eb3a9f7.scn"]
+source_file="res://enviroments/battle_ground/level geometry/level.glb"
+dest_files=["res://.godot/imported/level.glb-9d73723e8fa6acb557f43dc2d10d920e.scn"]
 
 [params]
 
@@ -39,14 +39,23 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"level_Plane": {
+"level_border": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://3DAssets/level geometry/level_Plane.res",
-"save_to_file/path": "uid://o71poi7wdqi3"
+"save_to_file/fallback_path": "res://enviroments/battle_ground/level geometry/level_border.res",
+"save_to_file/path": "uid://dysb13ld6rla"
+},
+"level_level": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://enviroments/battle_ground/level geometry/level_level.res",
+"save_to_file/path": "uid://b0hrjkwiks1te"
 }
 }
 }
