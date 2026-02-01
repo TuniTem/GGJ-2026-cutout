@@ -13,7 +13,7 @@ const PROJECTILE_STATS :  Dictionary = {
 		"speed" : 30.0,
 		"gravity" : 13.0,
 		"offset_correction_time": 0.3
-	},
+	}
 }
 
 
@@ -26,14 +26,23 @@ var pillared : bool = false
 var vel : Vector3 = Vector3.ZERO
 var moving : bool = true
 var stick_position : Vector3
+var stick_normal : Vector3
 var stick_is_floor : bool = false
 var player_number : int = -1
 var gravity_switched : bool = false
+var inactive : int = 2
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
+	match type:
+		Global.ProjectileType.HIGH_VELOCITY:
+			SFX.play("shoot_high")
+		
+		Global.ProjectileType.LOW_VELOCITY:
+			SFX.play("shoot_low")
+	print("hi")
 	model.global_position = model_start_pos
 	var tween : Tween = create_tween()
 	tween.tween_property(model, "position", Vector3.ZERO, PROJECTILE_STATS[type]["offset_correction_time"]).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -41,6 +50,8 @@ func _ready() -> void:
 	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"]
 
 func _physics_process(delta: float) -> void:
+	inactive -= 1
+	print(position)
 	if moving:
 		vel.y -= PROJECTILE_STATS[type]["gravity"] * delta * gravity_mult()
 		position += vel * delta
@@ -65,6 +76,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if ray_cast.is_colliding():
 		stick_position = ray_cast.get_collision_point()
+		stick_normal = ray_cast.get_collision_normal()
 		stick_is_floor = ray_cast.get_collider().is_in_group("floor")
 	
 	else: 
@@ -83,17 +95,17 @@ func explode(): # forces all players within a radius away
 	for player : Player in Global.players:
 		var dir = self.position - player.position;
 		var force_mag = falloff.sample(max(0, max_dist - dir.length(), 0))
-		player.add_force(dir.normalized() * force_mag)
+		player.add_force(-dir.normalized() * force_mag * 30.0)
 	pass
 
 func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole
-	Signals.create_floor_hole.emit(player_number, position)
+	Signals.create_floor_hole.emit(player_number, position, stick_normal)
 	pass
 
 func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
-	Signals.create_wall_hole.emit(player_number, position)
+	Signals.create_wall_hole.emit(player_number, position, stick_normal)
 	pass
 
 func create_vertical_pillar(): # creates a solid vertical pillar, players above it get forced up
-	Signals.create_vertical_pillar.emit(player_number, position)
+	Signals.create_vertical_pillar.emit(player_number, position, stick_normal)
 	pass

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://byp58l38dnlxb"]
+
+[ext_resource type="PackedScene" uid="uid://d0sycf6dgpbe2" path="res://scenes/splitscreen_view.tscn" id="1_jbumb"]
+[ext_resource type="PackedScene" uid="uid://cp4ywxm8j1i80" path="res://scenes/battleground_inherited.tscn" id="2_kfwv2"]
+
+[node name="2PlayerTest" type="Node" unique_id=945481117]
+
+[node name="SplitscreenView" parent="." unique_id=926730743 instance=ExtResource("1_jbumb")]
+
+[node name="Node3D" parent="." unique_id=996328523 instance=ExtResource("2_kfwv2")]

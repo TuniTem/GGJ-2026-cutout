@@ -1,4 +1,4 @@
-[gd_resource type="Theme" format=3 uid="uid://b8nwex6ti4udm"]
+[gd_resource type="Theme" format=3 uid="uid://de64jctvmqrfk"]
 
 [ext_resource type="Texture2D" uid="uid://smjjri6kjujq" path="res://ui/imgs/pause_button_hover.png" id="1_58qbr"]
 [ext_resource type="Texture2D" uid="uid://wkaerg3kwha6" path="res://ui/imgs/pause_button_normal.png" id="2_1d6py"]

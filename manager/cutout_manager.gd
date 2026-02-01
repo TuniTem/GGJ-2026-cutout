@@ -1,18 +1,18 @@
 extends Node
 
 @export var map_mesh : CSGShape3D
-var pillar 
 
 func _ready() -> void:
 	Signals.create_floor_hole.connect(_on_create_floor_hole)
 	Signals.create_wall_hole.connect(_on_create_wall_hole)
 	Signals.create_vertical_pillar.connect(_on_create_vertical_pillar)
+	Signals.create_explosion_hole.connect(_on_create_explosion_hole)
 	pass
 
 var player_holes : Dictionary[int, Array]
 const MAX_HOLES_PER_PLAYER = 10
 
-func create_pillar(operation : CSGShape3D.Operation, size : Vector3, player_number : int, position : Vector3) -> void:
+func create_pillar(operation : CSGShape3D.Operation, size : Vector3, player_number : int, position : Vector3, direction : Vector3) -> void:
 	print("Creating Pillar")
 	if(not player_holes.has(player_number)):
 		player_holes[player_number] = []
@@ -30,21 +30,32 @@ func create_pillar(operation : CSGShape3D.Operation, size : Vector3, player_numb
 	#pillar.position.y = 0.
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(pillar, "size:y", size.y, 1.)
-	tween.tween_property(pillar, "size:x", size.x, .5)
-	tween.tween_property(pillar, "size:z", size.z, .5)
+	tween.tween_property(pillar, "size:y", size.y, 1.5)
+	tween.tween_property(pillar, "size:x", size.x, .25)
+	tween.tween_property(pillar, "size:z", size.z, .25)
 	pillar.operation = operation
 	player_holes[player_number].append(pillar)
 	pass
 
-func _on_create_floor_hole(player_number : int, position : Vector3) -> void:
-	create_pillar(CSGShape3D.OPERATION_SUBTRACTION, Vector3(8, 999, 8), player_number, position)
+func _on_create_explosion_hole(lifetime : float, position : Vector3):
+	var hole = CSGSphere3D.new()
+	hole.position = position
+	hole.operation = CSGShape3D.OPERATION_SUBTRACTION
+	
+	var tween = create_tween()
+	tween.tween_method(hole, "radius", 30., 1.)
+	tween.tween_method(hole, "radius", 0, lifetime)
+	tween.tween_callback(hole.queue_free)
 	pass
 
-func _on_create_vertical_pillar(player_number : int, position : Vector3) -> void:
-	create_pillar(CSGShape3D.OPERATION_UNION, Vector3(5, 25, 5), player_number, position)
+func _on_create_floor_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
+	create_pillar(CSGShape3D.OPERATION_SUBTRACTION, Vector3(8, 999, 8), player_number, position, direction)
 	pass
 
-func _on_create_wall_hole(player_number : int, position : Vector3) -> void:
+func _on_create_vertical_pillar(player_number : int, position : Vector3, direction : Vector3) -> void:
+	create_pillar(CSGShape3D.OPERATION_UNION, Vector3(5, 25, 5), player_number, position, direction)
+	pass
+
+func _on_create_wall_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
 	pass
 	

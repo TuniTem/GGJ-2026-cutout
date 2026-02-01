@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q72vv8bg1vgv"
+path="res://.godot/imported/NEW GUN SHOT 2.wav-5210706eb6713bd30772c36eea481bbb.sample"
+
+[deps]
+
+source_file="res://audio/SFX/NEW GUN SOUNDS/NEW GUN SHOT 2.wav"
+dest_files=["res://.godot/imported/NEW GUN SHOT 2.wav-5210706eb6713bd30772c36eea481bbb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
