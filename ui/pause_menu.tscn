@@ -1,9 +1,80 @@
 [gd_scene format=3 uid="uid://du80g1drnos2i"]
 
-[node name="PauseMenu" type="Control" unique_id=1907706585]
+[ext_resource type="Script" uid="uid://bmkey81pwk6ec" path="res://ui/pause_menu.gd" id="1_50142"]
+[ext_resource type="Theme" uid="uid://b8nwex6ti4udm" path="res://ui/pause_theme.tres" id="2_avurv"]
+[ext_resource type="Shader" uid="uid://bdxe6w2ip2kfk" path="res://ui/shaders/ui_blur.gdshader" id="2_ejwgg"]
+[ext_resource type="PackedScene" uid="uid://d87ma4k3epkr" path="res://ui/main_menu.tscn" id="2_npydk"]
+[ext_resource type="Texture2D" uid="uid://ctojnwwg1g60x" path="res://ui/imgs/panel_background.png" id="3_fob5h"]
+[ext_resource type="AudioStream" uid="uid://b4upl7qeodcl4" path="res://audio/SFX/UI/UI - SCROLL.wav" id="3_j3kxr"]
+[ext_resource type="AudioStream" uid="uid://bdc4n7ni3vurh" path="res://audio/SFX/UI/UI - SELECT 2.wav" id="4_vovkw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fob5h"]
+shader = ExtResource("2_ejwgg")
+shader_parameter/radius = 6.0
+shader_parameter/strength = 1.0
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=349166431]
+script = ExtResource("1_50142")
+level_to_load = ExtResource("2_npydk")
+button_hover_sfx = ExtResource("3_j3kxr")
+button_click_sfx = ExtResource("4_vovkw")
+
+[node name="Control" type="Control" parent="." unique_id=1545034039]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_avurv")
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1490438199]
+z_index = -1
+material = SubResource("ShaderMaterial_fob5h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_fob5h")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=22129075]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 351.0
+offset_top = 159.0
+offset_right = -351.0
+offset_bottom = -159.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1436775297]
+layout_mode = 2
+theme_override_constants/separation = 78
+
+[node name="ResumeButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=862367984]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Resume"
+
+[node name="ResetLevelButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=521305017]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Reset Level"
+
+[node name="MainMenuButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=607935970]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Main Menu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1742004907]
+
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ResetLevelButton" to="." method="_on_reset_level_button_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ResetLevelButton" to="." method="_on_reset_level_button_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
