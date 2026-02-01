@@ -32,7 +32,10 @@ func check_if_win():
 			pass
 	pass
 
+var last_team = 0
 func spawn_player(spawnpoint : Vector3, parent : Node) -> Player:
 	var player = BASE_PLAYER.instantiate() as Player
+	player.team_one = ~last_team
+	last_team = player.team_one
 	parent.add_child(player)
 	return player

@@ -87,10 +87,10 @@ func setup_windows():
 	window.size = resolution / 2
 	window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
 	
-	var team = player_number % 2 * 2 - 1
+	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
-	player.position.x = randf_range(-3., 3.)
-	player.position.z = randf_range(-3., 3.)
+	player.position.x = randf_range(-20, 20.)
+	player.position.z = randf_range(-20., 20.)
 	
 	var crosshair : DrawCrosshair = GameManger.CROSSHAIR.instantiate()
 	crosshair.position = window.size / 2.
@@ -118,10 +118,10 @@ func setup_viewport():
 	subviewportcontianer.add_child(subviewport)
 	GRID_CONTAINER.add_child(subviewportcontianer)
 	
-	var team = player_number % 2 * 2 - 1
+	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
-	player.position.x = randf_range(-3., 3.)
-	player.position.z = randf_range(-3., 3.)
+	player.position.x = randf_range(-20, 20.)
+	player.position.z = randf_range(-20., 20.)
 	
 	var crosshair : DrawCrosshair = GameManger.CROSSHAIR.instantiate()
 	crosshair.position = subviewportcontianer.size / 2.
