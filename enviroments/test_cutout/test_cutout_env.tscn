@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://6w0tubi65g4y"]
 
-[ext_resource type="ArrayMesh" uid="uid://dvmfnfoep7xuc" path="res://enviroments/test_cutout/TestMesh_Cube.res" id="1_3ikv3"]
-[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="3_jsb3x"]
+[ext_resource type="ArrayMesh" uid="uid://baq8ibw2sbyhl" path="res://enviroments/test_cutout/TestMesh_Cube.res" id="1_3ikv3"]
+[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://entities/player/player.tscn" id="3_jsb3x"]
 [ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="4_a0hlt"]
-[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://scenes/projectile_parent.tscn" id="5_xv4ub"]
+[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="5_xv4ub"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khs07"]
 

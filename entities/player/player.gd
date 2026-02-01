@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
-var using_controller : bool = true
+var using_controller : bool = false
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")

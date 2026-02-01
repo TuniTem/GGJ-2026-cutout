@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dgpicqgfhtwwf"]
 
-[ext_resource type="Script" uid="uid://cisjs87w3mxsx" path="res://entities/projectile.gd" id="1_46mfb"]
+[ext_resource type="Script" uid="uid://cisjs87w3mxsx" path="res://entities/projectile/projectile.gd" id="1_46mfb"]
 
 [sub_resource type="Curve" id="Curve_46mfb"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.53386456, 0.53601027), -1.8141781, -1.8141781, 0, 0, Vector2(0.75697213, 0), -1.2966362, 0.0, 0, 0]

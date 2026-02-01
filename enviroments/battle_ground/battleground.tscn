@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c2gi6vj24lt6m"]
 
-[ext_resource type="ArrayMesh" uid="uid://cw1y8rugcok6w" path="res://enviroments/battle_ground/level geometry/level_level.res" id="1_uj0mu"]
-[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="2_uj0mu"]
-[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://scenes/projectile_parent.tscn" id="3_l57hg"]
+[ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://enviroments/battle_ground/level geometry/level_level.res" id="1_uj0mu"]
+[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://entities/player/player.tscn" id="2_uj0mu"]
+[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="3_l57hg"]
 [ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="4_2kcb3"]
 
 [node name="Node3D" type="Node3D" unique_id=996328523]

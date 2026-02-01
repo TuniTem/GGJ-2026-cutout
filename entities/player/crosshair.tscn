@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dvmggulbuak6s"]
 
-[ext_resource type="Script" uid="uid://dyrnb1xqjnjhw" path="res://scenes/draw_crosshair.gd" id="1_yta86"]
+[ext_resource type="Script" uid="uid://dyrnb1xqjnjhw" path="res://entities/player/draw_crosshair.gd" id="1_yta86"]
 
 [node name="Crosshair" type="Node2D" unique_id=110965933]
 rotation = 0.7853982
