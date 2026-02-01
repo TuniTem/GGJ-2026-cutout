@@ -30,7 +30,7 @@ func get_player_number(player : CharacterBody3D):
 
 func request_controller_id(player : CharacterBody3D):
 	var player_num : int = get_player_number(player)
-	if avalible_controllers.size() - 1 >= player_num:
+	if avalible_controllers.size() > player_num:
 		return avalible_controllers[player_num]
 	else:
 		return -1

@@ -24,6 +24,10 @@ PauseMenu="*uid://du80g1drnos2i"
 Signals="*res://singletons/signals.gd"
 GameManger="*uid://3ae3xmyid0"
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [global_group]
 
 player=""

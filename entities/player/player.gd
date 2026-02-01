@@ -6,7 +6,6 @@ var using_controller : bool = true
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
-const CROSSHAIR = preload("uid://dvmggulbuak6s")
 
 @export var crosshair : DrawCrosshair 
 @export var actual_projectile_spawn: Marker3D
@@ -72,15 +71,11 @@ func _init() -> void:
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
 	device_id = Global.request_controller_id(self)
+	print(device_id)
 	
 	if device_id == -1:
 		using_controller = false
-	
-		
-func _ready() -> void:
-	crosshair = CROSSHAIR.instantiate()
-	self.get_parent().add_child.call_deferred(crosshair)
-	pass
+
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
@@ -90,7 +85,7 @@ var is_movement_ctrl_pressed : bool = false
 var is_jump_pressed : bool = false
 var prev_trigger : float = 0.0
 func _physics_process(delta: float) -> void:
-	print(Input.get_action_strength("primary"))
+	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
 	if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched): can_slide = true
@@ -172,6 +167,8 @@ func get_look_dir():
 	return camera.global_position.direction_to(actual_projectile_spawn.global_position)
 
 func _input(event: InputEvent) -> void:
+	
+	#print(event.device)
 	if not using_controller:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			var delta_look_dir = event.relative * SENSITIVITY * 0.005 * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0)
@@ -211,7 +208,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("primary") and (event.get_action_strength("primary") > prev_trigger) and event.get_action_strength("primary") == 1.0:
 		prev_trigger = event.get_action_strength("primary")
-		print("fire")
+		#print("fire")
 		if active_projectile:
 			if active_projectile.moving:
 				active_projectile.explode()
@@ -227,9 +224,9 @@ func _input(event: InputEvent) -> void:
 			shoot()
 	
 	if event.is_action_pressed("grow"):
-		print("a")
+		#print("a")
 		if active_projectile:
-			print("b")
+			#print("b")
 			active_projectile.create_vertical_pillar()
 			active_projectile.queue_free()
 	
