@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://c6clw1uckln11"]
 
 [ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="1_fny4c"]
-[ext_resource type="Material" uid="uid://x6xuflv3kbvo" path="res://enviroments/temp/test_material.tres" id="2_u7vp4"]
+[ext_resource type="PackedScene" uid="uid://c4nla3jdnee03" path="res://scenes/csg_box_3d.tscn" id="2_41ujk"]
 [ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://scenes/crosshair.tscn" id="3_8cljg"]
 [ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://scenes/projectile_parent.tscn" id="4_mlspm"]
+[ext_resource type="Script" path="res://manager/cutout_manager.gd" id="5_hbebi"]
 
 [sub_resource type="Environment" id="Environment_8cljg"]
 
@@ -13,41 +14,8 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1715894, 0)
 crosshair = NodePath("../Crosshair")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=486122457]
+[node name="CSGBox3D" parent="." unique_id=69470018 instance=ExtResource("2_41ujk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21246862, 0)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(488.5459, 0.14111328, 387.84863)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=461630627]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3681054, 1.7959752, 0)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(4.3164063, 4.3532715, 5.812256)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=25917545]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.244253, 5.7151585, 7.4052615)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(4.3164063, 4.173584, 3.7607422)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=260749699]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5662308, 4.327529, -5.823528)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(2.1904297, 9.36853, 1.8525391)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1388307066]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7806263, 2.0966625, 0.3565011)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(2.1904297, 4.9067993, 1.8525391)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=728889033]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6970711, 9.263006, 6.6843553)
-material_override = ExtResource("2_u7vp4")
-use_collision = true
-size = Vector3(4.727539, 5.411865, 3.8789063)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1915368532]
 transform = Transform3D(1, 0, 0, 0, 0.90499717, 0.42541763, 0, -0.42541763, 0.90499717, 0, 23.500175, 0)
@@ -65,3 +33,7 @@ SQUARE_DRAW_DIST = 7.3684
 environment = SubResource("Environment_8cljg")
 
 [node name="BulletParent" parent="." unique_id=1790441051 instance=ExtResource("4_mlspm")]
+
+[node name="Node" type="Node" parent="." unique_id=717616273 node_paths=PackedStringArray("map_mesh")]
+script = ExtResource("5_hbebi")
+map_mesh = NodePath("../CSGBox3D")

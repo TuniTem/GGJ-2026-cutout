@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dd5lbolmvy1lo"
+path="res://.godot/imported/Lunaire Wins.mp3-8b04e1e0ac450dbc0404607685ca9e52.mp3str"
+
+[deps]
+
+source_file="res://audio/SFX/VOICE/Lunaire Wins.mp3"
+dest_files=["res://.godot/imported/Lunaire Wins.mp3-8b04e1e0ac450dbc0404607685ca9e52.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

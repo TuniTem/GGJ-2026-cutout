@@ -24,12 +24,12 @@ func create_pillar(operation : CSGShape3D.Operation, player_number : int, positi
 	var pillar = CSGBox3D.new()
 	map_mesh.add_child(pillar)
 	pillar.position = position
-	pillar.position.y = 0.
+	#pillar.position.y = 0.
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(pillar, "size:y", 25, 1.)
-	tween.tween_property(pillar, "size:x", 2.5, .5)
-	tween.tween_property(pillar, "size:z", 2.5, .5)
+	tween.tween_property(pillar, "size:y", 40, 1.)
+	tween.tween_property(pillar, "size:x", 5, .5)
+	tween.tween_property(pillar, "size:z", 5, .5)
 	pillar.operation = operation
 	player_holes[player_number].append(pillar)
 	pass
