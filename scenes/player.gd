@@ -91,10 +91,10 @@ func _physics_process(delta: float) -> void:
 	if not is_sliding:
 		if not using_controller:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
-			Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
+			(Input.get_action_strength("left") - Input.get_action_strength("right")) * gravity_mult()).normalized()
 		else:
 			dir = Vector2(Input.get_action_strength("forward_" + str(device_id)) - Input.get_action_strength("backward_" + str(device_id)), 
-			Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))).normalized()
+			(Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))) * gravity_mult()).normalized()
 			
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
@@ -125,17 +125,17 @@ func _physics_process(delta: float) -> void:
 	prev_vel = velocity
 	move_and_slide()
 	
-	if position.y > 0 and not gravity_switched:
+	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
 		animation_player.play("swap_down")
 	
-	if position.y < 0 and gravity_switched:
+	if position.y > 0 and gravity_switched:
 		gravity_switched = false
 		animation_player.play("swap_up")
 		
 	
 	if using_controller:
-		look_dir = -Vector2(Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id)),
+		look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
 		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id))).normalized()
 			
 		if not Util.fzero(look_dir.length()):
@@ -169,7 +169,7 @@ func _input(event: InputEvent) -> void:
 	if not using_controller:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			var delta_look_dir = event.relative * SENSITIVITY * 0.005 * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0)
-			rotation.y += -delta_look_dir.x
+			rotation.y += -delta_look_dir.x * gravity_mult()
 			camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
 	else:
 		if device_id != event.device: return
@@ -207,11 +207,14 @@ func _input(event: InputEvent) -> void:
 		if active_projectile:
 			if active_projectile.moving:
 				active_projectile.explode()
+				active_projectile.queue_free()
 			else:
-				if active_projectile.stick_is_floor:
-					active_projectile.create_floor_hole()
-				else:
-					active_projectile.create_wall_hole()
+				#if active_projectile.stick_is_floor:
+				active_projectile.create_floor_hole()
+				active_projectile.queue_free()
+				#else:
+					#active_projectile.create_wall_hole()
+			
 		else:
 			shoot()
 	
@@ -220,9 +223,12 @@ func _input(event: InputEvent) -> void:
 			if active_projectile.pillared:
 				active_projectile.create_floor_hole()
 				active_projectile.explode()
+				active_projectile.queue_free()
 			else:
 				active_projectile.create_vertical_pillar()
 				active_projectile.pillared = true
+				active_projectile.hide()
+				active_projectile.vel = Vector3.ZERO
 	
 	if event.is_action_pressed("slide") and can_slide:
 		is_sliding = true
@@ -263,6 +269,7 @@ func add_force(force: Vector3):
 	pass
 
 func shoot():
+	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
 	inst.position = actual_projectile_spawn.global_position
 	inst.type = projectile_mode
