@@ -63,7 +63,6 @@ func _on_body_entered(body: Node3D) -> void:
 		print("stick1")
 		stick_position = ray_cast.get_collision_point()
 		stick_is_floor = ray_cast.get_collider().is_in_group("floor")
-		
 	
 	else: 
 		print("stick3")
@@ -82,18 +81,17 @@ func explode(): # forces all players within a radius away
 	for player : Player in Global.players:
 		var dir = self.position - player.position;
 		var force_mag = falloff.sample(max(0, max_dist - dir.length(), 0))
-		#player.add_force(dir.normalized() * force_mag)
-		emit_signal("add force", player.player_number, dir.normalized() * force_mag)
+		player.add_force(dir.normalized() * force_mag)
 	pass
 
 func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole
-	emit_signal("create_floor_hole", player_number)
+	Signals.create_floor_hole.emit(player_number, position)
 	pass
 
 func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
-	emit_signal("create_floor_hole", player_number)
+	Signals.create_wall_hole.emit(player_number, position)
 	pass
 
 func create_vertical_pillar(): # creates a solid vertical pillar, players above it get forced up
-	emit_signal("create_floor_hole", player_number)
+	Signals.create_vertical_pillar.emit(player_number, position)
 	pass

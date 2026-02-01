@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
-var using_controller : bool = true
+var using_controller : bool = false
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
@@ -28,7 +28,7 @@ const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 
 @export var camera : Camera3D
 
-const JUMP_VEL = 15.0
+const JUMP_VEL = 7.5
 
 var dir : Vector2
 var gravity_switched : bool = false
@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		
 		velocity.z = vel2D.x * delta * 60.0
 		velocity.x = vel2D.y * delta * 60.0
-		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
+		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY)) * gravity_mult()
 		
 		if is_movement_ctrl_pressed and movement_ctrl_timer > 0.0:
 			velocity.y = 0
@@ -117,13 +117,22 @@ func _physics_process(delta: float) -> void:
 		vel2D = slide_direction * slide_speed
 		velocity.x = vel2D.y * delta * 60.0
 		velocity.z = vel2D.x * delta * 60.0
-		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
+		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY)) * gravity_mult()
 		
 		if is_on_wall():
 			is_sliding = false
 	
 	prev_vel = velocity
 	move_and_slide()
+	
+	if position.y > 0 and not gravity_switched:
+		gravity_switched = true
+		animation_player.play("swap_down")
+	
+	if position.y < 0 and gravity_switched:
+		gravity_switched = false
+		animation_player.play("swap_up")
+		
 	
 	if using_controller:
 		look_dir = -Vector2(Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id)),
@@ -142,7 +151,12 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerpf(camera.fov, FOV, delta * ZOOM_SPEED)
 
 func jump():
-	velocity.y = JUMP_VEL
+	if is_sliding:
+		velocity.y = slide_speed * gravity_mult()
+		is_sliding = false
+		can_slide = true
+	else:
+		velocity.y = JUMP_VEL
 
 func bounce(): 
 	velocity = -(prev_vel.reflect(get_wall_normal()) - get_wall_normal())
@@ -203,7 +217,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("secondary"):
 		if active_projectile:
-			if active_projectile.pillard:
+			if active_projectile.pillared:
 				active_projectile.create_floor_hole()
 				active_projectile.explode()
 			else:
@@ -214,10 +228,7 @@ func _input(event: InputEvent) -> void:
 		is_sliding = true
 		can_slide = false
 		slide_speed = Vector2(abs(velocity.x), abs(velocity.z)).length()
-		print("d", dir)
 		slide_direction = dir.rotated(rotation.y + PI)
-		print("rot", dir.rotated(rotation.y + PI))
-		print(Util.fzero(slide_speed))
 		
 		if Util.fzero(slide_speed):
 			slide_speed = MIN_SLIDE_SPEED
@@ -227,9 +238,6 @@ func _input(event: InputEvent) -> void:
 		
 		if velocity.y * gravity_mult():
 			slide_speed += abs(velocity.y)
-		
-		print("speed ", slide_speed)
-		print("dir ", slide_direction)
 	
 	if event.is_action_released("slide"):
 		if is_sliding: # doinf it this way is nesisiary
