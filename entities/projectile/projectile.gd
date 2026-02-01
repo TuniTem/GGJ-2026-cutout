@@ -95,7 +95,7 @@ func explode(): # forces all players within a radius away
 	for player : Player in Global.players:
 		var dir = self.position - player.position;
 		var force_mag = falloff.sample(max(0, max_dist - dir.length(), 0))
-		player.add_force(dir.normalized() * force_mag)
+		player.add_force(-dir.normalized() * force_mag * 30.0)
 	pass
 
 func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole

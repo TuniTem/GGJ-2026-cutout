@@ -19,11 +19,11 @@ const FOV = 100
 
 # movement
 const MAX_SPEED = 20.0
-const ACCEL = 20.0
-const GRAVITY = 9.0
+const ACCEL = 30.0
+const GRAVITY = 15.0
 const TERMINAL_VELOCITY = 30.0
-const WEAK_DRAG = 10.0
-const STRONG_DRAG = 20.0
+const WEAK_DRAG = 20.0
+const STRONG_DRAG = 40.0
 const MEGA_DRAG = 100.0
 const DEADZOME = 0.1
 const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
@@ -156,7 +156,7 @@ func _physics_process(delta: float) -> void:
 	if position.y > 0 and gravity_switched:
 		gravity_switched = false
 		flip_anim.play("swap_up")
-		
+	
 	
 	if using_controller:
 		look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
@@ -300,12 +300,15 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("jump"):
 		is_jump_pressed = false
 	
+	if event.is_action_pressed("test"):
+		mouse_captured = !mouse_captured
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
 			
-
+var mouse_captured: bool = true
 
 func add_force(force: Vector3):
-	velocity += force
-	vel2D = Vector2(force.x, force.z)
+	velocity.y += force.y
+	vel2D += Vector2(force.z, force.x)
 
 func shoot():
 	if active_projectile : active_projectile.queue_free()
