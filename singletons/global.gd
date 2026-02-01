@@ -5,7 +5,6 @@ enum ProjectileType {
 	LOW_VELOCITY
 }
 
-
 var projectile_parent : Node3D
 
 var players : Array[CharacterBody3D] = []

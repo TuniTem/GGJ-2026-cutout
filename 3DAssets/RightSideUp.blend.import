@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c3qms1ckvbwwl"
-path="res://.godot/imported/RightSideUp.blend-960d8c57fde3341319f8e116fc8216bc.scn"
+valid=false
 
 [deps]
 
 source_file="res://3DAssets/RightSideUp.blend"
-dest_files=["res://.godot/imported/RightSideUp.blend-960d8c57fde3341319f8e116fc8216bc.scn"]
 
 [params]
 
