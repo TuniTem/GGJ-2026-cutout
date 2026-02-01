@@ -11,6 +11,9 @@ var projectile_parent : Node3D
 var players : Array[CharacterBody3D] = []
 var avalible_controllers : Array[int] = []
 
+var player_count = 2
+var use_subwindows = true
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	update_controllers()

@@ -14,26 +14,25 @@ const DUMMY_VIEWPORT_IMAGES = [
 @onready
 var GRID_CONTAINER = $GridContainer
 
-#For now assuming 2 players only
-var player_count = 2
-
 func _init() -> void:
-	start_splitscreen.connect(_on_start_splitscreen)
+	Signals.start_splitscreen.connect(_on_start_splitscreen)
 	pass
 
-signal start_splitscreen
-
 func _ready() -> void:
-	start_splitscreen.emit()
+	Signals.start_splitscreen.emit(Global.player_count, Global.use_subwindows)
 	
-func _on_start_splitscreen() -> void:
-	if USE_SUBWINDOWS:
+func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
+	if use_subwindows:
 		for i in player_count:
 			setup_windows()
+		var a = func(): 
+			while true: 
+				await get_tree().process_frame; 
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		a.call()
 		return
 	for i in player_count:
 		setup_viewport()
-	get_viewport().size_changed.emit()
 	if(player_count % 2 != 0): #we only ever need one dummy viewport
 		dummy_viewport()
 		pass
@@ -52,10 +51,30 @@ func dummy_viewport():
 var subviewports : Array[SubViewport] 
 
 func setup_windows():
+	var resolution = DisplayServer.window_get_size()
 	var window = Window.new()
 	self.add_child(window)
 	var player : Player = GameManger.spawn_player(Vector3.ZERO, window)
 	var player_number = Global.get_player_number(player)
+	window.size = resolution / 2
+	window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
+	
+	var team = player_number % 2 * 2 - 1
+	player.position.y = 21. * team
+	player.position.x = randf_range(-3., 3.)
+	player.position.z = randf_range(-3., 3.)
+	
+	var crosshair : DrawCrosshair = GameManger.CROSSHAIR.instantiate()
+	crosshair.position = window.size / 2.
+	crosshair.FREE_ROTATION = 0.
+	
+	player.get_parent().add_child(crosshair)
+	
+	player.crosshair = crosshair
+	
+	window.size_changed.connect(func(): crosshair.position = window.size/2)
+	await get_tree().process_frame #hella jank
+	crosshair.position = window.size/2
 
 func setup_viewport():	
 	
