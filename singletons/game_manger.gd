@@ -20,6 +20,7 @@ func _on_player_died():
 func check_if_win():
 	for i in range(scoreboard):
 		if scoreboard[i] > Global.max_score:
+			
 			Signals.game_win.emit(i) #Team 0 is light, 1 is Dark
 			pass
 	pass
