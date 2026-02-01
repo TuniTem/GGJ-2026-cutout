@@ -1,0 +1,5 @@
+extends Node
+
+signal create_floor_hole
+signal create_wall_hole
+signal create_vertical_pillar
