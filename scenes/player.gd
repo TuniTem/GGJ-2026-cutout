@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
-var using_controller : bool = false
+var using_controller : bool = true
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
@@ -52,6 +52,7 @@ var is_sliding = false:
 var slide_speed : float = 0.0
 var slide_direction : Vector2
 var bounce_timer : float = -1.0
+var can_slide : bool = true
 
 # zoom
 const ZOOM_AMMOUNT = 0.4
@@ -84,6 +85,9 @@ var is_jump_pressed : bool = false
 func _physics_process(delta: float) -> void:
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
+	if is_on_floor(): can_slide = true
+	
+	
 	if not is_sliding:
 		if not using_controller:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
@@ -156,8 +160,8 @@ func _input(event: InputEvent) -> void:
 	else:
 		if device_id != event.device: return
 		
-		dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
-			event.get_action_strength("left") - event.get_action_strength("right")).normalized()
+		#dir = Vector2(event.get_action_strength("forward_" + str(device_id)) - event.get_action_strength("backward_" + str(device_id)), 
+			#event.get_action_strength("left_" + str(device_id)) - event.get_action_strength("right_" + str(device_id))).normalized()
 		
 	
 	if event.is_action_pressed("zoom"):
@@ -183,6 +187,7 @@ func _input(event: InputEvent) -> void:
 			velocity = get_look_dir() * movement_ctrl_stored_speed
 			vel2D = Vector2(velocity.z, velocity.x)
 			movement_ctrl_stored_speed = 0.0
+			is_movement_ctrl_pressed = false
 	
 	if event.is_action_pressed("primary"):
 		if active_projectile:
@@ -205,8 +210,9 @@ func _input(event: InputEvent) -> void:
 				active_projectile.create_vertical_pillar()
 				active_projectile.pillared = true
 	
-	if event.is_action_pressed("slide"):
+	if event.is_action_pressed("slide") and can_slide:
 		is_sliding = true
+		can_slide = false
 		slide_speed = Vector2(abs(velocity.x), abs(velocity.z)).length()
 		print("d", dir)
 		slide_direction = dir.rotated(rotation.y + PI)
