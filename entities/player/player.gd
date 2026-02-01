@@ -97,6 +97,8 @@ var prev_trigger : float = 0.0
 const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
 func _physics_process(delta: float) -> void:
+	
+	
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
