@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
-var using_controller : bool = false
+var using_controller : bool = true
 var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
@@ -11,6 +11,7 @@ const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 @export var actual_projectile_spawn: Marker3D
 @export var model_projectile_spawn: Marker3D
 @export var animation_player: AnimationPlayer
+@export var flip_anim: AnimationPlayer
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -70,7 +71,6 @@ func _ready() -> void:
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
 	device_id = Global.request_controller_id(self)
-	print("d ", device_id)
 	
 	if device_id == -1:
 		using_controller = false
@@ -82,12 +82,12 @@ func gravity_mult() -> float:
 var prev_vel : Vector3
 var is_movement_ctrl_pressed : bool = false
 var is_jump_pressed : bool = false
+var prev_trigger : float = 0.0
 func _physics_process(delta: float) -> void:
+	print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
-	if is_on_floor(): can_slide = true
-	
-	
+	if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched): can_slide = true
 	if not is_sliding:
 		if not using_controller:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
@@ -127,16 +127,16 @@ func _physics_process(delta: float) -> void:
 	
 	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
-		animation_player.play("swap_down")
+		flip_anim.play("swap_down")
 	
 	if position.y > 0 and gravity_switched:
 		gravity_switched = false
-		animation_player.play("swap_up")
+		flip_anim.play("swap_up")
 		
 	
 	if using_controller:
 		look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
-		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id))).normalized()
+		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id)))
 			
 		if not Util.fzero(look_dir.length()):
 			var delta_look_dir = look_dir * SENSITIVITY * delta * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0) * 5.0
@@ -193,7 +193,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("jump"):
 		is_jump_pressed = true
-		if is_on_floor():
+		if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched):
 			jump()
 			movement_ctrl_stored_speed = 0.0
 			
@@ -203,32 +203,36 @@ func _input(event: InputEvent) -> void:
 			movement_ctrl_stored_speed = 0.0
 			is_movement_ctrl_pressed = false
 	
-	if event.is_action_pressed("primary"):
+	if event.is_action_pressed("primary") and (event.get_action_strength("primary") > prev_trigger) and event.get_action_strength("primary") == 1.0:
+		prev_trigger = event.get_action_strength("primary")
+		print("fire")
 		if active_projectile:
 			if active_projectile.moving:
 				active_projectile.explode()
 				active_projectile.queue_free()
-			else:
-				#if active_projectile.stick_is_floor:
-				active_projectile.create_floor_hole()
-				active_projectile.queue_free()
+			#else:
+				##if active_projectile.stick_is_floor:
+				#active_projectile.create_floor_hole()
+				#active_projectile.queue_free()
 				#else:
 					#active_projectile.create_wall_hole()
 			
 		else:
 			shoot()
 	
-	if event.is_action_pressed("secondary"):
+	if event.is_action_pressed("grow"):
+		print("a")
 		if active_projectile:
-			if active_projectile.pillared:
-				active_projectile.create_floor_hole()
-				active_projectile.explode()
-				active_projectile.queue_free()
-			else:
-				active_projectile.create_vertical_pillar()
-				active_projectile.pillared = true
-				active_projectile.hide()
-				active_projectile.vel = Vector3.ZERO
+			print("b")
+			active_projectile.create_vertical_pillar()
+			active_projectile.queue_free()
+	
+	if event.is_action_pressed("hole"):
+		if active_projectile:
+			active_projectile.create_floor_hole()
+			active_projectile.explode()
+			active_projectile.queue_free()
+				
 	
 	if event.is_action_pressed("slide") and can_slide:
 		is_sliding = true
@@ -252,7 +256,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("movement_ctrl"):
 		is_movement_ctrl_pressed = true
 		if movement_ctrl_timer < 1.0:
-			print("b")
 			movement_ctrl_timer = MOVEMENT_CONTROL_VEL_TIME
 			movement_ctrl_stored_speed = velocity.length()
 	
@@ -266,7 +269,8 @@ func _input(event: InputEvent) -> void:
 
 
 func add_force(force: Vector3):
-	pass
+	velocity += force
+	vel2D = Vector2(force.x, force.z)
 
 func shoot():
 	if active_projectile : active_projectile.queue_free()

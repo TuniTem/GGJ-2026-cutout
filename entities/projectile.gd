@@ -34,7 +34,6 @@ func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
-	print("readypos ", position)
 	model.global_position = model_start_pos
 	var tween : Tween = create_tween()
 	tween.tween_property(model, "position", Vector3.ZERO, PROJECTILE_STATS[type]["offset_correction_time"]).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -43,19 +42,15 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if moving:
-		print("2pos", position)
-		
 		vel.y -= PROJECTILE_STATS[type]["gravity"] * delta * gravity_mult()
 		position += vel * delta
 		ray_cast.target_position = vel * delta
 		if stick_position:
-			print("a")
 			position = stick_position
 			model.position = Vector3.ZERO
 			moving = false
 		
 		if ray_cast.is_colliding():
-			print("stick2")
 			stick_position = ray_cast.get_collision_point()
 			stick_is_floor = ray_cast.get_collider().is_in_group("floor")
 	
@@ -68,14 +63,11 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	print("stick4")
 	if ray_cast.is_colliding():
-		print("stick1")
 		stick_position = ray_cast.get_collision_point()
 		stick_is_floor = ray_cast.get_collider().is_in_group("floor")
 	
 	else: 
-		print("stick3")
 		stick_position = position
 		stick_is_floor = body.is_in_group("floor")
 	
