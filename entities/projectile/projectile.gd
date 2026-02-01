@@ -2,6 +2,8 @@ extends Area3D
 
 @export var model: Node3D
 @export var ray_cast: RayCast3D
+var team_one : bool = false
+
 
 const PROJECTILE_STATS :  Dictionary = {
 	Global.ProjectileType.HIGH_VELOCITY : {
@@ -36,6 +38,8 @@ func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
+	set_collision_layer_value(2, team_one)
+	set_collision_layer_value(1, not team_one)
 	match type:
 		Global.ProjectileType.HIGH_VELOCITY:
 			SFX.play("shoot_high")

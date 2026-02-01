@@ -67,7 +67,7 @@ const ZOOM_AMMOUNT = 0.4
 const ZOOM_SPEED = 10.0
 const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
-
+var team_one : bool = false
 #in seconds
 var SHOOTING_COOLDOWN = 0.5
 var can_shoot = true
@@ -77,6 +77,8 @@ var active_projectile : Area3D
 var look_dir : Vector2
 
 func _init() -> void:
+	set_collision_layer_value(1, team_one)
+	set_collision_layer_value(2, not team_one)
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
@@ -314,6 +316,7 @@ func shoot():
 	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
 	inst.position = actual_projectile_spawn.global_position
+	inst.team_one = team_one
 	inst.type = projectile_mode
 	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
 	inst.model_start_pos = model_projectile_spawn.global_position

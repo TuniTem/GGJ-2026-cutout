@@ -27,12 +27,34 @@ func create_pillar(operation : CSGShape3D.Operation, size : Vector3, player_numb
 	var pillar = CSGBox3D.new()
 	map_mesh.add_child(pillar)
 	pillar.position = position
-	#pillar.position.y = 0.
-	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(pillar, "size:y", size.y, 1.5)
-	tween.tween_property(pillar, "size:x", size.x, .25)
-	tween.tween_property(pillar, "size:z", size.z, .25)
+	
+	var expand_margin : float = 1.0
+	if operation == CSGShape3D.Operation.OPERATION_SUBTRACTION:
+		var tween = create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(pillar, "size:y", size.y, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		#tween.tween_property(pillar, "position:y", pillar.position.y + (size.y / 4.0 * Global.players[player_number].gravity_mult()), 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		#pillar.size.x = size.x
+		#pillar.size.z = size.z
+		tween.tween_property(pillar, "size:x", size.x, .25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(pillar, "size:z", size.z, .25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	else:
+		for player in Global.players:
+			var pos : Vector3 = player.global_position
+			var loc : Vector3 = pillar.global_position
+			
+			if abs(pos.x - loc.x) < size.x + expand_margin and abs(pos.z - loc.z) < size.z + expand_margin:
+				player.add_force(Vector3(0.0, (player.gravity_mult() * 35.0), 0.0))
+		
+		
+		var tween = create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(pillar, "size:y", size.y / 2.0, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(pillar, "position:y", pillar.position.y + (size.y / 4.0 * Global.players[player_number].gravity_mult()), 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		pillar.size.x = size.x
+		pillar.size.z = size.z
+	#tween.tween_property(pillar, "size:x", size.x, .25)
+	#tween.tween_property(pillar, "size:z", size.z, .25)
 	pillar.operation = operation
 	player_holes[player_number].append(pillar)
 	pass
