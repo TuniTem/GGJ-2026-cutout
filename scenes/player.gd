@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody3D
 
 var player_number : int = -1
+var using_controller : bool = false
+var device_id: int = -1
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 
@@ -24,8 +26,6 @@ const STRONG_DRAG = 20.0
 const MEGA_DRAG = 100.0
 const DEADZOME = 0.1
 const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
-
-
 
 @export var camera : Camera3D
 
@@ -63,44 +63,49 @@ var zoom : bool = false
 # shooting
 var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
 var active_projectile : Area3D
+var look_dir : Vector2
 
 func _ready() -> void:
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
+	device_id = Global.request_controller_id(self)
+	
+	if device_id == -1:
+		using_controller = false
+		
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 var prev_vel : Vector3
+var is_movement_ctrl_pressed : bool = false
+var is_jump_pressed : bool = false
 func _physics_process(delta: float) -> void:
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
 	if not is_sliding:
-		dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
+		if not using_controller:
+			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
 			Input.get_action_strength("left") - Input.get_action_strength("right")).normalized()
 		
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
-			
-		vel2D = vel2D.normalized() * (vel2D.length() - (MEGA_DRAG if Input.is_action_pressed("movement_ctrl") else (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG)) * delta)
+
+		vel2D = vel2D.normalized() * (vel2D.length() - (MEGA_DRAG if is_movement_ctrl_pressed else (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG)) * delta)
 		
 		velocity.z = vel2D.x * delta * 60.0
 		velocity.x = vel2D.y * delta * 60.0
 		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY))
 		
-		if Input.is_action_pressed("movement_ctrl") and movement_ctrl_timer > 0.0:
+		if is_movement_ctrl_pressed and movement_ctrl_timer > 0.0:
 			velocity.y = 0
 		
-		
-		if Input.is_action_pressed("jump") and is_on_wall() and bounce_timer <= 0.0:
+		if is_jump_pressed and is_on_wall() and bounce_timer <= 0.0:
 			bounce_timer = BOUNCE_TIMER
 			bounce()
-		
-		
-			
-			
-		
+	
+	
 	else:
 		vel2D = slide_direction * slide_speed
 		velocity.x = vel2D.y * delta * 60.0
@@ -112,6 +117,15 @@ func _physics_process(delta: float) -> void:
 	
 	prev_vel = velocity
 	move_and_slide()
+	
+	if using_controller:
+		
+		if not Util.fzero(look_dir.length()):
+			var delta_look_dir = look_dir * SENSITIVITY * delta * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0) * 5.0
+			rotation.y += -delta_look_dir.x
+			camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
+	
+	
 	
 	if zoom:
 		camera.fov = lerpf(camera.fov, FOV * ZOOM_AMMOUNT, delta * ZOOM_SPEED)
@@ -129,10 +143,17 @@ func get_look_dir():
 	return camera.global_position.direction_to(actual_projectile_spawn.global_position)
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var delta_look_dir = event.relative * SENSITIVITY * 0.005 * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0)
-		rotation.y += -delta_look_dir.x
-		camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
+	if not using_controller:
+		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			var delta_look_dir = event.relative * SENSITIVITY * 0.005 * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0)
+			rotation.y += -delta_look_dir.x
+			camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
+	else:
+		if device_id != event.device: return
+		look_dir = -Vector2(event.get_action_strength("look_left") - event.get_action_strength("look_right"), 
+			event.get_action_strength("look_up") - event.get_action_strength("look_down"))
+		dir = Vector2(event.get_action_strength("forward") - event.get_action_strength("backward"), 
+			event.get_action_strength("left") - event.get_action_strength("right")).normalized()
 	
 	if event.is_action_pressed("zoom"):
 		zoom = true
@@ -148,6 +169,7 @@ func _input(event: InputEvent) -> void:
 		crosshair.CROSS_RADIUS = 0
 	
 	if event.is_action_pressed("jump"):
+		is_jump_pressed = true
 		if is_on_floor():
 			jump()
 			movement_ctrl_stored_speed = 0.0
@@ -169,14 +191,14 @@ func _input(event: InputEvent) -> void:
 		else:
 			shoot()
 	
-	if event.is_action_pressed("secondary"):
-		if active_projectile:
-			if active_projectile.pillard:
-				active_projectile.create_floor_hole()
-				active_projectile.explode()
-			else:
-				active_projectile.create_vertical_pillar()
-				active_projectile.pillared = true
+	#if event.is_action_pressed("secondary"):
+		#if active_projectile:
+			#if active_projectile.pillard:
+				#active_projectile.create_floor_hole()
+				#active_projectile.explode()
+			#else:
+				#active_projectile.create_vertical_pillar()
+				#active_projectile.pillared = true
 	
 	if event.is_action_pressed("slide"):
 		is_sliding = true
@@ -197,10 +219,18 @@ func _input(event: InputEvent) -> void:
 			is_sliding = false
 			
 	if event.is_action_pressed("movement_ctrl"):
+		is_movement_ctrl_pressed = true
 		if movement_ctrl_timer < 1.0:
+			print("b")
 			movement_ctrl_timer = MOVEMENT_CONTROL_VEL_TIME
 			movement_ctrl_stored_speed = velocity.length()
-
+	
+	if event.is_action_released("movement_ctrl"):
+		is_movement_ctrl_pressed = false
+	
+	if event.is_action_released("jump"):
+		is_jump_pressed = false
+	
 			
 
 
