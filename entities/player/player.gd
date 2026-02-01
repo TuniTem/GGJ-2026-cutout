@@ -37,6 +37,7 @@ var gravity_switched : bool = false:
 	set(val):
 		if val != gravity_switched:
 			SFX.play("swap")
+			add_force(Vector3(0, 2, 0) * (2 * int(gravity_switched) - 1))
 		gravity_switched = val
 var vel2D : Vector2 = Vector2.ZERO
 

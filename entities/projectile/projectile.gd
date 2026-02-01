@@ -26,6 +26,7 @@ var pillared : bool = false
 var vel : Vector3 = Vector3.ZERO
 var moving : bool = true
 var stick_position : Vector3
+var stick_normal : Vector3
 var stick_is_floor : bool = false
 var player_number : int = -1
 var gravity_switched : bool = false
@@ -75,6 +76,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node3D) -> void:
 	if ray_cast.is_colliding():
 		stick_position = ray_cast.get_collision_point()
+		stick_normal = ray_cast.get_collision_normal()
 		stick_is_floor = ray_cast.get_collider().is_in_group("floor")
 	
 	else: 
@@ -97,13 +99,13 @@ func explode(): # forces all players within a radius away
 	pass
 
 func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole
-	Signals.create_floor_hole.emit(player_number, position)
+	Signals.create_floor_hole.emit(player_number, position, stick_normal)
 	pass
 
 func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
-	Signals.create_wall_hole.emit(player_number, position)
+	Signals.create_wall_hole.emit(player_number, position, stick_normal)
 	pass
 
 func create_vertical_pillar(): # creates a solid vertical pillar, players above it get forced up
-	Signals.create_vertical_pillar.emit(player_number, position)
+	Signals.create_vertical_pillar.emit(player_number, position, stick_normal)
 	pass

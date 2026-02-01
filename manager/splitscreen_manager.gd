@@ -25,6 +25,7 @@ func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
 		for i in player_count:
 			setup_windows()
+		Global.mouse_captured = false;
 		var a = func(): 
 			while true: 
 				await get_tree().process_frame; 
