@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://br3ejq365j4ot"]
+
+[ext_resource type="Script" uid="uid://c8bo45s8mhgj7" path="res://manager/splitscreen_manager.gd" id="1_ipew4"]
+
+[node name="SplitscreenView" type="Control" unique_id=926730743]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ipew4")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1482519215]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
