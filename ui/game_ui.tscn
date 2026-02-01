@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c5rq06b1qn4vp"]
+
+[ext_resource type="Script" uid="uid://c7d4sl0gae6ce" path="res://ui/UI.gd" id="1_dcmab"]
+
+[node name="GameUI" type="Control" unique_id=1136848425]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dcmab")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1127743935]
+layout_mode = 0
+offset_right = 455.0
+offset_bottom = 67.0
