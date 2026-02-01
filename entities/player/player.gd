@@ -88,6 +88,8 @@ var is_movement_ctrl_pressed : bool = false
 var is_jump_pressed : bool = false
 var prev_trigger : float = 0.0
 func _physics_process(delta: float) -> void:
+	
+	
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta

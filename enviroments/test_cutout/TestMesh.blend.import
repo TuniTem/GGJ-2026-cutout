@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://q8cimoij2msv"
-path="res://.godot/imported/TestMesh.blend-083047767b98eb597a1db5d67d482e37.scn"
+valid=false
 
 [deps]
 
 source_file="res://enviroments/test_cutout/TestMesh.blend"
-dest_files=["res://.godot/imported/TestMesh.blend-083047767b98eb597a1db5d67d482e37.scn"]
 
 [params]
 
