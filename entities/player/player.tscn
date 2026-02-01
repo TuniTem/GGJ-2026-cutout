@@ -136,3 +136,4 @@ libraries/ = SubResource("AnimationLibrary_dqkch")
 
 [node name="Ecliplso" parent="." unique_id=1712691240 instance=ExtResource("2_abrql")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9203745, -0.0011694431)
+visible = false

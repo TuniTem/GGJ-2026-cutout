@@ -25,12 +25,12 @@ func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
 		for i in player_count:
 			setup_windows()
-		Global.mouse_captured = false;
-		var a = func(): 
-			while true: 
-				await get_tree().process_frame; 
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		a.call()
+		#Global.mouse_captured = false;
+		#var a = func(): 
+			#while true: 
+				#await get_tree().process_frame; 
+				#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#a.call()
 		return
 	for i in player_count:
 		setup_viewport()

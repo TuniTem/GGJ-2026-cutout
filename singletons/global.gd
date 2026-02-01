@@ -5,7 +5,7 @@ enum ProjectileType {
 	LOW_VELOCITY
 }
 
-var mouse_captured : bool = true
+
 var projectile_parent : Node3D
 
 var players : Array[CharacterBody3D] = []
@@ -14,8 +14,10 @@ var avalible_controllers : Array[int] = []
 #Multiplayer Settings
 var player_count = 2
 var use_subwindows = true
-
 var max_score : int = 5
+
+enum Team {None, Light, Dark}
+var winner : Team = Team.None
 
 
 func _ready() -> void:
@@ -26,11 +28,6 @@ func _ready() -> void:
 func update_controllers(): 
 	avalible_controllers = Input.get_connected_joypads()
 	print("controller update")
-
-func  _input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_mouse_control"):
-		mouse_captured = !mouse_captured
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
 
 func get_player_number(player : CharacterBody3D):
 	return players.find(player)
