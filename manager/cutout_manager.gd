@@ -18,7 +18,7 @@ func create_pillar(operation : CSGShape3D.Operation, player_number : int, positi
 		player_holes[player_number] = []
 		pass
 	
-	if(player_holes[player_number].size() > MAX_HOLES_PER_PLAYER):
+	if(player_holes[player_number].size() >= MAX_HOLES_PER_PLAYER):
 		player_holes[player_number].pop_front().queue_free()
 
 	var pillar = CSGBox3D.new()
