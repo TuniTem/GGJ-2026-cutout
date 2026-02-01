@@ -10,7 +10,7 @@
 
 [node name="Testmain" type="Node3D" unique_id=1995696092]
 
-[node name="Player" parent="." unique_id=1087688060 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_fny4c")]
+[node name="Player" parent="." unique_id=606600753 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_fny4c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1715894, 0)
 crosshair = NodePath("../Crosshair")
 
