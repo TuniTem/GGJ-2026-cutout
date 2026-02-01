@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+var ui : Control
+
 var player_number : int = -1
 var using_controller : bool = true
 var device_id: int = -1
@@ -33,6 +35,11 @@ const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 const JUMP_VEL = 7.5
 
 var dir : Vector2
+
+const SHOOT_CHARGE_COST = 0.4
+const CHARGE_SPEED_MULT = 0.01
+var charge : float = 0.0
+
 var gravity_switched : bool = false:
 	set(val):
 		if val != gravity_switched:
@@ -99,8 +106,8 @@ var prev_trigger : float = 0.0
 const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
 func _physics_process(delta: float) -> void:
-	
-	
+	charge = clamp(charge + clamp(vel2D.length(), 0.0, 10.0) * delta * CHARGE_SPEED_MULT, 0.0, 1.0)
+	print(charge)
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
@@ -246,10 +253,11 @@ func _input(event: InputEvent) -> void:
 			active_projectile.explode()
 			active_projectile.queue_free()
 		
-		elif can_shoot:
+		elif can_shoot and charge > SHOOT_CHARGE_COST:
 			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
 			c.call()
 			can_shoot = false
+			charge -= SHOOT_CHARGE_COST
 			shoot()
 			
 		
@@ -315,6 +323,7 @@ func add_force(force: Vector3):
 	vel2D += Vector2(force.z, force.x)
 
 func shoot():
+	
 	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
 	inst.position = actual_projectile_spawn.global_position

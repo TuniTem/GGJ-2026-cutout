@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ciqj0dgqqbnl0"
-valid=false
+path="res://.godot/imported/Map_Upside.blend-bce61ba1d917a3955c9bec28b4069bf3.scn"
 
 [deps]
 
 source_file="res://3DAssets/Map_Upside.blend"
+dest_files=["res://.godot/imported/Map_Upside.blend-bce61ba1d917a3955c9bec28b4069bf3.scn"]
 
 [params]
 
