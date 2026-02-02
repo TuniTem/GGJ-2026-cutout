@@ -51,18 +51,14 @@ func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
 		for i in player_count:
 			setup_windows(true)
-		#Global.mouse_captured = false;
-		#var a = func(): 
-			#while true: 
-				#await get_tree().process_frame; 
-				#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#a.call()
+		Signals.game_start.emit()
 		return
 	for i in player_count:
 		setup_viewport()
 	if(player_count % 2 != 0): #we only ever need one dummy viewport
 		dummy_viewport()
-		pass
+	Signals.game_start.emit()	
+	pass
 	
 
 
