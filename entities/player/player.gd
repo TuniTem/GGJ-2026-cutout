@@ -112,10 +112,22 @@ var footstep_timer : float = FOOTSTEP_INTERVAL
 var suffocate_timer : float = SUFFOCATE_TIME
 const SUFFOCATE_TIME = 10.0
 func _physics_process(delta: float) -> void:
-	
+	if Input.is_action_just_pressed("primary_" + str(device_id)):
+		if active_projectile and active_projectile.inactive < 0:
+			SFX.play("explode")
+			active_projectile.explode()
+			active_projectile.queue_free()
+		
+		elif can_shoot and charge > SHOOT_CHARGE_COST:
+			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
+			c.call()
+			can_shoot = false
+			charge -= SHOOT_CHARGE_COST
+			shoot()
+		#print(event.get_action_strength("primary"), shot)
+		
 	charge = clamp(charge + clamp(vel2D.length(), 0.0, 10.0) * delta * CHARGE_SPEED_MULT, 0.0, 1.0)
 	game_ui.texture_progress_bar.value = charge
-	print(charge)
 	#if (gravity_switched and team_one) or (not gravity_switched and not team_one): 
 		#game_ui.timer.show()
 		#suffocate_timer -= delta
@@ -223,6 +235,7 @@ func bounce():
 func get_look_dir():
 	return camera.global_position.direction_to(actual_projectile_spawn.global_position)
 
+var shot : bool = false
 func _input(event: InputEvent) -> void:
 	if is_dead: return
 	#print(event.device)
@@ -267,20 +280,9 @@ func _input(event: InputEvent) -> void:
 			is_movement_ctrl_pressed = false
 			
 	
-	if event.is_action_pressed("primary"):
-		kill()
-		if active_projectile and active_projectile.inactive < 0:
-			SFX.play("explode")
-			active_projectile.explode()
-			active_projectile.queue_free()
 		
-		elif can_shoot and charge > SHOOT_CHARGE_COST:
-			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
-			c.call()
-			can_shoot = false
-			charge -= SHOOT_CHARGE_COST
-			shoot()
-			
+		
+		
 		
 	
 	if event.is_action_pressed("grow"):
@@ -350,7 +352,7 @@ func add_force(force: Vector3):
 
 var is_dead : bool = false
 func kill():
-	global_position = Vector3(0.0, 50.0, 0.0)
+	global_position = Vector3(0.0, 50.0, 0.0) * (float(team_one) * 2 - 1)
 	#if not is_dead:
 		#is_dead = true
 		#
