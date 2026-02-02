@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CutoutGame"
-run/main_scene="uid://c6clw1uckln11"
+run/main_scene="uid://d87ma4k3epkr"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
