@@ -141,5 +141,6 @@ libraries/ = SubResource("AnimationLibrary_dqkch")
 [node name="Ecliplso" parent="." unique_id=2092805047 instance=ExtResource("2_abrql")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9203745, -0.0011694431)
 script = ExtResource("2_26q78")
+switch_team_visual = null
 
 [node name="GameUI" parent="." unique_id=1136848425 instance=ExtResource("3_sglur")]

@@ -97,6 +97,11 @@ func _init() -> void:
 func _ready() -> void:
 	set_collision_layer_value(1, team_one)
 	set_collision_layer_value(2, not team_one)
+	var mask = 20 - player_number
+	camera.set_cull_mask_value(mask, false)
+	model_helper.disable_for_player(1, false)
+	model_helper.disable_for_player(mask, true)
+	
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
