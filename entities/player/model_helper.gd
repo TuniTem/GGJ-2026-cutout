@@ -9,7 +9,15 @@ extends Node3D
 @export var team_body_textures = [load("uid://bm7keia12tqe0"), load("uid://dqbwxi48e8nqa")]
 #@export var team_nametag_textures : Array[Texture2D]
 @onready var body : MeshInstance3D = $EclipsoRig/Skeleton3D/Eclipso_Body
-#@export var name_tag : MeshInstance3D
+@onready var name_tag : MeshInstance3D =  $EclipsoRig/Skeleton3D/Eclipso_Nametag
+
+func disable_for_player(layer_mask : int, value):
+	await body != null
+	await name_tag != null
+	
+	body.set_layer_mask_value(layer_mask, value)
+	name_tag.set_layer_mask_value(layer_mask, value)
+	pass
 
 func set_team_colors(team : Global.Team):
 	await body != null
