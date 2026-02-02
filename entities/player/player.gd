@@ -337,7 +337,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("movement_ctrl"):
 		is_movement_ctrl_pressed = false
 	
-	if event.is_action_released("jump"):
+	if event.is_action_released("jump"):	
 		is_jump_pressed = false
 	
 	if event.is_action_pressed("test"):
@@ -346,7 +346,8 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("switch_velocity"):
 		projectile_mode = Global.ProjectileType.HIGH_VELOCITY if projectile_mode == Global.ProjectileType.LOW_VELOCITY else Global.ProjectileType.LOW_VELOCITY
-	
+		crosshair.circle = projectile_mode == Global.ProjectileType.HIGH_VELOCITY
+		
 var mouse_captured: bool = true
 
 @export var game_ui : Control
