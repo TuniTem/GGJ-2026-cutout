@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://damgeasckhrun"]
 
-[ext_resource type="PackedScene" uid="uid://d0sycf6dgpbe2" path="res://scenes/splitscreen_view.tscn" id="1_jbumb"]
+[ext_resource type="PackedScene" uid="uid://br3ejq365j4ot" path="res://scenes/splitscreen_view.tscn" id="1_jbumb"]
 [ext_resource type="PackedScene" uid="uid://b144iqdubb04x" path="res://scenes/battleground_inherited.tscn" id="2_kfwv2"]
 
 [node name="2PlayerTest" type="Node" unique_id=945481117]

@@ -6,4 +6,4 @@ signal create_vertical_pillar
 signal create_explosion_hole
 signal start_splitscreen
 signal game_win
-signal player_died
+signal player_died(team : Global.Team)

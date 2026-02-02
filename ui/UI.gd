@@ -1,5 +1,9 @@
 extends Control
 
+var dead : bool = false:
+	set(val):
+		$ColorRect.visible = dead
+		dead = val
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
