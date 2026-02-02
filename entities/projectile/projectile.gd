@@ -7,7 +7,7 @@ var team_one : bool = false
 
 const PROJECTILE_STATS :  Dictionary = {
 	Global.ProjectileType.HIGH_VELOCITY : {
-		"speed" : 50.0,
+		"speed" : 100.0,
 		"gravity" : 5.0,
 		"offset_correction_time": 0.1
 	},

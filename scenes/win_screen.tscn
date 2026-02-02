@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
 [ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://ui/win/Eclipso.png" id="2_e41g7"]
 [ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="4_6s1kg"]
+[ext_resource type="Shader" uid="uid://7j1dipmks0o8" path="res://scenes/win_screen.gdshader" id="7_bqn3h"]
 
 [sub_resource type="FontVariation" id="FontVariation_0lrm4"]
 base_font = ExtResource("2_2l6cc")
@@ -15,11 +16,11 @@ font = SubResource("FontVariation_0lrm4")
 font_size = 50
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="FontVariation" id="FontVariation_r6ob7"]
+[sub_resource type="FontVariation" id="FontVariation_6s1kg"]
 base_font = ExtResource("1_erk2x")
 
 [sub_resource type="LabelSettings" id="LabelSettings_o8vhx"]
-font = SubResource("FontVariation_r6ob7")
+font = SubResource("FontVariation_6s1kg")
 font_size = 50
 outline_size = 39
 outline_color = Color(0, 0, 0, 1)
@@ -65,7 +66,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect2/Label5:position")
+tracks/3/path = NodePath("ColorRect2/Header1:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -77,7 +78,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ColorRect/Label4:position")
+tracks/4/path = NodePath("ColorRect/Header2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -125,7 +126,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("RichTextLabel:position")
+tracks/8/path = NodePath("Title:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -137,7 +138,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("RichTextLabel:modulate")
+tracks/9/path = NodePath("Title:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -189,7 +190,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect2/Label5:position")
+tracks/3/path = NodePath("ColorRect2/Header1:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -201,7 +202,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ColorRect/Label4:position")
+tracks/4/path = NodePath("ColorRect/Header2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -249,7 +250,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("RichTextLabel:position")
+tracks/8/path = NodePath("Title:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -261,7 +262,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("RichTextLabel:modulate")
+tracks/9/path = NodePath("Title:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -277,6 +278,9 @@ _data = {
 &"in": SubResource("Animation_qnnn4")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnnn4"]
+shader = ExtResource("7_bqn3h")
+
 [node name="WinScreen" type="Node2D" unique_id=1472979118]
 script = ExtResource("1_6s1kg")
 
@@ -291,7 +295,7 @@ offset_top = 1685.0
 offset_right = 3210.0
 offset_bottom = 2853.9998
 
-[node name="Label5" type="Label" parent="ColorRect2" unique_id=1270269781]
+[node name="Header1" type="Label" parent="ColorRect2" unique_id=1270269781]
 layout_mode = 0
 offset_left = 1032.0
 offset_top = 2.0
@@ -306,7 +310,7 @@ offset_top = -1100.0
 offset_right = 2209.0
 offset_bottom = 69.0
 
-[node name="Label4" type="Label" parent="ColorRect" unique_id=1774622153]
+[node name="Header2" type="Label" parent="ColorRect" unique_id=1774622153]
 layout_mode = 0
 offset_left = -300.0
 offset_top = 1097.0
@@ -320,12 +324,12 @@ position = Vector2(483, 282)
 scale = Vector2(0.8333333, 0.8333333)
 texture = ExtResource("2_e41g7")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1433945076]
+[node name="Title" type="RichTextLabel" parent="." unique_id=1433945076]
 z_index = 2
 clip_contents = false
 offset_left = 498.0
 offset_top = 297.0
-offset_right = 1481.0083
+offset_right = 1481.0088
 offset_bottom = 455.99976
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -334,7 +338,7 @@ theme_override_fonts/normal_font = ExtResource("4_6s1kg")
 theme_override_font_sizes/normal_font_size = 106
 text = "ECLIPSO"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="RichTextLabel" unique_id=556554501]
+[node name="Ttile2" type="RichTextLabel" parent="Title" unique_id=556554501]
 z_as_relative = false
 clip_contents = false
 layout_mode = 0
@@ -349,7 +353,7 @@ theme_override_fonts/normal_font = ExtResource("4_6s1kg")
 theme_override_font_sizes/normal_font_size = 106
 text = "ECLIPSO"
 
-[node name="Label6" type="Label" parent="RichTextLabel" unique_id=1148609907]
+[node name="Label6" type="Label" parent="Title" unique_id=1148609907]
 layout_mode = 0
 offset_left = 368.3517
 offset_top = 130.0
@@ -361,3 +365,10 @@ label_settings = SubResource("LabelSettings_o8vhx")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=599444345]
 libraries/ = SubResource("AnimationLibrary_doie2")
 autoplay = &"in"
+
+[node name="SWAP" type="ColorRect" parent="." unique_id=1674791274]
+material = SubResource("ShaderMaterial_qnnn4")
+offset_left = -75.0
+offset_top = -64.0
+offset_right = 1167.0
+offset_bottom = 674.0

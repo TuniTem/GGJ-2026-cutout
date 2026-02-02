@@ -13,12 +13,19 @@
 [ext_resource type="AudioStream" uid="uid://drow8k6njggf" path="res://audio/SFX/ECLIPSO VOICE/12-Eclipso-OvercommittedAgain.wav" id="12_5h8qd"]
 [ext_resource type="AudioStream" uid="uid://b6l7jyqmd318x" path="res://audio/SFX/ECLIPSO VOICE/7-Eclipso-SkillIssue.wav" id="13_3mj2n"]
 [ext_resource type="AudioStream" uid="uid://dre7xu0y8c58w" path="res://audio/SFX/ECLIPSO VOICE/2-Eclipso-SpeedUp.wav" id="14_h5s1v"]
+[ext_resource type="AudioStream" uid="uid://ddg3tiaw6r58e" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 1.wav" id="14_pytyn"]
 [ext_resource type="AudioStream" uid="uid://cuemuigcrdwys" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep1.wav" id="15_ukd00"]
+[ext_resource type="AudioStream" uid="uid://u2wyuwaodxm5" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 2.wav" id="15_yej68"]
 [ext_resource type="AudioStream" uid="uid://dyuwdwlie1xld" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep2.wav" id="16_ag30j"]
+[ext_resource type="AudioStream" uid="uid://cpc4dpsourykf" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 3 .wav" id="16_t6b4k"]
+[ext_resource type="AudioStream" uid="uid://smgnr11bu55k" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 4.wav" id="17_5h8qd"]
 [ext_resource type="AudioStream" uid="uid://cohvkno1x7rdi" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep3.wav" id="17_ul2n7"]
+[ext_resource type="AudioStream" uid="uid://8kdau7karmwb" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 5.wav" id="18_3mj2n"]
 [ext_resource type="AudioStream" uid="uid://dxrtwped6vaqv" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep4.wav" id="18_g47bu"]
 [ext_resource type="AudioStream" uid="uid://b7u7yobhjt1bs" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep5.wav" id="19_1q63n"]
+[ext_resource type="AudioStream" uid="uid://r8m22e7d5uhx" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 6.wav" id="19_h5s1v"]
 [ext_resource type="AudioStream" uid="uid://dqralkvm18h05" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep6.wav" id="20_u8w43"]
+[ext_resource type="AudioStream" uid="uid://tw2vn7b7srho" path="res://audio/SFX/LUNAIRE VOICE/LUNAIRE 7.wav" id="20_ukd00"]
 [ext_resource type="AudioStream" uid="uid://dpxi4c4v7vtan" path="res://audio/SFX/FOOTSTEPS - CONCRETE/footstep7.wav" id="21_luu8r"]
 [ext_resource type="AudioStream" uid="uid://d020ns63uhfum" path="res://audio/SFX/VOICE/Countdown Lets Go.mp3" id="22_voti4"]
 [ext_resource type="AudioStream" uid="uid://yll7gn54fhwt" path="res://audio/SFX/LASER GUN/LASER GUNSHOT 1.wav" id="23_xcxbv"]
@@ -49,20 +56,14 @@ stream_12/stream = ExtResource("6_2bd0h")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l284g"]
 playback_mode = 2
-streams_count = 13
-stream_0/stream = ExtResource("2_v17bm")
-stream_1/stream = ExtResource("12_5h8qd")
-stream_2/stream = ExtResource("7_53mpv")
-stream_3/stream = ExtResource("8_c8tfm")
-stream_4/stream = ExtResource("9_pytyn")
-stream_5/stream = ExtResource("10_yej68")
-stream_6/stream = ExtResource("11_t6b4k")
-stream_7/stream = ExtResource("12_5h8qd")
-stream_8/stream = ExtResource("13_3mj2n")
-stream_9/stream = ExtResource("14_h5s1v")
-stream_10/stream = ExtResource("4_rj4sr")
-stream_11/stream = ExtResource("5_e54hq")
-stream_12/stream = ExtResource("6_2bd0h")
+streams_count = 7
+stream_0/stream = ExtResource("14_pytyn")
+stream_1/stream = ExtResource("15_yej68")
+stream_2/stream = ExtResource("16_t6b4k")
+stream_3/stream = ExtResource("17_5h8qd")
+stream_4/stream = ExtResource("18_3mj2n")
+stream_5/stream = ExtResource("19_h5s1v")
+stream_6/stream = ExtResource("20_ukd00")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_seic1"]
 random_pitch = 1.1786075

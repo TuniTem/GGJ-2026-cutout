@@ -6,7 +6,10 @@ const WINSCREEN = preload("uid://crekgrf0q0tww")
 
 var spawnpoints : Array[Vector3]
 
-var scoreboard : Array[int]
+var scoreboard : Array[int]:
+	set(val):
+		Global.set_score(val[0], val[1])
+		scoreboard = val
 
 @export_category("Add Point")
 @export var add_point : bool :

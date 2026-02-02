@@ -315,7 +315,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("test"):
 		mouse_captured = !mouse_captured
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
-			
+	
+	if event.is_action_pressed("switch_velocity"):
+		projectile_mode = Global.ProjectileType.HIGH_VELOCITY if projectile_mode == Global.ProjectileType.LOW_VELOCITY else Global.ProjectileType.LOW_VELOCITY
+	
 var mouse_captured: bool = true
 
 @export var game_ui : Control

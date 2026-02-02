@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c7d4sl0gae6ce" path="res://ui/UI.gd" id="1_dcmab"]
 [ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="2_w46tp"]
+[ext_resource type="Shader" uid="uid://7j1dipmks0o8" path="res://scenes/win_screen.gdshader" id="3_7hrjk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pylni"]
+shader = ExtResource("3_7hrjk")
 
 [node name="GameUI" type="Control" unique_id=1136848425]
 layout_mode = 3
@@ -56,3 +60,45 @@ theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("2_w46tp")
 theme_override_font_sizes/normal_font_size = 106
 text = "UR DEAD LOL"
+
+[node name="Eclipso" type="RichTextLabel" parent="." unique_id=1080312023]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 14.000002
+offset_top = 605.0
+offset_right = 1461.8259
+offset_bottom = 763.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 72
+text = "ECLIPSO : 1/10"
+
+[node name="Luciane" type="RichTextLabel" parent="." unique_id=664296318]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 17.0
+offset_top = 555.0
+offset_right = 1464.8259
+offset_bottom = 713.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 72
+text = "LUCIANE : 1/10"
+
+[node name="SWAP" type="ColorRect" parent="." unique_id=2122625511]
+z_index = 51
+material = SubResource("ShaderMaterial_pylni")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

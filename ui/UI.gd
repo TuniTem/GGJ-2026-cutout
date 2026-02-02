@@ -4,6 +4,7 @@ var dead : bool = false:
 	set(val):
 		$ColorRect.visible = dead
 		dead = val
+@onready var swap: ColorRect = $SWAP
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
