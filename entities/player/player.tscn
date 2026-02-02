@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://v47om14nhvnw" path="res://entities/player/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bofxe0j65v0v7" path="res://entities/player/model_helper.gd" id="2_26q78"]
 [ext_resource type="PackedScene" uid="uid://j6ksu7p2br0g" path="res://3DAssets/Characters/Ecliplso.glb" id="2_abrql"]
-[ext_resource type="PackedScene" path="res://ui/game_ui.tscn" id="3_sglur"]
+[ext_resource type="PackedScene" uid="uid://c5rq06b1qn4vp" path="res://ui/game_ui.tscn" id="3_sglur"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 

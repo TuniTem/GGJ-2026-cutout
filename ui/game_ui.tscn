@@ -3,9 +3,15 @@
 [ext_resource type="Script" uid="uid://c7d4sl0gae6ce" path="res://ui/UI.gd" id="1_dcmab"]
 [ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="2_w46tp"]
 [ext_resource type="Shader" uid="uid://7j1dipmks0o8" path="res://scenes/win_screen.gdshader" id="3_7hrjk"]
+[ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://fonts/ferritecore/FerriteCoreDX-Black.otf" id="4_pylni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pylni"]
 shader = ExtResource("3_7hrjk")
+
+[sub_resource type="FontVariation" id="FontVariation_3vkek"]
+base_font = ExtResource("4_pylni")
+variation_transform = Transform2D(0.861, 0.394, 0.002, 1.365, 0, 0)
+spacing_glyph = 28
 
 [node name="GameUI" type="Control" unique_id=1136848425]
 layout_mode = 3
@@ -15,6 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dcmab")
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1127743935]
 layout_mode = 0
@@ -77,6 +84,22 @@ theme_override_fonts/normal_font = ExtResource("2_w46tp")
 theme_override_font_sizes/normal_font_size = 72
 text = "ECLIPSO : 1/10"
 
+[node name="Eclipso2" type="RichTextLabel" parent="." unique_id=1452313679]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 14.000002
+offset_top = 605.0
+offset_right = 1461.8259
+offset_bottom = 763.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 72
+text = "ECLIPSO : 1/10"
+
 [node name="Luciane" type="RichTextLabel" parent="." unique_id=664296318]
 z_index = 2
 clip_contents = false
@@ -94,6 +117,7 @@ theme_override_font_sizes/normal_font_size = 72
 text = "LUCIANE : 1/10"
 
 [node name="SWAP" type="ColorRect" parent="." unique_id=2122625511]
+visible = false
 z_index = 51
 material = SubResource("ShaderMaterial_pylni")
 layout_mode = 1
@@ -102,3 +126,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="timer" type="RichTextLabel" parent="." unique_id=2102426835]
+z_index = 2
+clip_contents = false
+layout_mode = 0
+offset_left = 561.0
+offset_top = 136.00002
+offset_right = 2008.8259
+offset_bottom = 294.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = SubResource("FontVariation_3vkek")
+theme_override_font_sizes/normal_font_size = 72
+text = "10.0"
+
+[node name="Eclipso2" type="RichTextLabel" parent="timer" unique_id=2117849908]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1077.4518
+offset_top = -103.81702
+offset_right = 370.37415
+offset_bottom = 55.18274
+grow_horizontal = 2
+scale = Vector2(1.06351, 1.06351)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = SubResource("FontVariation_3vkek")
+theme_override_font_sizes/normal_font_size = 72
+text = "SUFFOCATING!!"

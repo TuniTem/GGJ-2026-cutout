@@ -1,6 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
+	MusicController.slow_down()
 	if Global.winner == Global.Team.Light:
 		SFX.play("eclipso_win")
 		$ColorRect2/Header1.text = "ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! "

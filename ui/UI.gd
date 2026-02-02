@@ -5,6 +5,7 @@ var dead : bool = false:
 		$ColorRect.visible = dead
 		dead = val
 @onready var swap: ColorRect = $SWAP
+@onready var timer: RichTextLabel = $timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

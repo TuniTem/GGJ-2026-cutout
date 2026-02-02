@@ -107,10 +107,25 @@ var is_jump_pressed : bool = false
 var prev_trigger : float = 0.0
 const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
+var suffocate_timer : float = SUFFOCATE_TIME
+const SUFFOCATE_TIME = 10.0
 func _physics_process(delta: float) -> void:
 	charge = clamp(charge + clamp(vel2D.length(), 0.0, 10.0) * delta * CHARGE_SPEED_MULT, 0.0, 1.0)
+	
+	if gravity_switched: 
+		game_ui.timer.show()
+		suffocate_timer -= delta
+		game_ui.timer.text = str(ceil(suffocate_timer))
+		if suffocate_timer <= 0:
+			kill()
+		
+	else:
+		game_ui.timer.hide()
+		suffocate_timer = clamp(suffocate_timer + delta * 3.0, 0.0, 10.0)
+	
 	#print(charge)
 	#print(Input.get_action_strength("primary"))
+	
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
 	if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched): 
@@ -234,7 +249,6 @@ func _input(event: InputEvent) -> void:
 		crosshair.CROSS_RADIUS = 0
 	
 	if event.is_action_pressed("jump"):
-		MusicController.slow_down()
 		is_jump_pressed = true
 		if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched):
 			jump()
