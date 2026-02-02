@@ -84,8 +84,6 @@ var active_projectile : Area3D
 var look_dir : Vector2
 
 func _init() -> void:
-	set_collision_layer_value(1, team_one)
-	set_collision_layer_value(2, not team_one)
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
 	set_collision_layer_value(player_number + 1, true)
@@ -95,6 +93,9 @@ func _init() -> void:
 	if device_id == -1:
 		using_controller = false
 
+func _ready() -> void:
+	set_collision_layer_value(1, team_one)
+	set_collision_layer_value(2, not team_one)
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
