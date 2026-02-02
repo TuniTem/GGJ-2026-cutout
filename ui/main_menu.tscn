@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://m887eomrj2vi" path="res://ui/imgs/panel_background.png" id="2_rmr83"]
 [ext_resource type="Script" uid="uid://blpqpsrmfpodv" path="res://ui/main_menu.gd" id="2_ubpvv"]
 [ext_resource type="Texture2D" uid="uid://cd1cj3t052dk7" path="res://ui/imgs/char0thumb.png" id="2_wk0pr"]
+[ext_resource type="PackedScene" uid="uid://byp58l38dnlxb" path="res://scenes/mp_scene.tscn" id="3_lsdqh"]
 [ext_resource type="Texture2D" uid="uid://cbt6i8d427m6s" path="res://ui/imgs/char1thumb.png" id="3_rmr83"]
 [ext_resource type="AudioStream" uid="uid://b5qd03mwlp5qm" path="res://audio/SFX/UI/UI - SCROLL.wav" id="4_5klac"]
 [ext_resource type="AudioStream" uid="uid://b3fwhfjc2hnl2" path="res://audio/SFX/UI/UI - SELECT 2.wav" id="5_lsdqh"]
@@ -32,6 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0dkrt")
 script = ExtResource("2_ubpvv")
+mp_level_to_load = ExtResource("3_lsdqh")
 button_hover_sfx = ExtResource("4_5klac")
 button_click_sfx = ExtResource("5_lsdqh")
 
