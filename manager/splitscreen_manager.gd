@@ -85,7 +85,7 @@ func setup_windows(use_multi_monitor : bool):
 		window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
 	else:
 		window.size = Vector2(1920, 1080)
-		window.position = Vector2(window.size.x * (player_number % 2), 0)
+		window.position = Vector2(window.size.x * player_number, 0)
 	
 	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
