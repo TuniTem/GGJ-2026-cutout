@@ -97,8 +97,8 @@ func _init() -> void:
 		using_controller = false
 
 func _ready() -> void:
-	set_collision_layer_value(1, team_one)
-	set_collision_layer_value(2, not team_one)
+	set_collision_layer_value(2, team_one)
+	set_collision_layer_value(1, not team_one)
 	var mask = 20 - player_number
 	camera.set_cull_mask_value(mask, false)
 	model_helper.disable_for_player(1, false)
