@@ -1,4 +1,5 @@
 extends Control
+@onready var texture_progress_bar: TextureProgressBar = $TextureProgressBar
 
 var dead : bool = false:
 	set(val):
