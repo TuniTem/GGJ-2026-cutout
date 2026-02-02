@@ -1,38 +1,145 @@
 [gd_scene format=3 uid="uid://4mrowe64i7fu"]
 
-[ext_resource type="PackedScene" uid="uid://c4nla3jdnee03" path="res://scenes/csg_box_3d.tscn" id="1_fkugw"]
-[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://entities/player/crosshair.tscn" id="2_8fjmc"]
-[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="3_qiwj3"]
-[ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="4_26q78"]
 [ext_resource type="Script" uid="uid://v47om14nhvnw" path="res://entities/player/player.gd" id="1_3vyb7"]
-[sub_resource type="Environment" id="Environment_8cljg"]
+[ext_resource type="Script" uid="uid://bofxe0j65v0v7" path="res://entities/player/model_helper.gd" id="2_26q78"]
+[ext_resource type="PackedScene" uid="uid://j6ksu7p2br0g" path="res://3DAssets/Characters/Ecliplso.glb" id="2_abrql"]
+[ext_resource type="PackedScene" path="res://ui/game_ui.tscn" id="3_sglur"]
 
-[node name="Testmain" type="Node3D" unique_id=1995696092]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
-[node name="Player" parent="." unique_id=606600753 node_paths=PackedStringArray("crosshair") instance=ExtResource("5_bectd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1715894, 0)
-crosshair = NodePath("../Crosshair")
+[sub_resource type="Animation" id="Animation_3vyb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.6714675, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
-[node name="CSGBox3D" parent="." unique_id=69470018 instance=ExtResource("1_fkugw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21246862, 0)
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "exit_slide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.15932012, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.6714675, 0)]
+}
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1915368532]
-transform = Transform3D(1, 0, 0, 0, 0.90499717, 0.42541763, 0, -0.42541763, 0.90499717, 0, 23.500175, 0)
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "initiate_slide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.08246931, 1),
+"update": 0,
+"values": [Vector3(0, 0.6714675, 0), Vector3(0, 0, 0)]
+}
 
-[node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("2_8fjmc")]
-position = Vector2(576, 324)
-rotation = 0.0
-FREE_ROTATION = 0.0
-CROSS_MAX_LENGTH = 8.5814
-CROSS_LINE_MULT = Array[float]([0.0, 1.0, 0.0])
-SQUARE_SIZE = 16.9289
-SQUARE_DRAW_DIST = 7.3684
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "swap_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.36602154, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 3.1415927)]
+}
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1655466656]
-environment = SubResource("Environment_8cljg")
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "swap_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.28717455, 1),
+"update": 0,
+"values": [Vector3(0, 0, 3.1415927), Vector3(0, 0, 0)]
+}
 
-[node name="BulletParent" parent="." unique_id=1790441051 instance=ExtResource("3_qiwj3")]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
+_data = {
+&"RESET": SubResource("Animation_3vyb7"),
+&"exit_slide": SubResource("Animation_g2els"),
+&"initiate_slide": SubResource("Animation_qhqgy"),
+&"swap_down": SubResource("Animation_dqkch"),
+&"swap_up": SubResource("Animation_qlg0r")
+}
 
-[node name="Node" type="Node" parent="." unique_id=717616273 node_paths=PackedStringArray("map_mesh")]
-script = ExtResource("4_26q78")
-map_mesh = NodePath("../CSGBox3D")
+[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "animation_player", "flip_anim", "model_helper", "camera", "game_ui") groups=["player"]]
+script = ExtResource("1_3vyb7")
+actual_projectile_spawn = NodePath("Camera3D/ProjectileActualSpawn")
+model_projectile_spawn = NodePath("Camera3D/ProjectileModelSpawn")
+animation_player = NodePath("AnimationPlayer")
+flip_anim = NodePath("FlipAnim")
+model_helper = NodePath("Ecliplso")
+camera = NodePath("Camera3D")
+game_ui = NodePath("GameUI")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=360482962]
+shape = SubResource("CapsuleShape3D_u8vuu")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1502624484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6714675, 0)
+fov = 97.609856
+near = 0.11
+
+[node name="ProjectileActualSpawn" type="Marker3D" parent="Camera3D" unique_id=1839916550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7900528)
+
+[node name="ProjectileModelSpawn" type="Marker3D" parent="Camera3D" unique_id=1152649089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48710883, -0.38957798, -0.7900528)
+
+[node name="SlideRay" type="RayCast3D" parent="." unique_id=1878777745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32137918, 0)
+enabled = false
+target_position = Vector3(0, -2, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1592681199]
+libraries/ = SubResource("AnimationLibrary_dqkch")
+
+[node name="FlipAnim" type="AnimationPlayer" parent="." unique_id=1022512937]
+libraries/ = SubResource("AnimationLibrary_dqkch")
+
+[node name="Ecliplso" parent="." unique_id=2092805047 instance=ExtResource("2_abrql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9203745, -0.0011694431)
+script = ExtResource("2_26q78")
+
+[node name="GameUI" parent="." unique_id=1136848425 instance=ExtResource("3_sglur")]

@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody3D
 
+var ui : Control
+
 var player_number : int = -1
 var using_controller : bool = true
 var device_id: int = -1
@@ -13,6 +15,7 @@ const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 @export var model_projectile_spawn: Marker3D
 @export var animation_player: AnimationPlayer
 @export var flip_anim: AnimationPlayer
+@export var model_helper : ModelHelper
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -33,6 +36,11 @@ const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 const JUMP_VEL = 7.5
 
 var dir : Vector2
+
+const SHOOT_CHARGE_COST = 0.4
+const CHARGE_SPEED_MULT = 0.01
+var charge : float = 0.0
+
 var gravity_switched : bool = false:
 	set(val):
 		if val != gravity_switched:
@@ -67,7 +75,7 @@ const ZOOM_AMMOUNT = 0.4
 const ZOOM_SPEED = 10.0
 const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
-
+var team_one : bool = false
 #in seconds
 var SHOOTING_COOLDOWN = 0.5
 var can_shoot = true
@@ -86,6 +94,9 @@ func _init() -> void:
 	if device_id == -1:
 		using_controller = false
 
+func _ready() -> void:
+	set_collision_layer_value(1, team_one)
+	set_collision_layer_value(2, not team_one)
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
@@ -97,8 +108,8 @@ var prev_trigger : float = 0.0
 const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
 func _physics_process(delta: float) -> void:
-	
-	
+	charge = clamp(charge + clamp(vel2D.length(), 0.0, 10.0) * delta * CHARGE_SPEED_MULT, 0.0, 1.0)
+	#print(charge)
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
@@ -183,7 +194,7 @@ func jump():
 		is_sliding = false
 		can_slide = true
 	else:
-		velocity.y = JUMP_VEL
+		velocity.y = JUMP_VEL * gravity_mult()
 
 func bounce(): 
 	SFX.play("bounce")
@@ -194,7 +205,6 @@ func get_look_dir():
 	return camera.global_position.direction_to(actual_projectile_spawn.global_position)
 
 func _input(event: InputEvent) -> void:
-	
 	#print(event.device)
 	if not using_controller:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -244,10 +254,11 @@ func _input(event: InputEvent) -> void:
 			active_projectile.explode()
 			active_projectile.queue_free()
 		
-		elif can_shoot:
+		elif can_shoot and charge > SHOOT_CHARGE_COST:
 			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
 			c.call()
 			can_shoot = false
+			charge -= SHOOT_CHARGE_COST
 			shoot()
 			
 		
@@ -308,14 +319,33 @@ func _input(event: InputEvent) -> void:
 			
 var mouse_captured: bool = true
 
+@export var game_ui : Control
+
 func add_force(force: Vector3):
 	velocity.y += force.y
 	vel2D += Vector2(force.z, force.x)
 
+var is_dead : bool = false
+func kill():
+	if not is_dead:
+		is_dead = true
+		scale = Vector3.ZERO
+		game_ui.dead = true
+		hide()
+
+func revive():
+	if is_dead:
+		is_dead = false
+		scale = Vector3.ONE
+		game_ui.dead = false
+		show()
+
 func shoot():
+	
 	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
 	inst.position = actual_projectile_spawn.global_position
+	inst.team_one = team_one
 	inst.type = projectile_mode
 	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
 	inst.model_start_pos = model_projectile_spawn.global_position

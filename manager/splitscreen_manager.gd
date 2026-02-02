@@ -9,17 +9,43 @@ const DUMMY_VIEWPORT_IMAGES = [
 	preload("uid://hsqifgs8wgiq")
 ]
 
-@export var USE_SUBWINDOWS = false
-
 @onready
 var GRID_CONTAINER = $GridContainer
 
+var windows = []
+
 func _init() -> void:
 	Signals.start_splitscreen.connect(_on_start_splitscreen)
+	Signals.game_win.connect(_on_game_win)
 	pass
 
 func _ready() -> void:
 	Signals.start_splitscreen.emit(Global.player_count, Global.use_subwindows)
+	
+func _on_game_win():
+	#Delete all players
+	for player in Global.players:
+		player.queue_free()
+	
+	if(!Global.use_subwindows):
+		get_tree().change_scene_to_packed(GameManger.WINSCREEN)
+		return
+		pass
+	
+	#load up the scene on to all windows
+	for window in windows:
+		var winscreen = GameManger.WINSCREEN.instantiate()
+		window.add_child(winscreen)
+		# * 1.65 to get to 1920 x 1080
+		# We are gonna scale based on y
+		window.size_changed.connect(
+			func(): 
+				winscreen.scale = Vector2.ONE * (window.size.x / 1920) * 1.65)
+		#we need to scale to the size of the window
+		await get_tree().process_frame #hella jank
+		winscreen.scale = Vector2.ONE * (window.size.x / 1920.) * 1.65
+		pass	
+	pass
 	
 func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
@@ -54,16 +80,18 @@ var subviewports : Array[SubViewport]
 func setup_windows():
 	var resolution = DisplayServer.window_get_size()
 	var window = Window.new()
+	windows.append(window)
 	self.add_child(window)
 	var player : Player = GameManger.spawn_player(Vector3.ZERO, window)
 	var player_number = Global.get_player_number(player)
 	window.size = resolution / 2
 	window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
 	
-	var team = player_number % 2 * 2 - 1
+	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
-	player.position.x = randf_range(-3., 3.)
-	player.position.z = randf_range(-3., 3.)
+	player.model_helper.set_team_colors((int(player.team_one) + 1) as Global.Team)
+	player.position.x = randf_range(-20, 20.)
+	player.position.z = randf_range(-20., 20.)
 	
 	var crosshair : DrawCrosshair = GameManger.CROSSHAIR.instantiate()
 	crosshair.position = window.size / 2.
@@ -91,10 +119,10 @@ func setup_viewport():
 	subviewportcontianer.add_child(subviewport)
 	GRID_CONTAINER.add_child(subviewportcontianer)
 	
-	var team = player_number % 2 * 2 - 1
+	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
-	player.position.x = randf_range(-3., 3.)
-	player.position.z = randf_range(-3., 3.)
+	player.position.x = randf_range(-20, 20.)
+	player.position.z = randf_range(-20., 20.)
 	
 	var crosshair : DrawCrosshair = GameManger.CROSSHAIR.instantiate()
 	crosshair.position = subviewportcontianer.size / 2.

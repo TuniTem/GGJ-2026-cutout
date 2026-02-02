@@ -2,6 +2,8 @@ extends Area3D
 
 @export var model: Node3D
 @export var ray_cast: RayCast3D
+var team_one : bool = false
+
 
 const PROJECTILE_STATS :  Dictionary = {
 	Global.ProjectileType.HIGH_VELOCITY : {
@@ -36,6 +38,8 @@ func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
+	set_collision_layer_value(2, team_one)
+	set_collision_layer_value(1, not team_one)
 	match type:
 		Global.ProjectileType.HIGH_VELOCITY:
 			SFX.play("shoot_high")
@@ -64,6 +68,7 @@ func _physics_process(delta: float) -> void:
 		if ray_cast.is_colliding():
 			stick_position = ray_cast.get_collision_point()
 			stick_is_floor = ray_cast.get_collider().is_in_group("floor")
+			if ray_cast.get_collider() is Player: kill_player(ray_cast.get_collider())
 	
 	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
@@ -72,16 +77,23 @@ func _physics_process(delta: float) -> void:
 		gravity_switched = false
 		
 
+func kill_player(plr : Player):
+	Signals.player_died.emit(Global.Team.Light if team_one else Global.Team.Dark)
+	plr.kill()
+
 
 func _on_body_entered(body: Node3D) -> void:
 	if ray_cast.is_colliding():
 		stick_position = ray_cast.get_collision_point()
 		stick_normal = ray_cast.get_collision_normal()
 		stick_is_floor = ray_cast.get_collider().is_in_group("floor")
+		if ray_cast.get_collider() is Player: kill_player(ray_cast.get_collider())
+		
 	
 	else: 
 		stick_position = position
 		stick_is_floor = body.is_in_group("floor")
+		if body is Player: kill_player(body)
 	
 	moving = false
 
