@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://4mrowe64i7fu"]
 
 [ext_resource type="Script" uid="uid://v47om14nhvnw" path="res://entities/player/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bofxe0j65v0v7" path="res://entities/player/model_helper.gd" id="2_26q78"]
 [ext_resource type="PackedScene" uid="uid://j6ksu7p2br0g" path="res://3DAssets/Characters/Ecliplso.glb" id="2_abrql"]
+[ext_resource type="PackedScene" path="res://ui/game_ui.tscn" id="3_sglur"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
@@ -101,13 +103,15 @@ _data = {
 &"swap_up": SubResource("Animation_qlg0r")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "animation_player", "flip_anim", "camera") groups=["player"]]
+[node name="Player" type="CharacterBody3D" unique_id=606600753 node_paths=PackedStringArray("actual_projectile_spawn", "model_projectile_spawn", "animation_player", "flip_anim", "model_helper", "camera", "game_ui") groups=["player"]]
 script = ExtResource("1_3vyb7")
 actual_projectile_spawn = NodePath("Camera3D/ProjectileActualSpawn")
 model_projectile_spawn = NodePath("Camera3D/ProjectileModelSpawn")
 animation_player = NodePath("AnimationPlayer")
 flip_anim = NodePath("FlipAnim")
+model_helper = NodePath("Ecliplso")
 camera = NodePath("Camera3D")
+game_ui = NodePath("GameUI")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=360482962]
 shape = SubResource("CapsuleShape3D_u8vuu")
@@ -136,4 +140,6 @@ libraries/ = SubResource("AnimationLibrary_dqkch")
 
 [node name="Ecliplso" parent="." unique_id=2092805047 instance=ExtResource("2_abrql")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9203745, -0.0011694431)
-visible = false
+script = ExtResource("2_26q78")
+
+[node name="GameUI" parent="." unique_id=1136848425 instance=ExtResource("3_sglur")]

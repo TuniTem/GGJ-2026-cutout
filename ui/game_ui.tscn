@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c5rq06b1qn4vp"]
 
 [ext_resource type="Script" uid="uid://c7d4sl0gae6ce" path="res://ui/UI.gd" id="1_dcmab"]
+[ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="2_w46tp"]
 
 [node name="GameUI" type="Control" unique_id=1136848425]
 layout_mode = 3
@@ -15,3 +16,43 @@ script = ExtResource("1_dcmab")
 layout_mode = 0
 offset_right = 455.0
 offset_bottom = 67.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2035608817]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=713106652]
+z_index = 2
+clip_contents = false
+layout_mode = 0
+offset_left = 98.0
+offset_top = 246.0
+offset_right = 1081.0083
+offset_bottom = 404.99976
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 106
+text = "UR DEAD! LOL"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/RichTextLabel" unique_id=312250307]
+z_as_relative = false
+clip_contents = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 998.0
+offset_bottom = 174.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 106
+text = "UR DEAD LOL"

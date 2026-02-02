@@ -89,6 +89,7 @@ func setup_windows():
 	
 	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
+	player.model_helper.set_team_colors((int(player.team_one) + 1) as Global.Team)
 	player.position.x = randf_range(-20, 20.)
 	player.position.z = randf_range(-20., 20.)
 	

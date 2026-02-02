@@ -15,6 +15,7 @@ const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 @export var model_projectile_spawn: Marker3D
 @export var animation_player: AnimationPlayer
 @export var flip_anim: AnimationPlayer
+@export var model_helper : ModelHelper
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -108,7 +109,7 @@ const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
 func _physics_process(delta: float) -> void:
 	charge = clamp(charge + clamp(vel2D.length(), 0.0, 10.0) * delta * CHARGE_SPEED_MULT, 0.0, 1.0)
-	print(charge)
+	#print(charge)
 	#print(Input.get_action_strength("primary"))
 	if bounce_timer > 0.0: bounce_timer -= delta
 	if movement_ctrl_timer > 0.0: movement_ctrl_timer -= delta
@@ -193,7 +194,7 @@ func jump():
 		is_sliding = false
 		can_slide = true
 	else:
-		velocity.y = JUMP_VEL
+		velocity.y = JUMP_VEL * gravity_mult()
 
 func bounce(): 
 	SFX.play("bounce")
@@ -204,7 +205,6 @@ func get_look_dir():
 	return camera.global_position.direction_to(actual_projectile_spawn.global_position)
 
 func _input(event: InputEvent) -> void:
-	
 	#print(event.device)
 	if not using_controller:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -319,9 +319,26 @@ func _input(event: InputEvent) -> void:
 			
 var mouse_captured: bool = true
 
+@export var game_ui : Control
+
 func add_force(force: Vector3):
 	velocity.y += force.y
 	vel2D += Vector2(force.z, force.x)
+
+var is_dead : bool = false
+func kill():
+	if not is_dead:
+		is_dead = true
+		scale = Vector3.ZERO
+		game_ui.dead = true
+		hide()
+
+func revive():
+	if is_dead:
+		is_dead = false
+		scale = Vector3.ONE
+		game_ui.dead = false
+		show()
 
 func shoot():
 	
