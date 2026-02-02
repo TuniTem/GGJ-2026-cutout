@@ -6,10 +6,7 @@ const WINSCREEN = preload("uid://crekgrf0q0tww")
 
 var spawnpoints : Array[Vector3]
 
-var scoreboard : Array[int]:
-	set(val):
-		Global.set_score(val[0], val[1])
-		scoreboard = val
+var scoreboard : Array[int]
 
 @export_category("Add Point")
 @export var add_point : bool :
@@ -23,6 +20,7 @@ func _init():
 
 func _on_player_died(team : Global.Team):
 	scoreboard[team - 1]+=1
+	Global.set_score(scoreboard[0], scoreboard[1])
 	print("new score is " + str(scoreboard[0]) + " vs " + str(scoreboard[1]))
 	check_if_win()
 	pass

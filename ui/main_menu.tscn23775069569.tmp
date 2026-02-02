@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://d87ma4k3epkr"]
+
+[ext_resource type="Theme" uid="uid://xw02ymhfwhtw" path="res://ui/ui_theme.tres" id="1_0dkrt"]
+[ext_resource type="Texture2D" uid="uid://m887eomrj2vi" path="res://ui/imgs/panel_background.png" id="2_rmr83"]
+[ext_resource type="Script" uid="uid://blpqpsrmfpodv" path="res://ui/main_menu.gd" id="2_ubpvv"]
+[ext_resource type="Texture2D" uid="uid://cd1cj3t052dk7" path="res://ui/imgs/char0thumb.png" id="2_wk0pr"]
+[ext_resource type="PackedScene" uid="uid://byp58l38dnlxb" path="res://scenes/mp_scene.tscn" id="3_lsdqh"]
+[ext_resource type="Texture2D" uid="uid://cbt6i8d427m6s" path="res://ui/imgs/char1thumb.png" id="3_rmr83"]
+[ext_resource type="AudioStream" uid="uid://b5qd03mwlp5qm" path="res://audio/SFX/UI/UI - SCROLL.wav" id="4_5klac"]
+[ext_resource type="AudioStream" uid="uid://b3fwhfjc2hnl2" path="res://audio/SFX/UI/UI - SELECT 2.wav" id="5_lsdqh"]
+[ext_resource type="Texture2D" uid="uid://dttuwcbqa5mgq" path="res://ui/imgs/quit_button_normal.png" id="5_p8ri8"]
+[ext_resource type="Texture2D" uid="uid://m1sbp0i4e022" path="res://ui/imgs/quit_button_click.png" id="6_ubpvv"]
+[ext_resource type="Texture2D" uid="uid://dieec73abfdc2" path="res://ui/imgs/quit_button_hover.png" id="7_arv2f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8uxxo"]
+texture = ExtResource("2_rmr83")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5klac"]
+texture = ExtResource("5_p8ri8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsdqh"]
+texture = ExtResource("6_ubpvv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jiymt"]
+texture = ExtResource("7_arv2f")
+
+[node name="MainMenu" type="Control" unique_id=1471351573]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_0dkrt")
+script = ExtResource("2_ubpvv")
+mp_level_to_load = ExtResource("3_lsdqh")
+button_hover_sfx = ExtResource("4_5klac")
+button_click_sfx = ExtResource("5_lsdqh")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1835301475]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_constants/margin_left = 260
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 260
+theme_override_constants/margin_bottom = 14
+
+[node name="Panel" type="Panel" parent="." unique_id=1403182147]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_8uxxo")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=950106345]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -469.0
+offset_right = 146.0
+offset_bottom = -2.0
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(0, 467)
+texture = ExtResource("2_wk0pr")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1741596444]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -14.0
+offset_top = 372.0
+offset_right = 158.0
+offset_bottom = 866.0
+grow_horizontal = 0
+rotation = 3.1415927
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_rmr83")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=410655058]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=46545635]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BoxContainer" type="BoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=457931810]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="2PlayButton" type="Button" parent="VBoxContainer/HBoxContainer/BoxContainer" unique_id=207897759]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+text = "2 PLAYER"
+
+[node name="BoxContainer2" type="BoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=2092352405]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="4PlayButton" type="Button" parent="VBoxContainer/HBoxContainer/BoxContainer2" unique_id=2066573276]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+text = "4 PLAYER"
+
+[node name="BoxContainer2" type="BoxContainer" parent="VBoxContainer" unique_id=1589282444]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/BoxContainer2" unique_id=1052144618]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_5klac")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lsdqh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jiymt")
+text = "QUIT"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=51559812]
+
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/BoxContainer/2PlayButton" to="." method="_on_play_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BoxContainer/2PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/BoxContainer2/4PlayButton" to="." method="_on_play_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/BoxContainer2/4PlayButton" to="." method="_on_4play_button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/BoxContainer2/QuitButton" to="." method="_on_quit_button_mouse_entered"]

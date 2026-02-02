@@ -13,15 +13,16 @@ var avalible_controllers : Array[int] = []
 #Multiplayer Settings
 var player_count = 2
 var use_subwindows = true
-var max_score : int = 5
+var max_score : int = 10
 
 enum Team {None, Light, Dark}
 var winner : Team = Team.None
 
 func set_score(team1 : int, team2 : int):
+	print("Setting score to " + str(team1) + " " + str(team2))
 	for player : Player in players:
 		player.game_ui.get_node("Luciane").text = "Luciane : " + str(team1) + "/10"
-		player.game_ui.get_node("Eclipso").text = "Eclipso : " + str(team1) + "/10"
+		player.game_ui.get_node("Eclipso").text = "Eclipso : " + str(team2) + "/10"
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
