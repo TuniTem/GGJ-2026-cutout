@@ -50,7 +50,7 @@ func _on_game_win():
 func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
 		for i in player_count:
-			setup_windows()
+			setup_windows(true)
 		#Global.mouse_captured = false;
 		#var a = func(): 
 			#while true: 
@@ -77,18 +77,23 @@ func dummy_viewport():
 
 var subviewports : Array[SubViewport] 
 
-func setup_windows():
+func setup_windows(use_multi_monitor : bool):
 	var resolution = DisplayServer.window_get_size()
 	var window = Window.new()
 	windows.append(window)
 	self.add_child(window)
 	var player : Player = GameManger.spawn_player(Vector3.ZERO, window)
 	var player_number = Global.get_player_number(player)
-	window.size = resolution / 2
-	window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
+	if(!use_multi_monitor):
+		window.size = resolution / 2
+		window.position = Vector2(window.size.x * (player_number % 2), window.size.y)
+	else:
+		window.size = Vector2(1920, 1080)
+		window.position = Vector2(window.size.x * (player_number % 2), 0)
 	
 	var team = int(player.team_one) * 2 - 1
 	player.position.y = 21. * team
+	player.model_helper.set_team_colors((int(player.team_one) + 1) as Global.Team)
 	player.position.x = randf_range(-20, 20.)
 	player.position.z = randf_range(-20., 20.)
 	
