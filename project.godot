@@ -27,8 +27,8 @@ InputBuffer="*uid://dxuydwosxhx2e"
 PauseMenu="*uid://du80g1drnos2i"
 Signals="*res://singletons/signals.gd"
 GameManger="*uid://3ae3xmyid0"
-MusicController="*uid://1x87uomlu2bq"
 SFX="*uid://b8heo6jb0mtqh"
+MusicController="*uid://1x87uomlu2bq"
 
 [display]
 

@@ -15,7 +15,32 @@ var scoreboard : Array[int]
 
 func _init():
 	Signals.player_died.connect(_on_player_died)
+	Signals.game_start.connect(_on_game_start)
 	scoreboard = [0, 0]
+	pass
+
+func _on_game_start():
+	#Do Audio Shit
+	MusicController.prep_group("mask_out")
+	var c = func ():
+		var last_av_sign = 0;
+		while(true): #yikes
+			var av_sign = 0
+			for player in Global.players:
+				av_sign += sign(player.position.y)
+			if last_av_sign != av_sign:
+				print("av_sign " + str(av_sign) + " " + str(last_av_sign))
+				if(av_sign) == 0:
+					MusicController.switch_song("mask_out_" + "dark" if -last_av_sign > 0 else "light", 1)
+				if av_sign > 1:
+					MusicController.switch_song("mask_out_light", 1.)
+					pass
+				if av_sign < 1:
+					MusicController.switch_song("mask_out_dark", 1.)
+					pass
+			last_av_sign = av_sign
+			await get_tree().process_frame
+	c.call()
 	pass
 
 func _on_player_died(team : Global.Team):
