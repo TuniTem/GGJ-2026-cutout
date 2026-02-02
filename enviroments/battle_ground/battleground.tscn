@@ -3,24 +3,34 @@
 [ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://enviroments/battle_ground/level geometry/level_level.res" id="1_uj0mu"]
 [ext_resource type="ArrayMesh" uid="uid://dysb13ld6rla" path="res://enviroments/battle_ground/level geometry/level_border.res" id="2_cv4vl"]
 [ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="3_l57hg"]
-[ext_resource type="Material" uid="uid://b4e83w122ccng" path="res://enviroments/battle_ground/boundry_shader_3d.tres" id="3_uj0mu"]
 [ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="4_2kcb3"]
+
+[sub_resource type="Environment" id="Environment_uj0mu"]
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 10.6
 
 [node name="BattleGround" type="Node3D" unique_id=996328523]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1320913263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028877258, 0.014633179, -0.0067691803)
 use_collision = true
 mesh = ExtResource("1_uj0mu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1299872435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0013980865, 0, -0.0020837784)
 mesh = ExtResource("2_cv4vl")
-surface_material_override/1 = ExtResource("3_uj0mu")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=220339889]
-transform = Transform3D(0.8585127, 0.14112963, 0.4929892, 0, 0.961382, -0.27521795, -0.51279235, 0.23627812, 0.8253586, 0, 0, 0)
 
 [node name="BulletParent" parent="." unique_id=1790441051 instance=ExtResource("3_l57hg")]
 
 [node name="CutoutManager" type="Node" parent="." unique_id=804179181 node_paths=PackedStringArray("map_mesh")]
 script = ExtResource("4_2kcb3")
 map_mesh = NodePath("../CSGMesh3D")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067059043]
+environment = SubResource("Environment_uj0mu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=661238186]
+transform = Transform3D(0.51616377, -0.8075005, -0.28551325, -0.23737065, -0.45516407, 0.8581846, -0.82293993, -0.37519133, -0.42661607, 0, 49.432053, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=4240247]
+transform = Transform3D(0.4148361, -0.90989625, 2.875282e-08, 0.25370052, 0.11566596, -0.96034235, 0.8738121, 0.39838484, 0.27882376, 0, 49.432053, 0)
