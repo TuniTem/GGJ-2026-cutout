@@ -7,7 +7,20 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.53386456, 0.53601027), -1.8141
 point_count = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46mfb"]
-albedo_color = Color(1, 0, 0, 1)
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.74509805)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqisb"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_iqisb"]
+material = SubResource("StandardMaterial3D_iqisb")
+radius = 0.075
+height = 0.15
+
+[sub_resource type="Curve" id="Curve_n5n3x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.14638785, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_300if"]
 radius = 0.1
@@ -21,6 +34,14 @@ falloff = SubResource("Curve_46mfb")
 [node name="Model" type="CSGSphere3D" parent="." unique_id=1768119718]
 material_override = SubResource("StandardMaterial3D_46mfb")
 radius = 0.1
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Model" unique_id=212044298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0015858263, 0.0031120032)
+amount = 159
+lifetime = 0.23
+mesh = SubResource("SphereMesh_iqisb")
+gravity = Vector3(0, 0, 0)
+scale_amount_curve = SubResource("Curve_n5n3x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1694097791]
 shape = SubResource("SphereShape3D_300if")

@@ -6,7 +6,6 @@
 [ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
 [ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://ui/win/Eclipso.png" id="2_e41g7"]
 [ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="4_6s1kg"]
-[ext_resource type="Shader" uid="uid://7j1dipmks0o8" path="res://scenes/win_screen.gdshader" id="7_bqn3h"]
 
 [sub_resource type="FontVariation" id="FontVariation_0lrm4"]
 base_font = ExtResource("2_2l6cc")
@@ -158,7 +157,7 @@ tracks/0/path = NodePath("Eclipso:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.0333333, 1.5333333, 2.5, 2.9),
+"times": PackedFloat32Array(0.23333335, 0.76666665, 1.5333333, 2.5, 2.9),
 "transitions": PackedFloat32Array(0.3298771, 2.0000007, 1, 1, 0.3298771),
 "update": 0,
 "values": [Vector2(2000, 282), Vector2(483, 282.0065), Vector2(473.24368, 282.00497), Vector2(441.7233, 282), Vector2(-2000, 282)]
@@ -278,9 +277,6 @@ _data = {
 &"in": SubResource("Animation_qnnn4")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnnn4"]
-shader = ExtResource("7_bqn3h")
-
 [node name="WinScreen" type="Node2D" unique_id=1472979118]
 script = ExtResource("1_6s1kg")
 
@@ -329,7 +325,7 @@ z_index = 2
 clip_contents = false
 offset_left = 498.0
 offset_top = 297.0
-offset_right = 1481.0088
+offset_right = 1481.009
 offset_bottom = 455.99976
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -365,10 +361,3 @@ label_settings = SubResource("LabelSettings_o8vhx")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=599444345]
 libraries/ = SubResource("AnimationLibrary_doie2")
 autoplay = &"in"
-
-[node name="SWAP" type="ColorRect" parent="." unique_id=1674791274]
-material = SubResource("ShaderMaterial_qnnn4")
-offset_left = -75.0
-offset_top = -64.0
-offset_right = 1167.0
-offset_bottom = 674.0

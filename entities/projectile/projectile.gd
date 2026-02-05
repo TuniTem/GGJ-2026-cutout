@@ -5,7 +5,7 @@ extends Area3D
 var team_one : bool = false
 
 
-const PROJECTILE_STATS :  Dictionary = {
+var PROJECTILE_STATS :  Dictionary = {
 	Global.ProjectileType.HIGH_VELOCITY : {
 		"speed" : 100.0,
 		"gravity" : 5.0,
@@ -25,6 +25,7 @@ var direction : Vector3
 var model_start_pos : Vector3
 var pillared : bool = false
 
+var init_vel : Vector3
 var vel : Vector3 = Vector3.ZERO
 var moving : bool = true
 var stick_position : Vector3
@@ -51,7 +52,7 @@ func _ready() -> void:
 	var tween : Tween = create_tween()
 	tween.tween_property(model, "position", Vector3.ZERO, PROJECTILE_STATS[type]["offset_correction_time"]).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"]
+	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"] + init_vel
 
 func _physics_process(delta: float) -> void:
 	inactive -= 1

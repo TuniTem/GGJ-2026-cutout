@@ -117,7 +117,7 @@ var footstep_timer : float = FOOTSTEP_INTERVAL
 var suffocate_timer : float = SUFFOCATE_TIME
 const SUFFOCATE_TIME = 10.0
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("primary_" + str(device_id)):
+	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)):
 		if active_projectile and active_projectile.inactive < 0:
 			SFX.play("explode")
 			active_projectile.explode()
@@ -375,7 +375,6 @@ func kill():
 		#show()
 
 func shoot():
-	
 	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
 	inst.position = actual_projectile_spawn.global_position
@@ -384,5 +383,6 @@ func shoot():
 	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
 	inst.model_start_pos = model_projectile_spawn.global_position
 	inst.player_number = player_number
+	inst.init_vel = velocity
 	Global.projectile_parent.add_child(inst)
 	active_projectile = inst
