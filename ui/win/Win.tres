@@ -1,7 +1,0 @@
-[gd_resource type="FontVariation" format=3 uid="uid://bd5eajiwacsph"]
-
-[ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://fonts/ferritecore/FerriteCoreDX-Black.otf" id="1_uwd86"]
-
-[resource]
-base_font = ExtResource("1_uwd86")
-variation_transform = Transform2D(0.8915, 0.114, 0.327, 1.3645, 0, 0)

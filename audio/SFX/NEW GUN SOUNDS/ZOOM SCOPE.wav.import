@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://coxjm3t7ch2y6"
-path="res://.godot/imported/ZOOM SCOPE.wav-b0b3c6b19484de4989ac6932ad496018.sample"
+path="res://.godot/imported/ZOOM SCOPE.wav-bb47c6d5c044dbc28e433dccb1ec5d02.sample"
 
 [deps]
 
-source_file="res://audio/SFX/NEW GUN SOUNDS/ZOOM SCOPE.wav"
-dest_files=["res://.godot/imported/ZOOM SCOPE.wav-b0b3c6b19484de4989ac6932ad496018.sample"]
+source_file="res://audio/sfx/NEW GUN SOUNDS/ZOOM SCOPE.wav"
+dest_files=["res://.godot/imported/ZOOM SCOPE.wav-bb47c6d5c044dbc28e433dccb1ec5d02.sample"]
 
 [params]
 

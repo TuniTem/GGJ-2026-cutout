@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://crekgrf0q0tww"]
 
-[ext_resource type="Texture2D" uid="uid://cwdp6jyjogm72" path="res://ui/win/Splat.png" id="1_0lrm4"]
-[ext_resource type="Script" uid="uid://cn6habh35pste" path="res://scenes/win_screen.gd" id="1_6s1kg"]
-[ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://fonts/ferritecore/FerriteCoreDX-Black.otf" id="1_erk2x"]
-[ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
-[ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://ui/win/Eclipso.png" id="2_e41g7"]
-[ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://ui/win/Win.tres" id="4_6s1kg"]
+[ext_resource type="Texture2D" uid="uid://cwdp6jyjogm72" path="res://art/ui/game/win screen/Splat.png" id="1_0lrm4"]
+[ext_resource type="Script" uid="uid://cn6habh35pste" path="res://scripts/win_screen.gd" id="1_6s1kg"]
+[ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://art/fonts/ferritecore/FerriteCoreDX-Black.otf" id="1_erk2x"]
+[ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://art/fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
+[ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://art/ui/game/win screen/Eclipso.png" id="2_e41g7"]
+[ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://art/fonts/ferritecore/FerriteJagged.tres" id="4_6s1kg"]
 
 [sub_resource type="FontVariation" id="FontVariation_0lrm4"]
 base_font = ExtResource("2_2l6cc")

@@ -22,13 +22,15 @@ buses/default_bus_layout="uid://ccx1fw5dppesm"
 [autoload]
 
 Global="*uid://1h163fasjfdy"
-Util="*uid://dh57icc04lx8"
 InputBuffer="*uid://dxuydwosxhx2e"
 PauseMenu="*uid://du80g1drnos2i"
-Signals="*res://singletons/signals.gd"
+Signals="*res://scripts/relocating/signals.gd"
 GameManger="*uid://3ae3xmyid0"
 MusicController="*uid://1x87uomlu2bq"
 SFX="*uid://b8heo6jb0mtqh"
+Debug="*uid://bfxluiesgnvul"
+File="*uid://bhoe0hc5jgxpd"
+Util="*uid://sr85jtclggb8"
 
 [display]
 
@@ -38,6 +40,7 @@ mouse_cursor/custom_image="uid://dh0xr0hulvke0"
 [global_group]
 
 player=""
+bumpables=""
 
 [input]
 

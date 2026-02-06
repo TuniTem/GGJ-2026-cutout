@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dkgm5idtghspf"
-path="res://.godot/imported/STOP 1.wav-42979b8dcd2ddc3d34d260cb74449125.sample"
+path="res://.godot/imported/STOP 1.wav-11233f5038988e4e3490b1f73ddf5db9.sample"
 
 [deps]
 
-source_file="res://audio/SFX/MOVEMENT/STOP 1.wav"
-dest_files=["res://.godot/imported/STOP 1.wav-42979b8dcd2ddc3d34d260cb74449125.sample"]
+source_file="res://audio/sfx/MOVEMENT/STOP 1.wav"
+dest_files=["res://.godot/imported/STOP 1.wav-11233f5038988e4e3490b1f73ddf5db9.sample"]
 
 [params]
 

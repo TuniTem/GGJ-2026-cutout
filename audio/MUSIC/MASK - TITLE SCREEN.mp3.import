@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://bpnq0xuf8x6ak"
-path="res://.godot/imported/MASK - TITLE SCREEN.mp3-3f75552672d2bb6a58e3a11f0923664a.mp3str"
+path="res://.godot/imported/MASK - TITLE SCREEN.mp3-39515e020607095fdda44822deaa12d7.mp3str"
 
 [deps]
 
-source_file="res://audio/MUSIC/MASK - TITLE SCREEN.mp3"
-dest_files=["res://.godot/imported/MASK - TITLE SCREEN.mp3-3f75552672d2bb6a58e3a11f0923664a.mp3str"]
+source_file="res://audio/music/MASK - TITLE SCREEN.mp3"
+dest_files=["res://.godot/imported/MASK - TITLE SCREEN.mp3-39515e020607095fdda44822deaa12d7.mp3str"]
 
 [params]
 

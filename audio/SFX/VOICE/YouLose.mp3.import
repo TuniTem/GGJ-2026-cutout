@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b42xlhcntib13"
-path="res://.godot/imported/YouLose.mp3-901c04bf3e086bf84572873da437e861.mp3str"
+path="res://.godot/imported/YouLose.mp3-7a92b8398c09ddd5854df47f4ebd1df8.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/YouLose.mp3"
-dest_files=["res://.godot/imported/YouLose.mp3-901c04bf3e086bf84572873da437e861.mp3str"]
+source_file="res://audio/sfx/voice/YouLose.mp3"
+dest_files=["res://.godot/imported/YouLose.mp3-7a92b8398c09ddd5854df47f4ebd1df8.mp3str"]
 
 [params]
 

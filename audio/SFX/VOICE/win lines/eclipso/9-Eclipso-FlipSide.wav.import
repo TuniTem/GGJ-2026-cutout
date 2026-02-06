@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b6dpsaea3lhbx"
+path="res://.godot/imported/9-Eclipso-FlipSide.wav-0128b9d8fd9f21e20f4e65dabbf1f502.sample"
+
+[deps]
+
+source_file="res://audio/sfx/voice/win lines/eclipso/9-Eclipso-FlipSide.wav"
+dest_files=["res://.godot/imported/9-Eclipso-FlipSide.wav-0128b9d8fd9f21e20f4e65dabbf1f502.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

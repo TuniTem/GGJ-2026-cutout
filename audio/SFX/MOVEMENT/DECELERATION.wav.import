@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://betuj0safrq80"
-path="res://.godot/imported/DECELERATION.wav-8bcf4ac8070273e4c82da3d46951085e.sample"
+path="res://.godot/imported/DECELERATION.wav-f1a3de4948f2e16e32055b9e02982176.sample"
 
 [deps]
 
-source_file="res://audio/SFX/MOVEMENT/DECELERATION.wav"
-dest_files=["res://.godot/imported/DECELERATION.wav-8bcf4ac8070273e4c82da3d46951085e.sample"]
+source_file="res://audio/sfx/MOVEMENT/DECELERATION.wav"
+dest_files=["res://.godot/imported/DECELERATION.wav-f1a3de4948f2e16e32055b9e02982176.sample"]
 
 [params]
 

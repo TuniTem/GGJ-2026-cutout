@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://j7xmd3r2513e"
-path="res://.godot/imported/ACCELERATE 3 POWER UP.wav-9fc2ab303645495494f1bcd2252f49ca.sample"
+path="res://.godot/imported/ACCELERATE 3 POWER UP.wav-6c580ec4d0201173fd1cdafe8482cdf9.sample"
 
 [deps]
 
-source_file="res://audio/SFX/MOVEMENT/ACCELERATE 3 POWER UP.wav"
-dest_files=["res://.godot/imported/ACCELERATE 3 POWER UP.wav-9fc2ab303645495494f1bcd2252f49ca.sample"]
+source_file="res://audio/sfx/MOVEMENT/ACCELERATE 3 POWER UP.wav"
+dest_files=["res://.godot/imported/ACCELERATE 3 POWER UP.wav-6c580ec4d0201173fd1cdafe8482cdf9.sample"]
 
 [params]
 

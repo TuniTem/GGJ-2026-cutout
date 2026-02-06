@@ -1,0 +1,426 @@
+[gd_scene format=3 uid="uid://c5rq06b1qn4vp"]
+
+[ext_resource type="Script" uid="uid://c7d4sl0gae6ce" path="res://scripts/UI.gd" id="1_dcmab"]
+[ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://art/fonts/ferritecore/FerriteJagged.tres" id="2_w46tp"]
+[ext_resource type="Texture2D" uid="uid://b3whevjlfxnbp" path="res://art/ui/game/Bullet_Meter_Empty.png" id="2_xh48a"]
+[ext_resource type="Texture2D" uid="uid://jeq12dhyaxgq" path="res://art/ui/game/Bullet_Meter_Full.png" id="3_2uxy6"]
+[ext_resource type="Shader" uid="uid://7j1dipmks0o8" path="res://shaders/win_screen.gdshader" id="3_7hrjk"]
+[ext_resource type="FontFile" uid="uid://uslwbja8eoa1" path="res://art/fonts/ferritecore/FerriteCoreDX-Black.otf" id="4_pylni"]
+[ext_resource type="Texture2D" uid="uid://dej65633vtkdf" path="res://art/ui/game/Score.png" id="7_2uxy6"]
+[ext_resource type="Texture2D" uid="uid://cw40n7rlx4v2b" path="res://art/ui/game/first person anims/Idle/0001.png" id="8_aoxo5"]
+[ext_resource type="Texture2D" uid="uid://cdlyiqthxkl37" path="res://art/ui/game/first person anims/Idle/0002.png" id="9_vnlwi"]
+[ext_resource type="Texture2D" uid="uid://blroqwott47r3" path="res://art/ui/game/first person anims/Idle/0003.png" id="10_scw84"]
+[ext_resource type="Texture2D" uid="uid://ydtg25merojf" path="res://art/ui/game/first person anims/Idle/0004.png" id="11_bbngd"]
+[ext_resource type="Texture2D" uid="uid://1ynvhpb5e3eb" path="res://art/ui/game/first person anims/Idle/0005.png" id="12_ymwu4"]
+[ext_resource type="Texture2D" uid="uid://cvthcd0cb5v8r" path="res://art/ui/game/first person anims/Idle/0006.png" id="13_tr3b0"]
+[ext_resource type="Texture2D" uid="uid://42w7wt26k6bc" path="res://art/ui/game/first person anims/Idle/0007.png" id="14_lpju5"]
+[ext_resource type="Texture2D" uid="uid://cb06a4x2rpqta" path="res://art/ui/game/first person anims/Idle/0008.png" id="15_bjs1r"]
+[ext_resource type="Texture2D" uid="uid://dduel00ewc1ff" path="res://art/ui/game/first person anims/Idle/0009.png" id="16_yrl3p"]
+[ext_resource type="Texture2D" uid="uid://cwtpapbthskue" path="res://art/ui/game/first person anims/Idle/0010.png" id="17_4yrms"]
+[ext_resource type="Texture2D" uid="uid://gu7kobclnadn" path="res://art/ui/game/first person anims/Idle/0011.png" id="18_5bcbr"]
+[ext_resource type="Texture2D" uid="uid://ymt3qweoe4cs" path="res://art/ui/game/first person anims/Idle/0012.png" id="19_02swv"]
+[ext_resource type="Texture2D" uid="uid://be51jx3rscr5j" path="res://art/ui/game/first person anims/Idle/0013.png" id="20_3gt6b"]
+[ext_resource type="Texture2D" uid="uid://bfwfop42fcqbn" path="res://art/ui/game/first person anims/Idle/0014.png" id="21_iud3d"]
+[ext_resource type="Texture2D" uid="uid://dge1nwqj0iybm" path="res://art/ui/game/first person anims/Idle/0015.png" id="22_x0wgc"]
+[ext_resource type="Texture2D" uid="uid://cau7g2vg7hn3k" path="res://art/ui/game/first person anims/Idle/0016.png" id="23_8d3bv"]
+[ext_resource type="Texture2D" uid="uid://de6nqvmdbmnw" path="res://art/ui/game/first person anims/Idle/0017.png" id="24_j2e4i"]
+[ext_resource type="Texture2D" uid="uid://dtak6bsggvd3j" path="res://art/ui/game/first person anims/Shoot/0001.png" id="25_waj6m"]
+[ext_resource type="Texture2D" uid="uid://d0ucscnnk7af2" path="res://art/ui/game/first person anims/Shoot/0002.png" id="26_vw4ce"]
+[ext_resource type="Texture2D" uid="uid://smudkue8xlmm" path="res://art/ui/game/first person anims/Shoot/0003.png" id="27_xyoaa"]
+[ext_resource type="Texture2D" uid="uid://dj013aw3f3mbi" path="res://art/ui/game/first person anims/Shoot/0004.png" id="28_vw1ua"]
+[ext_resource type="Texture2D" uid="uid://df2wpkkgx1l5s" path="res://art/ui/game/first person anims/Shoot/0005.png" id="29_s4ykv"]
+[ext_resource type="Texture2D" uid="uid://j6o23x8nlqkx" path="res://art/ui/game/first person anims/Shoot/0006.png" id="30_offrj"]
+[ext_resource type="Texture2D" uid="uid://dh1htwrsymb2y" path="res://art/ui/game/first person anims/Shoot/0007.png" id="31_ypewb"]
+[ext_resource type="Texture2D" uid="uid://d3uxojsvqafap" path="res://art/ui/game/first person anims/Shoot/0008.png" id="32_haj77"]
+[ext_resource type="Texture2D" uid="uid://drkdrsqag3lbv" path="res://art/ui/game/first person anims/Shoot/0009.png" id="33_o5c7a"]
+[ext_resource type="Texture2D" uid="uid://bq0vrsnkj6r65" path="res://art/ui/game/first person anims/Shoot/0010.png" id="34_pdwn4"]
+[ext_resource type="Texture2D" uid="uid://bw30gs08ysrvs" path="res://art/ui/game/first person anims/Shoot/0011.png" id="35_eqxgp"]
+[ext_resource type="Texture2D" uid="uid://b4lpg8hsc7231" path="res://art/ui/game/first person anims/Shoot/0012.png" id="36_nno5e"]
+[ext_resource type="Texture2D" uid="uid://bnwb16qbubwt3" path="res://art/ui/game/first person anims/Shoot/0013.png" id="37_fwgii"]
+[ext_resource type="Texture2D" uid="uid://dxovwv3tfqhrf" path="res://art/ui/game/first person anims/Shoot/0014.png" id="38_ybtl3"]
+[ext_resource type="Texture2D" uid="uid://dy1qp7o3i1cld" path="res://art/ui/game/first person anims/Shoot/0015.png" id="39_q80wq"]
+[ext_resource type="Texture2D" uid="uid://nvngdmeh05yp" path="res://art/ui/game/first person anims/Shoot/0016.png" id="40_efier"]
+[ext_resource type="Texture2D" uid="uid://cgijpj2ctvacl" path="res://art/ui/game/first person anims/Shoot/0017.png" id="41_72doe"]
+[ext_resource type="Texture2D" uid="uid://8xp42wt4s0gm" path="res://art/ui/game/first person anims/Walk/0001.png" id="42_qsthx"]
+[ext_resource type="Texture2D" uid="uid://b1pndm2hmgv53" path="res://art/ui/game/first person anims/Walk/0002.png" id="43_nvkl6"]
+[ext_resource type="Texture2D" uid="uid://cukdx4abomnhy" path="res://art/ui/game/first person anims/Walk/0003.png" id="44_m5816"]
+[ext_resource type="Texture2D" uid="uid://bhfxouefgf6i2" path="res://art/ui/game/first person anims/Walk/0004.png" id="45_radkg"]
+[ext_resource type="Texture2D" uid="uid://bednmdhhueqtc" path="res://art/ui/game/first person anims/Walk/0005.png" id="46_igyta"]
+[ext_resource type="Texture2D" uid="uid://dl3rjxd7ajbso" path="res://art/ui/game/first person anims/Walk/0006.png" id="47_2osp5"]
+[ext_resource type="Texture2D" uid="uid://w85ki1mj6bm2" path="res://art/ui/game/first person anims/Walk/0007.png" id="48_6yjuq"]
+[ext_resource type="Texture2D" uid="uid://ck5borw7q4oup" path="res://art/ui/game/first person anims/Walk/0008.png" id="49_mfnst"]
+[ext_resource type="Texture2D" uid="uid://ciwm5uorkushj" path="res://art/ui/game/first person anims/Walk/0009.png" id="50_jxpoc"]
+[ext_resource type="Texture2D" uid="uid://dj2jtxfrvmcf7" path="res://art/ui/game/first person anims/Walk/0010.png" id="51_ydx1y"]
+[ext_resource type="Texture2D" uid="uid://cvahdewcp3dqn" path="res://art/ui/game/first person anims/Walk/0011.png" id="52_gxm4t"]
+[ext_resource type="Texture2D" uid="uid://ddv8h8k2w1bg1" path="res://art/ui/game/first person anims/Walk/0012.png" id="53_qocbf"]
+[ext_resource type="Texture2D" uid="uid://ckokc82yjtdjw" path="res://art/ui/game/first person anims/Walk/0013.png" id="54_tdwfe"]
+[ext_resource type="Texture2D" uid="uid://d3s72qblf5pq2" path="res://art/ui/game/first person anims/Walk/0014.png" id="55_l44mm"]
+[ext_resource type="Texture2D" uid="uid://4ix1ty8toyiq" path="res://art/ui/game/first person anims/Walk/0015.png" id="56_o3clb"]
+[ext_resource type="Texture2D" uid="uid://v6irp802ephp" path="res://art/ui/game/first person anims/Walk/0016.png" id="57_5cjuc"]
+[ext_resource type="Texture2D" uid="uid://bk4x072d8l7uh" path="res://art/ui/game/first person anims/Walk/0017.png" id="58_srm6m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pylni"]
+shader = ExtResource("3_7hrjk")
+
+[sub_resource type="FontVariation" id="FontVariation_3vkek"]
+base_font = ExtResource("4_pylni")
+variation_transform = Transform2D(0.861, 0.394, 0.002, 1.365, 0, 0)
+spacing_glyph = 28
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4keta"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_aoxo5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vnlwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_scw84")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bbngd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ymwu4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tr3b0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_lpju5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_bjs1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_yrl3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_4yrms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5bcbr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_02swv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_3gt6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_iud3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_x0wgc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_8d3bv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_j2e4i")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_waj6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_vw4ce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_xyoaa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vw1ua")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_s4ykv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_offrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_ypewb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_haj77")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_o5c7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_pdwn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_eqxgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_nno5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_fwgii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_ybtl3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_q80wq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_efier")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_72doe")
+}],
+"loop": true,
+"name": &"Shoot",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_qsthx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_nvkl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_m5816")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_radkg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_igyta")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_2osp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_6yjuq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_mfnst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_jxpoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_ydx1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_gxm4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_qocbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_tdwfe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_l44mm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_o3clb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_5cjuc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_srm6m")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 24.0
+}]
+
+[node name="GameUI" type="Control" unique_id=1136848425]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dcmab")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1127743935]
+layout_mode = 0
+offset_right = 455.0
+offset_bottom = 67.0
+scale = Vector2(0.24468903, 0.124689095)
+max_value = 1.0
+step = 0.01
+texture_under = ExtResource("2_xh48a")
+texture_progress = ExtResource("3_2uxy6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2035608817]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect" unique_id=713106652]
+z_index = 2
+clip_contents = false
+layout_mode = 0
+offset_left = 98.0
+offset_top = 246.0
+offset_right = 1081.0083
+offset_bottom = 404.99976
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 106
+text = "UR DEAD! LOL"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/RichTextLabel" unique_id=312250307]
+z_as_relative = false
+clip_contents = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 998.0
+offset_bottom = 174.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 106
+text = "UR DEAD LOL"
+
+[node name="Eclipso" type="RichTextLabel" parent="." unique_id=1080312023]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 52.0
+offset_top = 131.0
+offset_right = 1499.8259
+offset_bottom = 289.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 72
+text = "1/10"
+
+[node name="Eclipso3" type="RichTextLabel" parent="." unique_id=2035410000]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 6.000002
+offset_top = 3.000061
+offset_right = 1453.8259
+offset_bottom = 161.99982
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("4_pylni")
+theme_override_font_sizes/normal_font_size = 72
+text = "charge"
+
+[node name="Luciane" type="RichTextLabel" parent="." unique_id=664296318]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+offset_left = 56.0
+offset_top = 213.0
+offset_right = 1503.8259
+offset_bottom = 371.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_w46tp")
+theme_override_font_sizes/normal_font_size = 72
+text = "1/10"
+
+[node name="SWAP" type="ColorRect" parent="." unique_id=2122625511]
+visible = false
+z_index = 51
+material = SubResource("ShaderMaterial_pylni")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="timer" type="RichTextLabel" parent="." unique_id=2102426835]
+visible = false
+z_index = 2
+clip_contents = false
+layout_mode = 0
+offset_left = 561.0
+offset_top = 136.00002
+offset_right = 2008.8259
+offset_bottom = 294.99976
+scale = Vector2(0.35639644, 0.35639644)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = SubResource("FontVariation_3vkek")
+theme_override_font_sizes/normal_font_size = 72
+text = "10.0"
+
+[node name="Eclipso2" type="RichTextLabel" parent="timer" unique_id=2117849908]
+z_index = 2
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1077.4518
+offset_top = -103.81702
+offset_right = 370.37415
+offset_bottom = 55.18274
+grow_horizontal = 2
+scale = Vector2(1.06351, 1.06351)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = SubResource("FontVariation_3vkek")
+theme_override_font_sizes/normal_font_size = 72
+text = "SUFFOCATING!!"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=801935252]
+layout_mode = 0
+offset_top = 88.0
+offset_right = 1024.0
+offset_bottom = 1112.0
+scale = Vector2(0.17283222, 0.17283222)
+texture = ExtResource("7_2uxy6")
+
+[node name="Control" type="Control" parent="." unique_id=215790110]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=1294292947]
+position = Vector2(19.000004, 19.99999)
+scale = Vector2(3.992, 3.992)
+sprite_frames = SubResource("SpriteFrames_4keta")
+animation = &"Walk"
+autoplay = "Idle"
+frame = 4
+frame_progress = 0.49307704

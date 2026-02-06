@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://duboj1l370ja0"
-path="res://.godot/imported/Jump Grunt.wav-4960d7809ac0f4ccf6b1dd5be5a1e57f.sample"
+path="res://.godot/imported/Jump Grunt.wav-41d1646d0b42557d29f1cd9efe79dff8.sample"
 
 [deps]
 
-source_file="res://audio/SFX/HUMAN/Jump Grunt.wav"
-dest_files=["res://.godot/imported/Jump Grunt.wav-4960d7809ac0f4ccf6b1dd5be5a1e57f.sample"]
+source_file="res://audio/sfx/HUMAN/Jump Grunt.wav"
+dest_files=["res://.godot/imported/Jump Grunt.wav-41d1646d0b42557d29f1cd9efe79dff8.sample"]
 
 [params]
 

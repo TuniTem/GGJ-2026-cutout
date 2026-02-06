@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://q72vv8bg1vgv"
-path="res://.godot/imported/NEW GUN SHOT 2.wav-5210706eb6713bd30772c36eea481bbb.sample"
+path="res://.godot/imported/NEW GUN SHOT 2.wav-81c1fe87d2712f3768ca67681f23700d.sample"
 
 [deps]
 
-source_file="res://audio/SFX/NEW GUN SOUNDS/NEW GUN SHOT 2.wav"
-dest_files=["res://.godot/imported/NEW GUN SHOT 2.wav-5210706eb6713bd30772c36eea481bbb.sample"]
+source_file="res://audio/sfx/NEW GUN SOUNDS/NEW GUN SHOT 2.wav"
+dest_files=["res://.godot/imported/NEW GUN SHOT 2.wav-81c1fe87d2712f3768ca67681f23700d.sample"]
 
 [params]
 

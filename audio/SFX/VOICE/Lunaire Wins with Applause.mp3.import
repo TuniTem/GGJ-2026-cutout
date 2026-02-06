@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://c5kmrkp6ph0kf"
-path="res://.godot/imported/Lunaire Wins with Applause.mp3-bf1fc034e74eb8c80123bef52f19e1fb.mp3str"
+path="res://.godot/imported/Lunaire Wins with Applause.mp3-7aa0f789337e38f65682a8f25edb6e78.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/Lunaire Wins with Applause.mp3"
-dest_files=["res://.godot/imported/Lunaire Wins with Applause.mp3-bf1fc034e74eb8c80123bef52f19e1fb.mp3str"]
+source_file="res://audio/sfx/voice/Lunaire Wins with Applause.mp3"
+dest_files=["res://.godot/imported/Lunaire Wins with Applause.mp3-7aa0f789337e38f65682a8f25edb6e78.mp3str"]
 
 [params]
 

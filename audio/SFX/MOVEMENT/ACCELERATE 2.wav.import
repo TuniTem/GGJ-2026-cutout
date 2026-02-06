@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c6f11jf6hlk5i"
-path="res://.godot/imported/ACCELERATE 2.wav-f176e439c1563078486736e54f1979b5.sample"
+path="res://.godot/imported/ACCELERATE 2.wav-70030d7765b81c8a8e33ec2981711375.sample"
 
 [deps]
 
-source_file="res://audio/SFX/MOVEMENT/ACCELERATE 2.wav"
-dest_files=["res://.godot/imported/ACCELERATE 2.wav-f176e439c1563078486736e54f1979b5.sample"]
+source_file="res://audio/sfx/MOVEMENT/ACCELERATE 2.wav"
+dest_files=["res://.godot/imported/ACCELERATE 2.wav-70030d7765b81c8a8e33ec2981711375.sample"]
 
 [params]
 

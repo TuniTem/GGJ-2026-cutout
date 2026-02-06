@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://db42d86enx8pw"
-path="res://.godot/imported/GRAVITY SWITCH.wav-bbb2e48c4df72af0d907bed19a5f2af5.sample"
+path="res://.godot/imported/GRAVITY SWITCH.wav-899d957c30e274cfc745f1f6c2ce23ce.sample"
 
 [deps]
 
-source_file="res://audio/SFX/ELEMENTS/GRAVITY SWITCH.wav"
-dest_files=["res://.godot/imported/GRAVITY SWITCH.wav-bbb2e48c4df72af0d907bed19a5f2af5.sample"]
+source_file="res://audio/sfx/elements/GRAVITY SWITCH.wav"
+dest_files=["res://.godot/imported/GRAVITY SWITCH.wav-899d957c30e274cfc745f1f6c2ce23ce.sample"]
 
 [params]
 
