@@ -107,7 +107,7 @@ var max_dist : float = 1.;
 func explode(): # forces all players within a radius away
 	for player : Player in Global.players:
 		var dir = self.position - player.position;
-		var force_mag = falloff.sample(max(0, max_dist - dir.length(), 0))
+		var force_mag = falloff.sample(dir.length() / max_dist)
 		player.add_force(-dir.normalized() * force_mag * 30.0)
 	pass
 
