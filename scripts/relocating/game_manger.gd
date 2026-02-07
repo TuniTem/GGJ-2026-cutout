@@ -1,7 +1,6 @@
 extends Node
 
 const BASE_PLAYER = preload("uid://4mrowe64i7fu")
-const CROSSHAIR = preload("uid://dvmggulbuak6s")
 const WINSCREEN = preload("uid://crekgrf0q0tww")
 
 var spawnpoints : Array[Vector3]
@@ -11,11 +10,11 @@ var scoreboard : Array[int]
 @export_category("Add Point")
 @export var add_point : bool :
 	set(value):
-		Signals.player_died.emit(Global.Team.Light)
+		Global.player_died.emit(Global.Team.Light)
 
 func _init():
-	Signals.player_died.connect(_on_player_died)
-	Signals.game_start.connect(_on_game_start)
+	Global.player_died.connect(_on_player_died)
+	Global.game_start.connect(_on_game_start)
 	scoreboard = [0, 0]
 	pass
 
@@ -54,7 +53,7 @@ func check_if_win():
 	for i in len(scoreboard):
 		if scoreboard[i] > Global.max_score:
 			Global.winner = Global.Team.None + i 
-			Signals.game_win.emit()
+			Global.game_win.emit()
 			pass
 	pass
 

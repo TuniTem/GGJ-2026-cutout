@@ -1,0 +1,263 @@
+[gd_scene format=3 uid="uid://cncqgmwykog27"]
+
+[ext_resource type="Script" uid="uid://qnje15lcrtdp" path="res://scripts/floor_hole.gd" id="1_k0cjr"]
+[ext_resource type="ArrayMesh" uid="uid://cd1c8hijbev1j" path="res://art/3D/VFX/ring.obj" id="2_kwa51"]
+[ext_resource type="Material" uid="uid://cxvxmvjee4kp1" path="res://tres/mats/hole.tres" id="3_eqhsu"]
+[ext_resource type="Material" uid="uid://cy620xspsrte5" path="res://tres/mats/glow.tres" id="3_kwa51"]
+
+[sub_resource type="Animation" id="Animation_rtbjq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Outer:surface_material_override/0:shader_parameter/thickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.049999998882399976]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Outer:surface_material_override/0:next_pass:shader_parameter/transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.6695]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Outer:surface_material_override/0:shader_parameter/transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ring1:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ring1:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Ring2:surface_material_override/0:albedo_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Ring1:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Ring2:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Node3D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_povhu"]
+resource_name = "enter"
+length = 0.5
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Outer:surface_material_override/0:shader_parameter/thickness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(0.99999857, 1),
+"update": 0,
+"values": [0.049999998882399976, 0.2999999932944]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Outer:surface_material_override/0:next_pass:shader_parameter/transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.22),
+"transitions": PackedFloat32Array(0.26794344, 1),
+"update": 0,
+"values": [50.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Outer:surface_material_override/0:shader_parameter/transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.120000005, 0.125, 0.245),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.5, 0.0, 0.25, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -50, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ring1:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.15, 0.38),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -50, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ring1:surface_material_override/0:albedo_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.145, 0.15, 0.38),
+"transitions": PackedFloat32Array(0.70710677, 0.70710677, 0.2588163, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Ring2:surface_material_override/0:albedo_color")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.22999999),
+"transitions": PackedFloat32Array(0.29730183, 0.70710677),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vla07"]
+_data = {
+&"RESET": SubResource("Animation_rtbjq"),
+&"enter": SubResource("Animation_povhu")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xgucj"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.72450006, 0.71000004, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f5qvt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kwa51"]
+
+[node name="CSGBox3D" type="CSGBox3D" unique_id=1771272628]
+operation = 2
+script = ExtResource("1_k0cjr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2085984081]
+libraries/ = SubResource("AnimationLibrary_vla07")
+autoplay = &"enter"
+speed_scale = 0.5
+
+[node name="Ring1" type="MeshInstance3D" parent="." unique_id=558824645]
+mesh = ExtResource("2_kwa51")
+surface_material_override/0 = SubResource("StandardMaterial3D_xgucj")
+
+[node name="Ring2" type="MeshInstance3D" parent="." unique_id=401445369]
+mesh = ExtResource("2_kwa51")
+surface_material_override/0 = ExtResource("3_kwa51")
+
+[node name="Outer" type="MeshInstance3D" parent="." unique_id=1490260068]
+transform = Transform3D(1.0217385, 0, 0, 0, 1.0217385, 0, 0, 0, 1.0217385, 0, 0, 0)
+mesh = SubResource("BoxMesh_f5qvt")
+surface_material_override/0 = ExtResource("3_eqhsu")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=955776608]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1525385923]
+shape = SubResource("BoxShape3D_kwa51")

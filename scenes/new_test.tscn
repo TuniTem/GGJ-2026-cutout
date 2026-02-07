@@ -10,10 +10,14 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, 0)
 crosshair = NodePath("../Crosshair")
 
+[node name="Player2" parent="." unique_id=666396625 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, -1.4638186)
+crosshair = NodePath("../Crosshair")
+
 [node name="BattleGround" parent="." unique_id=996328523 instance=ExtResource("2_dqn74")]
 
 [node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("3_dqn74")]
-position = Vector2(576, 324)
+position = Vector2(764, 303)
 rotation = 0.0
 ROTATION = 0.0
 FREE_ROTATION = 0.0

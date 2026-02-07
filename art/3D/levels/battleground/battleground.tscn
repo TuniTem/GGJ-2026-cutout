@@ -1,30 +1,70 @@
 [gd_scene format=3 uid="uid://c2gi6vj24lt6m"]
 
 [ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://art/3D/levels/battleground/level geometry/level_level.res" id="1_uj0mu"]
-[ext_resource type="Texture2D" uid="uid://dh0g8if58fpvc" path="res://art/2D/textures/level/MapTex.png" id="2_2kcb3"]
 [ext_resource type="ArrayMesh" uid="uid://dysb13ld6rla" path="res://art/3D/levels/battleground/level geometry/level_border.res" id="2_cv4vl"]
-[ext_resource type="Shader" uid="uid://xgra3jqhi0bg" path="res://shaders/outline.gdshader" id="3_2kcb3"]
+[ext_resource type="Material" uid="uid://c2mp4hwwkahyr" path="res://tres/mats/levelmat.tres" id="2_xbnlr"]
 [ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://scenes/projectile_parent.tscn" id="3_l57hg"]
-[ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://scripts/relocating/cutout_manager.gd" id="4_2kcb3"]
+[ext_resource type="Script" uid="uid://brjccwwkkc8lh" path="res://scripts/map_mesh.gd" id="4_k0d8u"]
 [ext_resource type="Texture2D" uid="uid://cyns6hn24kej1" path="res://art/3D/levels/test cutout/transparent.png" id="5_uj0mu"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_618ix"]
-render_priority = 0
-shader = ExtResource("3_2kcb3")
-shader_parameter/outline_mode = 3
-shader_parameter/outline_intensity = 1.0
-shader_parameter/_round = false
-shader_parameter/outline_bias = 0.0
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5g4y"]
-next_pass = SubResource("ShaderMaterial_618ix")
-albedo_texture = ExtResource("2_2kcb3")
+[ext_resource type="Shader" uid="uid://do6qe10flcrqa" path="res://shaders/threshold.gdshader" id="7_xbnlr"]
+[ext_resource type="Shader" uid="uid://ckmsm53x6yq1j" path="res://shaders/threshold2.tres" id="8_k0d8u"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uj0mu"]
 data = PackedVector3Array(24.4991, 20, -50, -0.0008, -0.00029999999, -50, -0.0008, 20, -50, 24.4991, 20, -50, 24.4991, -0.00029999999, -50, -0.0008, -0.00029999999, -50, -24.500599, 20, -50, -0.0008, 20, -50, -0.0008, -0.00029999999, -50, -24.500599, 20, -50, -0.0008, -0.00029999999, -50, -24.500599, -0.00029999999, -50, 50, -0.00029999999, -25.5001, 24.4991, 20, -50, 50, 20, -25.5001, 50, -0.00029999999, -25.5001, 24.4991, -0.00029999999, -50, 24.4991, 20, -50, 50, -0.00029999999, -0.0008, 50, 20, -25.5001, 50, 20, -0.0008, 50, -0.00029999999, -0.0008, 50, -0.00029999999, -25.5001, 50, 20, -25.5001, 50, -0.00029999999, -0.0008, 50, 20, -0.0008, 50, 20, 25.4986, 50, -0.00029999999, -0.0008, 50, 20, 25.4986, 50, -0.00029999999, 25.4986, -50, -0.00029999999, -25.5001, -24.500599, 20, -50, -24.500599, -0.00029999999, -50, -50, -0.00029999999, -25.5001, -50, 20, -25.5001, -24.500599, 20, -50, -50, -0.00029999999, -0.0008, -50, 20, -25.5001, -50, -0.00029999999, -25.5001, -50, -0.00029999999, -0.0008, -50, 20, -0.0008, -50, 20, -25.5001, -50, -0.00029999999, -0.0008, -50, 20, 25.4986, -50, 20, -0.0008, -50, -0.00029999999, -0.0008, -50, -0.00029999999, 25.4986, -50, 20, 25.4986, 24.4991, 20, 50, -0.0008, -0.00029999999, 50, 24.4991, -0.00029999999, 50, 24.4991, 20, 50, -0.0008, 20, 50, -0.0008, -0.00029999999, 50, -24.500599, 20, 50, -0.0008, -0.00029999999, 50, -0.0008, 20, 50, -24.500599, 20, 50, -24.500599, -0.00029999999, 50, -0.0008, -0.00029999999, 50, 50, -0.00029999999, 25.4986, 24.4991, 20, 50, 24.4991, -0.00029999999, 50, 50, -0.00029999999, 25.4986, 50, 20, 25.4986, 24.4991, 20, 50, -50, -0.00029999999, 25.4986, -24.500599, 20, 50, -50, 20, 25.4986, -50, -0.00029999999, 25.4986, -24.500599, -0.00029999999, 50, -24.500599, 20, 50, 24.4991, -20, -50, -0.0008, -0.00029999999, -50, 24.4991, -0.00029999999, -50, 24.4991, -20, -50, -0.0008, -20, -50, -0.0008, -0.00029999999, -50, -24.500599, -20, -50, -0.0008, -0.00029999999, -50, -0.0008, -20, -50, -24.500599, -20, -50, -24.500599, -0.00029999999, -50, -0.0008, -0.00029999999, -50, 50, -0.00029999999, -25.5001, 24.4991, -20, -50, 24.4991, -0.00029999999, -50, 50, -0.00029999999, -25.5001, 50, -20, -25.5001, 24.4991, -20, -50, 50, -0.00029999999, -0.0008, 50, -20, -25.5001, 50, -0.00029999999, -25.5001, 50, -0.00029999999, -0.0008, 50, -20, -0.0008, 50, -20, -25.5001, 50, -0.00029999999, -0.0008, 50, -20, 25.4986, 50, -20, -0.0008, 50, -0.00029999999, -0.0008, 50, -0.00029999999, 25.4986, 50, -20, 25.4986, -50, -0.00029999999, -25.5001, -24.500599, -20, -50, -50, -20, -25.5001, -50, -0.00029999999, -25.5001, -24.500599, -0.00029999999, -50, -24.500599, -20, -50, -50, -0.00029999999, -0.0008, -50, -20, -25.5001, -50, -20, -0.0008, -50, -0.00029999999, -0.0008, -50, -0.00029999999, -25.5001, -50, -20, -25.5001, -50, -0.00029999999, -0.0008, -50, -20, -0.0008, -50, -20, 25.4986, -50, -0.00029999999, -0.0008, -50, -20, 25.4986, -50, -0.00029999999, 25.4986, 24.4991, -20, 50, -0.0008, -0.00029999999, 50, -0.0008, -20, 50, 24.4991, -20, 50, 24.4991, -0.00029999999, 50, -0.0008, -0.00029999999, 50, -24.500599, -20, 50, -0.0008, -20, 50, -0.0008, -0.00029999999, 50, -24.500599, -20, 50, -0.0008, -0.00029999999, 50, -24.500599, -0.00029999999, 50, 50, -0.00029999999, 25.4986, 24.4991, -20, 50, 50, -20, 25.4986, 50, -0.00029999999, 25.4986, 24.4991, -0.00029999999, 50, 24.4991, -20, 50, -50, -0.00029999999, 25.4986, -24.500599, -20, 50, -24.500599, -0.00029999999, 50, -50, -0.00029999999, 25.4986, -50, -20, 25.4986, -24.500599, -20, 50, 50, 19.9987, -0.0008, 50, 62, -25.5001, 50, 62, -0.0008, 50, 19.9987, -0.0008, 50, 19.9987, -25.5001, 50, 62, -25.5001, 50, 19.9987, -0.0008, 50, 62, -0.0008, 50, 62, 25.4986, 50, 19.9987, -0.0008, 50, 62, 25.4986, 50, 19.9987, 25.4986, 50, 19.9987, -25.5001, 24.4991, 62, -50, 50, 62, -25.5001, 50, 19.9987, -25.5001, 24.4991, 19.9987, -50, 24.4991, 62, -50, 50, 62, -25.5001, -0.0008, 62, -0.0008, 50, 62, -0.0008, -0.0008, 62, -0.0008, 50, 62, -25.5001, 24.4991, 62, -50, -0.0008, 62, -0.0008, 50, 62, 25.4986, 50, 62, -0.0008, -0.0008, 62, -0.0008, 24.4991, 62, -50, -0.0008, 62, -50, 50, 62, 25.4986, -0.0008, 62, 50, 24.4991, 62, 50, 50, 62, 25.4986, -0.0008, 62, -0.0008, -0.0008, 62, 50, -0.0008, 62, -0.0008, -24.500599, 62, 50, -0.0008, 62, 50, -0.0008, 62, -0.0008, -50, 62, 25.4986, -24.500599, 62, 50, -50, 62, 25.4986, -0.0008, 62, -0.0008, -50, 62, -0.0008, -0.0008, 62, -0.0008, -50, 62, -25.5001, -50, 62, -0.0008, -50, 62, -25.5001, -0.0008, 62, -0.0008, -0.0008, 62, -50, -50, 62, -25.5001, -0.0008, 62, -50, -24.500599, 62, -50, 24.4991, 62, -50, -0.0008, 19.9987, -50, -0.0008, 62, -50, 24.4991, 62, -50, 24.4991, 19.9987, -50, -0.0008, 19.9987, -50, -24.500599, 62, -50, -0.0008, 62, -50, -0.0008, 19.9987, -50, -24.500599, 62, -50, -0.0008, 19.9987, -50, -24.500599, 19.9987, -50, -50, 19.9987, -0.0008, -50, 62, -25.5001, -50, 19.9987, -25.5001, -50, 19.9987, -0.0008, -50, 62, -0.0008, -50, 62, -25.5001, -50, 19.9987, -0.0008, -50, 62, 25.4986, -50, 62, -0.0008, -50, 19.9987, -0.0008, -50, 19.9987, 25.4986, -50, 62, 25.4986, -50, 19.9987, -25.5001, -24.500599, 62, -50, -24.500599, 19.9987, -50, -50, 19.9987, -25.5001, -50, 62, -25.5001, -24.500599, 62, -50, 50, 19.9987, 25.4986, 24.4991, 62, 50, 24.4991, 19.9987, 50, 50, 19.9987, 25.4986, 50, 62, 25.4986, 24.4991, 62, 50, 24.4991, 62, 50, -0.0008, 19.9987, 50, 24.4991, 19.9987, 50, 24.4991, 62, 50, -0.0008, 62, 50, -0.0008, 19.9987, 50, -24.500599, 62, 50, -0.0008, 19.9987, 50, -0.0008, 62, 50, -24.500599, 62, 50, -24.500599, 19.9987, 50, -0.0008, 19.9987, 50, -50, 19.9987, 25.4986, -24.500599, 62, 50, -50, 62, 25.4986, -50, 19.9987, 25.4986, -24.500599, 19.9987, 50, -24.500599, 62, 50, 50, -20.000599, -0.0008, 50, -62, -25.5001, 50, -20.000599, -25.5001, 50, -20.000599, -0.0008, 50, -62, -0.0008, 50, -62, -25.5001, 50, -20.000599, -0.0008, 50, -62, 25.4986, 50, -62, -0.0008, 50, -20.000599, -0.0008, 50, -20.000599, 25.4986, 50, -62, 25.4986, 50, -20.000599, -25.5001, 24.4991, -62, -50, 24.4991, -20.000599, -50, 50, -20.000599, -25.5001, 50, -62, -25.5001, 24.4991, -62, -50, -0.0008, -62, -0.0008, 50, -62, -25.5001, 50, -62, -0.0008, 50, -62, 25.4986, -0.0008, -62, -0.0008, 50, -62, -0.0008, -0.0008, -62, -0.0008, 50, -62, 25.4986, 24.4991, -62, 50, -0.0008, -62, -0.0008, 24.4991, -62, 50, -0.0008, -62, 50, -50, -62, 25.4986, -0.0008, -62, 50, -24.500599, -62, 50, -50, -62, 25.4986, -0.0008, -62, -0.0008, -0.0008, -62, 50, -0.0008, -62, -0.0008, -50, -62, 25.4986, -50, -62, -0.0008, -50, -62, -25.5001, -0.0008, -62, -0.0008, -50, -62, -0.0008, -0.0008, -62, -0.0008, -50, -62, -25.5001, -24.500599, -62, -50, -0.0008, -62, -0.0008, -24.500599, -62, -50, -0.0008, -62, -50, 50, -62, -25.5001, -0.0008, -62, -0.0008, -0.0008, -62, -50, 50, -62, -25.5001, -0.0008, -62, -50, 24.4991, -62, -50, 24.4991, -62, -50, -0.0008, -20.000599, -50, 24.4991, -20.000599, -50, 24.4991, -62, -50, -0.0008, -62, -50, -0.0008, -20.000599, -50, -24.500599, -62, -50, -0.0008, -20.000599, -50, -0.0008, -62, -50, -24.500599, -62, -50, -24.500599, -20.000599, -50, -0.0008, -20.000599, -50, -50, -20.000599, -0.0008, -50, -62, -25.5001, -50, -62, -0.0008, -50, -20.000599, -0.0008, -50, -20.000599, -25.5001, -50, -62, -25.5001, -50, -20.000599, -0.0008, -50, -62, -0.0008, -50, -62, 25.4986, -50, -20.000599, -0.0008, -50, -62, 25.4986, -50, -20.000599, 25.4986, -50, -20.000599, -25.5001, -24.500599, -62, -50, -50, -62, -25.5001, -50, -20.000599, -25.5001, -24.500599, -20.000599, -50, -24.500599, -62, -50, 50, -20.000599, 25.4986, 24.4991, -62, 50, 50, -62, 25.4986, 50, -20.000599, 25.4986, 24.4991, -20.000599, 50, 24.4991, -62, 50, 24.4991, -62, 50, -0.0008, -20.000599, 50, -0.0008, -62, 50, 24.4991, -62, 50, 24.4991, -20.000599, 50, -0.0008, -20.000599, 50, -24.500599, -62, 50, -0.0008, -62, 50, -0.0008, -20.000599, 50, -24.500599, -62, 50, -0.0008, -20.000599, 50, -24.500599, -20.000599, 50, -50, -20.000599, 25.4986, -24.500599, -62, 50, -24.500599, -20.000599, 50, -50, -20.000599, 25.4986, -50, -62, 25.4986, -24.500599, -62, 50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbnlr"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="GDScript" id="GDScript_k0d8u"]
+script/source = "extends Node
+
+
+
+func _ready() -> void:
+	pass
+
+#var player_holes : Dictionary[int, Array]
+#const MAX_HOLES_PER_PLAYER = 10
+
+#func _on_create_explosion_hole(lifetime : float, position : Vector3):
+	#var hole = CSGSphere3D.new()
+	#hole.position = position
+	#hole.operation = CSGShape3D.OPERATION_SUBTRACTION
+	#
+	#var tween = create_tween()
+	#tween.tween_method(hole, \"radius\", 30., 1.)
+	#tween.tween_method(hole, \"radius\", 0, lifetime)
+	#tween.tween_callback(hole.queue_free)
+	#pass
+
+#func _on_create_floor_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
+	#create_pillar(CSGShape3D.OPERATION_SUBTRACTION, Vector3(8, 999, 8), player_number, position, direction)
+	#pass
+#
+#func _on_create_vertical_pillar(player_number : int, position : Vector3, direction : Vector3) -> void:
+	#create_pillar(CSGShape3D.OPERATION_UNION, Vector3(5, 25, 5), player_number, position, direction)
+	#pass
+#
+#func _on_create_wall_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
+	#pass
+	
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xbnlr"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_curve = 1e-05
+sky_energy_multiplier = 1.16
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+ground_curve = 1e-05
+
+[sub_resource type="Sky" id="Sky_k0d8u"]
+sky_material = SubResource("ProceduralSkyMaterial_xbnlr")
+
 [sub_resource type="Environment" id="Environment_uj0mu"]
+background_mode = 2
+sky = SubResource("Sky_k0d8u")
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 10.6
 
@@ -37,37 +77,219 @@ uv1_scale = Vector3(30, 30, 30)
 grow = true
 grow_amount = -0.15
 
+[sub_resource type="QuadMesh" id="QuadMesh_jajcs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xbnlr"]
+noise_type = 0
+frequency = 0.0054
+fractal_weighted_strength = 0.49
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 28.009
+domain_warp_frequency = 0.0765
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 6.619
+domain_warp_fractal_gain = 0.8625
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k0d8u"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_xbnlr")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5tc4"]
+render_priority = 0
+shader = ExtResource("7_xbnlr")
+shader_parameter/WATER_COL = Color(0, 0, 0, 1)
+shader_parameter/WATER2_COL = Color(0.12955841, 0.1295585, 0.12955841, 1)
+shader_parameter/FOAM_COL = Color(0.3882353, 0.14509805, 0.60784316, 1)
+shader_parameter/distortion_speed = 10.0
+shader_parameter/tile = Vector2(40, 40)
+shader_parameter/height = 0.0
+shader_parameter/wave_size = Vector2(10, 100)
+shader_parameter/wave_speed = 1.5
+shader_parameter/flipped = true
+shader_parameter/sparkles = SubResource("NoiseTexture2D_k0d8u")
+shader_parameter/sparkle_bias = -1.2105
+shader_parameter/transparency = 1.0
+shader_parameter/sparkle_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/contrast = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k0d8u"]
+noise_type = 0
+frequency = 0.0054
+fractal_weighted_strength = 0.49
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 28.009
+domain_warp_frequency = 0.0765
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 6.619
+domain_warp_fractal_gain = 0.8625
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jajcs"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_k0d8u")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fg6ra"]
+render_priority = 0
+shader = ExtResource("7_xbnlr")
+shader_parameter/WATER_COL = Color(0, 0, 0, 1)
+shader_parameter/WATER2_COL = Color(0.12955841, 0.1295585, 0.12955841, 1)
+shader_parameter/FOAM_COL = Color(0.3882353, 0.14509805, 0.60784316, 1)
+shader_parameter/distortion_speed = 10.0
+shader_parameter/tile = Vector2(40, 40)
+shader_parameter/height = 0.0
+shader_parameter/wave_size = Vector2(10, 100)
+shader_parameter/wave_speed = 1.5
+shader_parameter/flipped = false
+shader_parameter/sparkles = SubResource("NoiseTexture2D_jajcs")
+shader_parameter/sparkle_bias = -1.2105
+shader_parameter/transparency = -2.5735
+shader_parameter/sparkle_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/contrast = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jajcs"]
+noise_type = 0
+frequency = 0.0054
+fractal_weighted_strength = 0.49
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 28.009
+domain_warp_frequency = 0.0765
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 6.619
+domain_warp_fractal_gain = 0.8625
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x5tc4"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_jajcs")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_222pb"]
+render_priority = 0
+shader = ExtResource("8_k0d8u")
+shader_parameter/WATER_COL = Color(0, 0, 0, 1)
+shader_parameter/WATER2_COL = Color(0.12955841, 0.1295585, 0.12955841, 1)
+shader_parameter/FOAM_COL = Color(0.45571262, 0.1841386, 0.7052017, 1)
+shader_parameter/distortion_speed = 1.0
+shader_parameter/tile = Vector2(40, 40)
+shader_parameter/height = 0.0
+shader_parameter/wave_size = Vector2(10, 100)
+shader_parameter/wave_speed = 1.5
+shader_parameter/flipped = true
+shader_parameter/sparkles = SubResource("NoiseTexture2D_x5tc4")
+shader_parameter/sparkle_bias = -1.2105
+shader_parameter/transparency = 0.695
+shader_parameter/sparkle_color = Color(1, 1, 1, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/contrast = 0.5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ouqqe"]
+noise_type = 0
+frequency = 0.0054
+fractal_weighted_strength = 0.49
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 28.009
+domain_warp_frequency = 0.0765
+domain_warp_fractal_octaves = 1
+domain_warp_fractal_lacunarity = 6.619
+domain_warp_fractal_gain = 0.8625
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tawal"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_ouqqe")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxktp"]
+render_priority = 0
+shader = ExtResource("8_k0d8u")
+shader_parameter/WATER_COL = Color(0, 0, 0, 1)
+shader_parameter/WATER2_COL = Color(0.12955841, 0.1295585, 0.12955841, 1)
+shader_parameter/FOAM_COL = Color(0.3882353, 0.14509805, 0.60784316, 1)
+shader_parameter/distortion_speed = 4.29
+shader_parameter/tile = Vector2(40, 40)
+shader_parameter/height = 0.0
+shader_parameter/wave_size = Vector2(10, 100)
+shader_parameter/wave_speed = 1.5
+shader_parameter/flipped = false
+shader_parameter/sparkles = SubResource("NoiseTexture2D_tawal")
+shader_parameter/sparkle_bias = -1.2105
+shader_parameter/transparency = -2.5735
+shader_parameter/sparkle_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/contrast = 0.5
+
 [node name="BattleGround" type="Node3D" unique_id=996328523]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1320913263]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0028877258, 0.014633179, -0.0067691803)
+cast_shadow = 2
 use_collision = true
 mesh = ExtResource("1_uj0mu")
-material = SubResource("StandardMaterial3D_v5g4y")
+material = ExtResource("2_xbnlr")
+script = ExtResource("4_k0d8u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1501872732]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="StaticBody3D" unique_id=831322738]
+shape = SubResource("ConcavePolygonShape3D_uj0mu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1299872435]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 0
 mesh = ExtResource("2_cv4vl")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1501872732]
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=831322738]
-shape = SubResource("ConcavePolygonShape3D_uj0mu")
+surface_material_override/1 = SubResource("StandardMaterial3D_xbnlr")
 
 [node name="BulletParent" parent="." unique_id=1790441051 instance=ExtResource("3_l57hg")]
 
-[node name="CutoutManager" type="Node" parent="." unique_id=804179181 node_paths=PackedStringArray("map_mesh")]
-script = ExtResource("4_2kcb3")
-map_mesh = NodePath("../CSGMesh3D")
+[node name="CutoutManager" type="Node" parent="." unique_id=804179181]
+script = SubResource("GDScript_k0d8u")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067059043]
 environment = SubResource("Environment_uj0mu")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=661238186]
 transform = Transform3D(0.51616377, -0.8075005, -0.28551325, -0.23737065, -0.45516407, 0.8581846, -0.82293993, -0.37519133, -0.42661607, 0, 49.432053, 0)
+visible = false
+shadow_enabled = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 72.5
+sky_mode = 1
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=4240247]
 transform = Transform3D(0.4148361, -0.90989625, 2.875282e-08, 0.25370052, 0.11566596, -0.96034235, 0.8738121, 0.39838484, 0.27882376, 0, 49.432053, 0)
+visible = false
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=595145255]
+visible = false
 material_override = SubResource("StandardMaterial3D_l57hg")
 mesh = ExtResource("1_uj0mu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=968712095]
+transform = Transform3D(-133.09163, 0, 0, 0, -5.9050426e-06, 1.0000058, 0, -135.09163, -4.3711644e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_jajcs")
+surface_material_override/0 = SubResource("ShaderMaterial_x5tc4")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MeshInstance3D3" unique_id=616918415]
+transform = Transform3D(1, 0, 0, 0, 1, -9.094947e-13, 0, 9.094947e-13, 1, 0, -1.0065999e-10, 0.31109148)
+mesh = SubResource("QuadMesh_jajcs")
+surface_material_override/0 = SubResource("ShaderMaterial_fg6ra")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1680136969]
+transform = Transform3D(-133.09163, 0, 0, 0, 5.9050426e-06, -1.0000058, 0, 135.09163, 4.3711644e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_jajcs")
+surface_material_override/0 = SubResource("ShaderMaterial_222pb")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MeshInstance3D4" unique_id=1826426246]
+transform = Transform3D(1, 0, 0, 0, 1, -9.094947e-13, 0, 9.094947e-13, 1, 0, -1.0065999e-10, 0.31109148)
+mesh = SubResource("QuadMesh_jajcs")
+surface_material_override/0 = SubResource("ShaderMaterial_pxktp")
