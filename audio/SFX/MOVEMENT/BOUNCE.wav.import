@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bkrbuk4ly7mod"
-path="res://.godot/imported/BOUNCE.wav-17282a2c3561b0add8a5774f43cf9f4f.sample"
+path="res://.godot/imported/BOUNCE.wav-eb9822d63704a2164a1b9c02bdd96e74.sample"
 
 [deps]
 
-source_file="res://audio/SFX/MOVEMENT/BOUNCE.wav"
-dest_files=["res://.godot/imported/BOUNCE.wav-17282a2c3561b0add8a5774f43cf9f4f.sample"]
+source_file="res://audio/sfx/MOVEMENT/BOUNCE.wav"
+dest_files=["res://.godot/imported/BOUNCE.wav-eb9822d63704a2164a1b9c02bdd96e74.sample"]
 
 [params]
 

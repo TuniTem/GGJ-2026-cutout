@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://un73il3jc8a6"
-path="res://.godot/imported/YouWin.mp3-17c58fcef179e9d3122bd35d4be84e5c.mp3str"
+path="res://.godot/imported/YouWin.mp3-9cdb96e433b94a04cd8b9f4530447ab0.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/YouWin.mp3"
-dest_files=["res://.godot/imported/YouWin.mp3-17c58fcef179e9d3122bd35d4be84e5c.mp3str"]
+source_file="res://audio/sfx/voice/YouWin.mp3"
+dest_files=["res://.godot/imported/YouWin.mp3-9cdb96e433b94a04cd8b9f4530447ab0.mp3str"]
 
 [params]
 

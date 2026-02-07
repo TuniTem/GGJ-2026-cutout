@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ccrshn26yx7vf"]
 
-[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://entities/player/player.tscn" id="1_e4de6"]
-[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://enviroments/battle_ground/battleground.tscn" id="2_dqn74"]
-[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://entities/player/crosshair.tscn" id="3_dqn74"]
+[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="1_e4de6"]
+[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://art/3D/levels/battleground/battleground.tscn" id="2_dqn74"]
+[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://scenes/crosshair.tscn" id="3_dqn74"]
 
 [node name="NewTest" type="Node3D" unique_id=707393687]
 
@@ -15,6 +15,7 @@ crosshair = NodePath("../Crosshair")
 [node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("3_dqn74")]
 position = Vector2(576, 324)
 rotation = 0.0
+ROTATION = 0.0
 FREE_ROTATION = 0.0
 CROSS_MAX_LENGTH = 8.5814
 CROSS_LINE_MULT = Array[float]([0.0, 1.0, 0.0])

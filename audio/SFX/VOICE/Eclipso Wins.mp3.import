@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cfqpeevdotskp"
-path="res://.godot/imported/Eclipso Wins.mp3-4489ec8775a46f87e161c0e4590611f7.mp3str"
+path="res://.godot/imported/Eclipso Wins.mp3-524232ad5cec3192fc55a1dff77ee26c.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/Eclipso Wins.mp3"
-dest_files=["res://.godot/imported/Eclipso Wins.mp3-4489ec8775a46f87e161c0e4590611f7.mp3str"]
+source_file="res://audio/sfx/voice/Eclipso Wins.mp3"
+dest_files=["res://.godot/imported/Eclipso Wins.mp3-524232ad5cec3192fc55a1dff77ee26c.mp3str"]
 
 [params]
 

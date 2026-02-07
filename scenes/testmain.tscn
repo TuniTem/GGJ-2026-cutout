@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c6clw1uckln11"]
 
-[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://entities/player/player.tscn" id="1_fny4c"]
+[ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="1_fny4c"]
 [ext_resource type="PackedScene" uid="uid://c4nla3jdnee03" path="res://scenes/csg_box_3d.tscn" id="2_41ujk"]
-[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://entities/player/crosshair.tscn" id="3_8cljg"]
-[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://entities/projectile/projectile_parent.tscn" id="4_mlspm"]
-[ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://manager/cutout_manager.gd" id="5_hbebi"]
+[ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://scenes/crosshair.tscn" id="3_8cljg"]
+[ext_resource type="PackedScene" uid="uid://dhgk4jxg160qe" path="res://scenes/projectile_parent.tscn" id="4_mlspm"]
+[ext_resource type="Script" uid="uid://wuym0f1iyo4j" path="res://scripts/relocating/cutout_manager.gd" id="5_hbebi"]
 
 [sub_resource type="Environment" id="Environment_8cljg"]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://byp58l38dnlxb"]
 
 [ext_resource type="PackedScene" uid="uid://br3ejq365j4ot" path="res://scenes/splitscreen_view.tscn" id="1_jbumb"]
-[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://enviroments/battle_ground/battleground.tscn" id="2_f8uj3"]
+[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://art/3D/levels/battleground/battleground.tscn" id="2_f8uj3"]
 
 [node name="MP_SCENE" type="Node" unique_id=945481117]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b5qd03mwlp5qm"
-path="res://.godot/imported/UI - SCROLL.wav-a4b433c98aba07f05e252eed3813eb89.sample"
+path="res://.godot/imported/UI - SCROLL.wav-4a5a7ca32b9865b576df25e0f1a9f19f.sample"
 
 [deps]
 
-source_file="res://audio/SFX/UI/UI - SCROLL.wav"
-dest_files=["res://.godot/imported/UI - SCROLL.wav-a4b433c98aba07f05e252eed3813eb89.sample"]
+source_file="res://audio/sfx/UI/UI - SCROLL.wav"
+dest_files=["res://.godot/imported/UI - SCROLL.wav-4a5a7ca32b9865b576df25e0f1a9f19f.sample"]
 
 [params]
 

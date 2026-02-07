@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://di1n2lc33t8f4"
-path="res://.godot/imported/nanosfx_wallrise.wav-2802f126a42d2c41e60940848f1d5ed6.sample"
+path="res://.godot/imported/nanosfx_wallrise.wav-5da28f2c656fedf2e01ecf03608f10e6.sample"
 
 [deps]
 
-source_file="res://audio/SFX/nanosfx_wallrise.wav"
-dest_files=["res://.godot/imported/nanosfx_wallrise.wav-2802f126a42d2c41e60940848f1d5ed6.sample"]
+source_file="res://audio/sfx/nanosfx_wallrise.wav"
+dest_files=["res://.godot/imported/nanosfx_wallrise.wav-5da28f2c656fedf2e01ecf03608f10e6.sample"]
 
 [params]
 

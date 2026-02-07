@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://hxl6pet0h7i"
-path="res://.godot/imported/LASER BURST.wav-8050cbfb4cd018d6cd35833e7971944e.sample"
+path="res://.godot/imported/LASER BURST.wav-eb5abd8d88e495e9ae401e7c29c96e5c.sample"
 
 [deps]
 
-source_file="res://audio/SFX/NEW GUN SOUNDS/LASER BURST.wav"
-dest_files=["res://.godot/imported/LASER BURST.wav-8050cbfb4cd018d6cd35833e7971944e.sample"]
+source_file="res://audio/sfx/NEW GUN SOUNDS/LASER BURST.wav"
+dest_files=["res://.godot/imported/LASER BURST.wav-eb5abd8d88e495e9ae401e7c29c96e5c.sample"]
 
 [params]
 

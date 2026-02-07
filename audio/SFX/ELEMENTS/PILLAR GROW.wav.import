@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c3t6hw5gopx04"
-path="res://.godot/imported/PILLAR GROW.wav-226426c4a7e198491c222a2d5991b5a7.sample"
+path="res://.godot/imported/PILLAR GROW.wav-7c483767bf4de0cc64c1ab6904f7d4c9.sample"
 
 [deps]
 
-source_file="res://audio/SFX/ELEMENTS/PILLAR GROW.wav"
-dest_files=["res://.godot/imported/PILLAR GROW.wav-226426c4a7e198491c222a2d5991b5a7.sample"]
+source_file="res://audio/sfx/elements/PILLAR GROW.wav"
+dest_files=["res://.godot/imported/PILLAR GROW.wav-7c483767bf4de0cc64c1ab6904f7d4c9.sample"]
 
 [params]
 

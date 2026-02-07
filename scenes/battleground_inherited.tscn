@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cp4ywxm8j1i80"]
 
-[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://enviroments/battle_ground/battleground.tscn" id="1_3rl5b"]
-[ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://enviroments/battle_ground/level geometry/level_level.res" id="2_0i3mv"]
-[ext_resource type="Texture2D" uid="uid://cyns6hn24kej1" path="res://enviroments/test_cutout/transparent.png" id="2_87lab"]
+[ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://art/3D/levels/battleground/battleground.tscn" id="1_3rl5b"]
+[ext_resource type="ArrayMesh" uid="uid://b0hrjkwiks1te" path="res://art/3D/levels/battleground/level geometry/level_level.res" id="2_0i3mv"]
+[ext_resource type="Texture2D" uid="uid://cyns6hn24kej1" path="res://art/3D/levels/test cutout/transparent.png" id="2_87lab"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx7ni"]
 transparency = 1

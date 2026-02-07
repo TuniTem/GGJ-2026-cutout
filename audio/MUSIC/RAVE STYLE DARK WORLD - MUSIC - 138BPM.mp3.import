@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhr7nhlcsy7u1"
+path="res://.godot/imported/RAVE STYLE DARK WORLD - MUSIC - 138BPM.mp3-64749e37d66e5873dcc0d24472cd9005.mp3str"
+
+[deps]
+
+source_file="res://audio/music/RAVE STYLE DARK WORLD - MUSIC - 138BPM.mp3"
+dest_files=["res://.godot/imported/RAVE STYLE DARK WORLD - MUSIC - 138BPM.mp3-64749e37d66e5873dcc0d24472cd9005.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

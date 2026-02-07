@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4nla3jdnee03"]
 
-[ext_resource type="Material" uid="uid://x6xuflv3kbvo" path="res://enviroments/temp/test_material.tres" id="1_yckbe"]
+[ext_resource type="Material" uid="uid://x6xuflv3kbvo" path="res://tres/mats/test_material.tres" id="1_yckbe"]
 
 [node name="CSGBox3D" type="CSGBox3D" unique_id=69470018]
 material_override = ExtResource("1_yckbe")

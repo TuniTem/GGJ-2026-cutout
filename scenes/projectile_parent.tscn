@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dhgk4jxg160qe"]
+
+[ext_resource type="Script" uid="uid://bpwdqjwacfftm" path="res://scripts/projectile_parent.gd" id="1_v3iln"]
+
+[node name="BulletParent" type="Node3D" unique_id=1790441051]
+script = ExtResource("1_v3iln")

@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cmoi3b24m25to"
-path="res://.godot/imported/MASK OUT - LIGHT THEME.mp3-1296df1e80ab06feb4d44781a9dfbf2f.mp3str"
+path="res://.godot/imported/MASK OUT - LIGHT THEME.mp3-5b62f37bae3ec5bb85f0b336c52e7bf4.mp3str"
 
 [deps]
 
-source_file="res://audio/MUSIC/MASK OUT - LIGHT THEME.mp3"
-dest_files=["res://.godot/imported/MASK OUT - LIGHT THEME.mp3-1296df1e80ab06feb4d44781a9dfbf2f.mp3str"]
+source_file="res://audio/music/MASK OUT - LIGHT THEME.mp3"
+dest_files=["res://.godot/imported/MASK OUT - LIGHT THEME.mp3-5b62f37bae3ec5bb85f0b336c52e7bf4.mp3str"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://br3ejq365j4ot"]
 
-[ext_resource type="Script" uid="uid://c8bo45s8mhgj7" path="res://manager/splitscreen_manager.gd" id="1_ipew4"]
+[ext_resource type="Script" uid="uid://c8bo45s8mhgj7" path="res://scripts/splitscreen_controller.gd" id="1_ipew4"]
 
 [node name="SplitscreenView" type="Control" unique_id=926730743]
 layout_mode = 3

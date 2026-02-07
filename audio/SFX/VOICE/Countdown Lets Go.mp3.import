@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://d020ns63uhfum"
-path="res://.godot/imported/Countdown Lets Go.mp3-63eabb713f75ea904bd49e775dfe60ae.mp3str"
+path="res://.godot/imported/Countdown Lets Go.mp3-f15507171ea8f23601d9fa33ad37843e.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/Countdown Lets Go.mp3"
-dest_files=["res://.godot/imported/Countdown Lets Go.mp3-63eabb713f75ea904bd49e775dfe60ae.mp3str"]
+source_file="res://audio/sfx/voice/Countdown Lets Go.mp3"
+dest_files=["res://.godot/imported/Countdown Lets Go.mp3-f15507171ea8f23601d9fa33ad37843e.mp3str"]
 
 [params]
 

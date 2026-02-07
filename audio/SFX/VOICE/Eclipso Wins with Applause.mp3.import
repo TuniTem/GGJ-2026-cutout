@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dx5n7oh2uc7nf"
-path="res://.godot/imported/Eclipso Wins with Applause.mp3-d3a784eaad3b68e9f4b3d0502fd5ee4a.mp3str"
+path="res://.godot/imported/Eclipso Wins with Applause.mp3-ab5a44439d94dd96c8133757b400abf9.mp3str"
 
 [deps]
 
-source_file="res://audio/SFX/VOICE/Eclipso Wins with Applause.mp3"
-dest_files=["res://.godot/imported/Eclipso Wins with Applause.mp3-d3a784eaad3b68e9f4b3d0502fd5ee4a.mp3str"]
+source_file="res://audio/sfx/voice/Eclipso Wins with Applause.mp3"
+dest_files=["res://.godot/imported/Eclipso Wins with Applause.mp3-ab5a44439d94dd96c8133757b400abf9.mp3str"]
 
 [params]
 
