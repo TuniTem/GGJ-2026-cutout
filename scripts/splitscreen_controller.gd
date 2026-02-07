@@ -15,12 +15,12 @@ var GRID_CONTAINER = $GridContainer
 var windows = []
 
 func _init() -> void:
-	Signals.start_splitscreen.connect(_on_start_splitscreen)
-	Signals.game_win.connect(_on_game_win)
+	Global.start_splitscreen.connect(_on_start_splitscreen)
+	Global.game_win.connect(_on_game_win)
 	pass
 
 func _ready() -> void:
-	Signals.start_splitscreen.emit(Global.player_count, Global.use_subwindows)
+	Global.start_splitscreen.emit(Global.player_count, Global.use_subwindows)
 	
 func _on_game_win():
 	#Delete all players
@@ -51,13 +51,13 @@ func _on_start_splitscreen(player_count : int, use_subwindows : bool) -> void:
 	if use_subwindows:
 		for i in player_count:
 			setup_windows(true)
-		Signals.game_start.emit()
+		Global.game_start.emit()
 		return
 	for i in player_count:
 		setup_viewport()
 	if(player_count % 2 != 0): #we only ever need one dummy viewport
 		dummy_viewport()
-	Signals.game_start.emit()	
+	Global.game_start.emit()	
 	pass
 	
 

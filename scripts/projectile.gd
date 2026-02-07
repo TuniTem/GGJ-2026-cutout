@@ -1,4 +1,7 @@
 extends Area3D
+const VERTICAL_PILLAR = preload("uid://dxggktif1n26j")
+const FLOOR_HOLE = preload("uid://cncqgmwykog27")
+
 
 @export var model: Node3D
 @export var ray_cast: RayCast3D
@@ -7,12 +10,12 @@ var team_one : bool = false
 
 var PROJECTILE_STATS :  Dictionary = {
 	Global.ProjectileType.HIGH_VELOCITY : {
-		"speed" : 100.0,
-		"gravity" : 5.0,
+		"speed" : 150.0,
+		"gravity" : 0.0,
 		"offset_correction_time": 0.1
 	},
 	Global.ProjectileType.LOW_VELOCITY : {
-		"speed" : 30.0,
+		"speed" : 40.0,
 		"gravity" : 13.0,
 		"offset_correction_time": 0.3
 	}
@@ -34,29 +37,35 @@ var stick_is_floor : bool = false
 var player_number : int = -1
 var gravity_switched : bool = false
 var inactive : int = 2
+var player : Player
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
-	set_collision_layer_value(2, team_one)
-	set_collision_layer_value(1, not team_one)
+	player = Global.players[player_number]
+	#set_collision_mask_value(2, team_one)
+	#set_collision_mask_value(3, not team_one)
+	#set_collision_layer_value(2, team_one)
+	#set_collision_layer_value(3, not team_one)
+	print("mask:", collision_mask)
+	
 	match type:
 		Global.ProjectileType.HIGH_VELOCITY:
 			SFX.play("shoot_high")
 		
 		Global.ProjectileType.LOW_VELOCITY:
 			SFX.play("shoot_low")
-	print("hi")
 	model.global_position = model_start_pos
 	var tween : Tween = create_tween()
 	tween.tween_property(model, "position", Vector3.ZERO, PROJECTILE_STATS[type]["offset_correction_time"]).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"] + init_vel
+	vel = direction.normalized() * PROJECTILE_STATS[type]["speed"]
+	if type == Global.ProjectileType.LOW_VELOCITY: 
+		vel += init_vel
 
 func _physics_process(delta: float) -> void:
 	inactive -= 1
-	print(position)
 	if moving:
 		vel.y -= PROJECTILE_STATS[type]["gravity"] * delta * gravity_mult()
 		position += vel * delta
@@ -66,10 +75,13 @@ func _physics_process(delta: float) -> void:
 			model.position = Vector3.ZERO
 			moving = false
 		
-		if ray_cast.is_colliding():
+		if ray_cast.is_colliding() and not (ray_cast.get_collider() is Player and ray_cast.get_collider().team_one == team_one):
 			stick_position = ray_cast.get_collision_point()
 			stick_is_floor = ray_cast.get_collider().is_in_group("floor")
 			if ray_cast.get_collider() is Player: kill_player(ray_cast.get_collider())
+			if type == Global.ProjectileType.HIGH_VELOCITY:
+				await Util.wait(0.1)
+				queue_free()
 	
 	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
@@ -79,11 +91,14 @@ func _physics_process(delta: float) -> void:
 		
 
 func kill_player(plr : Player):
-	Signals.player_died.emit(Global.Team.Light if team_one else Global.Team.Dark)
+	Global.player_died.emit(Global.Team.Light if team_one else Global.Team.Dark)
 	plr.kill()
 
 
 func _on_body_entered(body: Node3D) -> void:
+	if body is Player:
+		if body.team_one == team_one: 
+			return 
 	if ray_cast.is_colliding():
 		stick_position = ray_cast.get_collision_point()
 		stick_normal = ray_cast.get_collision_normal()
@@ -99,26 +114,40 @@ func _on_body_entered(body: Node3D) -> void:
 	moving = false
 
 
-var max_dist : float = 1.;
+var max_dist : float = 10.0;
 #var falloff : float = 2.;
 @export var falloff : Curve;
 
 # for all of these keep in min that "up/down" is relitive
 func explode(): # forces all players within a radius away
-	for player : Player in Global.players:
-		var dir = self.position - player.position;
-		var force_mag = falloff.sample(dir.length() / max_dist)
-		player.add_force(-dir.normalized() * force_mag * 30.0)
+	for each_player : Player in Global.players:
+		var dir = global_position - each_player.global_position;
+		var force_mag = falloff.sample(clamp(dir.length()-max_dist, 0.0, 1.0))
+		print("inpt ", clamp(dir.length()-max_dist, 0.0, 1.0))
+		each_player.add_force(-dir.normalized() * force_mag * 60.0)
+		queue_free()
 	pass
 
-func create_floor_hole(): # floor hole, should also force nearby players down into new floor hole
-	Signals.create_floor_hole.emit(player_number, position, stick_normal)
-	pass
 
-func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
-	Signals.create_wall_hole.emit(player_number, position, stick_normal)
-	pass
+#func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
+	#Signals.create_wall_hole.emit(player_number, position, stick_normal)
+	#pass
 
-func create_vertical_pillar(): # creates a solid vertical pillar, players above it get forced up
-	Signals.create_vertical_pillar.emit(player_number, position, stick_normal)
-	pass
+func create_vertical_pillar():
+	var inst = VERTICAL_PILLAR.instantiate()
+	inst.flipped = player.gravity_switched
+	inst.global_position = global_position
+	player.structure_buffer.push(inst)
+	Global.map_mesh.add_child(inst)
+	queue_free()
+	
+
+func create_floor_hole():
+	var inst = FLOOR_HOLE.instantiate()
+	inst.flipped = player.gravity_switched
+	inst.global_position = global_position
+	inst.point_towards = global_position + vel
+	#inst.point_towards = global_position * 2 - player.global_position 
+	player.structure_buffer.push(inst)
+	Global.map_mesh.add_child(inst)
+	queue_free()

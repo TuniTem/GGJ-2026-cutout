@@ -15,7 +15,6 @@ const PROJECTILE = preload("uid://dgpicqgfhtwwf")
 @export var model_projectile_spawn: Marker3D
 @export var animation_player: AnimationPlayer
 @export var flip_anim: AnimationPlayer
-@export var model_helper : ModelHelper
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -23,8 +22,8 @@ const FOV = 100
 # movement
 const MAX_SPEED = 20.0
 const ACCEL = 30.0
-const GRAVITY = 15.0
-const TERMINAL_VELOCITY = 30.0
+const GRAVITY = 20.0
+const TERMINAL_VELOCITY = 60.0
 const WEAK_DRAG = 20.0
 const STRONG_DRAG = 40.0
 const MEGA_DRAG = 100.0
@@ -46,7 +45,11 @@ var gravity_switched : bool = false:
 		if val != gravity_switched:
 			SFX.play("swap")
 			add_force(Vector3(0, 2, 0) * (2 * int(gravity_switched) - 1))
+		
+		rotate_y(PI)
 		gravity_switched = val
+		
+		
 var vel2D : Vector2 = Vector2.ZERO
 
 # alt move
@@ -76,20 +79,29 @@ const ZOOM_SPEED = 10.0
 const ZOOM_SENSITIVITY_EFFECT = 0.5
 var zoom : bool = false
 var team_one : bool = false
+
 #in seconds
 var SHOOTING_COOLDOWN = 0.5
 var can_shoot = true
+
 # shooting
+const MAX_STRUCTURES = 3
+
 var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
 var active_projectile : Area3D
 var look_dir : Vector2
+var structure_buffer : Buffer
+
+
 @onready var elipso_anim: AnimationPlayer = $Ecliplso/ElipsoAnim
 @onready var animaman: AnimationTree = $Ecliplso/ElipsoAnim/animaman
 
 func _init() -> void:
 	Global.players.append(self)
 	player_number = Global.get_player_number(self)
-	set_collision_layer_value(player_number + 1, true)
+	#set_collision_layer_value(player_number + 1, true)
+	
+	print(collision_layer)
 	device_id = Global.request_controller_id(self)
 	print(device_id)
 	
@@ -97,13 +109,36 @@ func _init() -> void:
 		using_controller = false
 
 func _ready() -> void:
-	set_collision_layer_value(2, team_one)
-	set_collision_layer_value(1, not team_one)
+	scale = Vector3.ONE * 1.5
+	skeleton = eclipso_skeleton
+	structure_buffer = Buffer.new(MAX_STRUCTURES, Buffer.Type.NODE_METHOD)
+	structure_buffer.set_method("kill")
+	
 	var mask = 20 - player_number
 	camera.set_cull_mask_value(mask, false)
-	model_helper.disable_for_player(1, false)
-	model_helper.disable_for_player(mask, true)
 	
+	for child : MeshInstance3D in eclipso_skeleton.get_children():# + lunaire_skeleton.get_children():
+		child.set_layer_mask_value(1, false)
+		child.set_layer_mask_value(mask, true)
+
+var skeleton : Skeleton3D
+@export var team_body_textures = [load("uid://bm7keia12tqe0"), load("uid://dqbwxi48e8nqa")]
+
+@export var eclipso_skeleton : Skeleton3D 
+@export var lunaire_skeleton : Skeleton3D 
+@export var eclipso_skin : Node3D
+@export var lunaire_skin : Node3D
+
+func set_team_colors(team : Global.Team):
+	if team == Global.Team.Dark:
+		eclipso_skin.show()
+		lunaire_skin.hide()
+	
+	else:
+		eclipso_skin.hide()
+		lunaire_skin.show()
+
+
 
 func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
@@ -117,6 +152,7 @@ var footstep_timer : float = FOOTSTEP_INTERVAL
 var suffocate_timer : float = SUFFOCATE_TIME
 const SUFFOCATE_TIME = 10.0
 func _physics_process(delta: float) -> void:
+	charge = 1.0
 	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)):
 		if active_projectile and active_projectile.inactive < 0:
 			SFX.play("explode")
@@ -176,7 +212,7 @@ func _physics_process(delta: float) -> void:
 		
 		velocity.z = vel2D.x * delta * 60.0
 		velocity.x = vel2D.y * delta * 60.0
-		velocity.y -= GRAVITY * delta * (1 + (velocity.y / TERMINAL_VELOCITY)) * gravity_mult()
+		velocity.y -= GRAVITY * delta * gravity_mult() #* (1 + (velocity.y / TERMINAL_VELOCITY)) 
 		
 		if is_movement_ctrl_pressed and movement_ctrl_timer > 0.0:
 			velocity.y = 0
@@ -302,7 +338,7 @@ func _input(event: InputEvent) -> void:
 		if active_projectile:
 			SFX.play("hole")
 			active_projectile.create_floor_hole()
-			active_projectile.explode()
+			#active_projectile.explode()
 			active_projectile.queue_free()
 				
 	
@@ -358,6 +394,7 @@ func add_force(force: Vector3):
 
 var is_dead : bool = false
 func kill():
+	print_stack()
 	global_position = Vector3(0.0, 50.0, 0.0) * (float(team_one) * 2 - 1)
 	#if not is_dead:
 		#is_dead = true

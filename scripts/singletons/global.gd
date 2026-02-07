@@ -5,10 +5,17 @@ enum ProjectileType {
 	LOW_VELOCITY
 }
 
+signal start_splitscreen
+signal game_start
+signal game_win
+signal player_died(team : Global.Team)
+
 var projectile_parent : Node3D
 
 var players : Array[CharacterBody3D] = []
 var avalible_controllers : Array[int] = []
+
+var map_mesh : CSGMesh3D
 
 #Multiplayer Settings
 var player_count = 2
