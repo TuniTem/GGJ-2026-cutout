@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cisjs87w3mxsx" path="res://scripts/projectile.gd" id="1_46mfb"]
 
 [sub_resource type="Curve" id="Curve_46mfb"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.53386456, 0.53601027), -1.8141781, -1.8141781, 0, 0, Vector2(0.75697213, 0), -1.2966362, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0.47819626), 0.0, 8.039644, 0, 0, Vector2(0.08205128, 1), 0.0, 0.0, 0, 0, Vector2(0.5820513, 0.5894736), -2.99094, -2.99094, 0, 0, Vector2(1, 0), -0.27915508, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46mfb"]
 transparency = 1
@@ -26,6 +26,7 @@ point_count = 3
 radius = 0.1
 
 [node name="Projectile" type="Area3D" unique_id=1817545327 node_paths=PackedStringArray("model", "ray_cast")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_46mfb")
 model = NodePath("Model")
 ray_cast = NodePath("RayCast")

@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cxvxmvjee4kp1"]
+
+[ext_resource type="Shader" uid="uid://cmltjwki481ay" path="res://GodotUtils/Shaders/normal_expand.gdshader" id="1_86akv"]
+[ext_resource type="Shader" uid="uid://bms387uvtivuo" path="res://GodotUtils/Shaders/fresnel.gdshader" id="1_88evx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dapt3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_88evx")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/transparency = 50.0
+shader_parameter/amount = 4.0
+shader_parameter/intensity = 4.5
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_dapt3")
+shader = ExtResource("1_86akv")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/transparency = 0.5
+shader_parameter/thickness = 0.049999998882399976
