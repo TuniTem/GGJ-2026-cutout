@@ -4,17 +4,28 @@ extends CharacterBody3D
 var ui : Control
 
 var player_number : int = -1
-var using_controller : bool = true
+var using_controller : bool = false
 var device_id: int = -1
 var song_leader : bool = false
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
-
+@export_category("Node")
 @export var crosshair : DrawCrosshair 
 @export var actual_projectile_spawn: Marker3D
 @export var model_projectile_spawn: Marker3D
 @export var animation_player: AnimationPlayer
 @export var flip_anim: AnimationPlayer
+@export var camera : Camera3D
+@export var game_ui : Control
+
+@export_category("Skin")
+@export var team_body_textures = [load("uid://bm7keia12tqe0"), load("uid://dqbwxi48e8nqa")]
+
+@export var eclipso_skeleton : Skeleton3D 
+@export var lunaire_skeleton : Skeleton3D 
+@export var eclipso_skin : Node3D
+@export var lunaire_skin : Node3D
+
 
 const SENSITIVITY = 1.0
 const FOV = 100
@@ -30,7 +41,7 @@ const MEGA_DRAG = 100.0
 const DEADZOME = 0.1
 const Y_CLAMP = [-PI / 2.0 - 0.1, PI / 2.0 - 0.1]
 
-@export var camera : Camera3D
+
 
 const JUMP_VEL = 7.5
 
@@ -46,7 +57,8 @@ var gravity_switched : bool = false:
 			SFX.play("swap")
 			add_force(Vector3(0, 2, 0) * (2 * int(gravity_switched) - 1))
 		
-		rotate_y(PI)
+		rotation.y += PI
+		#look_dir.reflect(=)
 		gravity_switched = val
 		
 		
@@ -86,6 +98,13 @@ var can_shoot = true
 
 # shooting
 const MAX_STRUCTURES = 3
+@export_category("Aim Assist")
+@export var enable_aim_assist : bool = true
+@export var aim_assit_kbm : bool = true
+@export var speed_based : bool = true
+@export var controller_assist_curve : Curve
+@export var keyboard_assist_curve : Curve
+@export_range(0.0, 20.0, 0.1) var max_assist_angle_degrees : float
 
 var projectile_mode : Global.ProjectileType = Global.ProjectileType.LOW_VELOCITY
 var active_projectile : Area3D
@@ -122,12 +141,6 @@ func _ready() -> void:
 		child.set_layer_mask_value(mask, true)
 
 var skeleton : Skeleton3D
-@export var team_body_textures = [load("uid://bm7keia12tqe0"), load("uid://dqbwxi48e8nqa")]
-
-@export var eclipso_skeleton : Skeleton3D 
-@export var lunaire_skeleton : Skeleton3D 
-@export var eclipso_skin : Node3D
-@export var lunaire_skin : Node3D
 
 func set_team_colors(team : Global.Team):
 	if team == Global.Team.Dark:
@@ -151,7 +164,21 @@ const FOOTSTEP_INTERVAL = 5.0
 var footstep_timer : float = FOOTSTEP_INTERVAL
 var suffocate_timer : float = SUFFOCATE_TIME
 const SUFFOCATE_TIME = 10.0
+
+const VOLUME_MAX_VELOCITY = 40.0
 func _physics_process(delta: float) -> void:
+	if player_number != 0: return
+	#Debug.push(get_look_dir())
+	Debug.draw_vector3(velocity, global_position, self, "velocity")
+	#sfx
+	SFX.param_volume(self, "wind", velocity.length() / VOLUME_MAX_VELOCITY)
+	
+	#animations
+	if game_ui.animations.animation != "Shoot":
+		game_ui.set_anim("Idle" if vel2D.length() < IDLE_VELOCITY_THRESHOLD else "Walk")
+	
+	
+	
 	charge = 1.0
 	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)):
 		if active_projectile and active_projectile.inactive < 0:
@@ -160,7 +187,7 @@ func _physics_process(delta: float) -> void:
 			active_projectile.queue_free()
 		
 		elif can_shoot and charge > SHOOT_CHARGE_COST:
-			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; print("can shoot")
+			var c = func(): await get_tree().create_timer(SHOOTING_COOLDOWN).timeout; can_shoot = true; 
 			c.call()
 			can_shoot = false
 			charge -= SHOOT_CHARGE_COST
@@ -207,8 +234,11 @@ func _physics_process(delta: float) -> void:
 				if footstep_timer < 0.0:
 					footstep_timer += min(FOOTSTEP_INTERVAL / vel2D.length(), 0.4)
 					SFX.play("footstep")
-
-		vel2D = vel2D.normalized() * (vel2D.length() - (MEGA_DRAG if is_movement_ctrl_pressed else (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG)) * delta)
+		
+		if vel2D.length() > 0.25:
+			vel2D = vel2D.normalized() * (vel2D.length() - (MEGA_DRAG if is_movement_ctrl_pressed else (WEAK_DRAG if vel2D.length() < MAX_SPEED else STRONG_DRAG)) * delta)
+		else:
+			vel2D = Vector2.ZERO
 		
 		velocity.z = vel2D.x * delta * 60.0
 		velocity.x = vel2D.y * delta * 60.0
@@ -236,11 +266,15 @@ func _physics_process(delta: float) -> void:
 	
 	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
-		flip_anim.play("swap_down")
+		Util.tween(self, "rotation:z", rotation.z - PI, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
+		rotate_y(PI)
+		#flip_anim.play("swap_down")
 	
 	if position.y > 0 and gravity_switched:
 		gravity_switched = false
-		flip_anim.play("swap_up")
+		Util.tween(self, "rotation:z", rotation.z - PI, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
+		rotate_y(PI)
+		#flip_anim.play("swap_up")
 	
 	
 	if using_controller:
@@ -386,8 +420,6 @@ func _input(event: InputEvent) -> void:
 		
 var mouse_captured: bool = true
 
-@export var game_ui : Control
-
 func add_force(force: Vector3):
 	velocity.y += force.y
 	vel2D += Vector2(force.z, force.x)
@@ -414,12 +446,57 @@ func kill():
 func shoot():
 	if active_projectile : active_projectile.queue_free()
 	var inst = PROJECTILE.instantiate()
+	# init 
 	inst.position = actual_projectile_spawn.global_position
 	inst.team_one = team_one
 	inst.type = projectile_mode
-	inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
+	
 	inst.model_start_pos = model_projectile_spawn.global_position
 	inst.player_number = player_number
 	inst.init_vel = velocity
+	
+	# aim assist
+	
+	if inst.type == Global.ProjectileType.LOW_VELOCITY or not enable_aim_assist or (not using_controller and not aim_assit_kbm):
+		# no aim assist for low velocity shots or if its disabled for something
+		inst.direction = camera.global_position.direction_to(actual_projectile_spawn.global_position)
+	else:
+		var inital_shoot_direction : Vector3 = camera.global_position.direction_to(actual_projectile_spawn.global_position)
+		var global_player_positions : Array[Vector3]
+		var player_velocities : Array[Vector3]
+		for player : Player in Global.players:
+			if player != self:
+				global_player_positions.append(player.global_position)
+				player_velocities.append(player.velocity)
+		
+		if global_player_positions.size() != 0:
+			inst.direction = Util.projectile_aim_assist3d(
+				global_player_positions, # list of player positions
+				player_velocities, # list of player velocities
+				inst.position, # bullet position
+				inital_shoot_direction, # the aim direction
+				inst.PROJECTILE_STATS[Global.ProjectileType.HIGH_VELOCITY]["speed"], # projectile speed
+				max_assist_angle_degrees, # max correction angle
+				true, # target must be visible
+				0.3, # allow people to shoot directly at moving targets, even if thats dumb, I dont wanna snap an unled target to a led one
+				controller_assist_curve if using_controller else keyboard_assist_curve # curve to modulate how the assist works
+			)
+	Debug.draw_vector3(inst.direction * 3.0, inst.position, self, "", Color.YELLOW)
+	Debug.draw_vector3(camera.global_position.direction_to(actual_projectile_spawn.global_position) * 3.0, inst.position, self, "", Color.GREEN)
+	
+	
 	Global.projectile_parent.add_child(inst)
 	active_projectile = inst
+	
+	game_ui.set_anim("Shoot")
+	await game_ui.animations.animation_finished
+	game_ui.set_anim("Idle" if vel2D.length() < IDLE_VELOCITY_THRESHOLD else "Walk")
+
+
+func set_debug_pos(to : Vector3):
+	var debug_pos : MeshInstance3D = $DebugPos
+	debug_pos.show()
+	debug_pos.global_position = to
+
+
+const IDLE_VELOCITY_THRESHOLD = 0.5

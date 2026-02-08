@@ -20,4 +20,4 @@ next_pass = SubResource("ShaderMaterial_dapt3")
 shader = ExtResource("1_86akv")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/transparency = 0.5
-shader_parameter/thickness = 0.049999998882399976
+shader_parameter/thickness = 0.04999999888239997

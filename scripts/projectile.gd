@@ -44,12 +44,6 @@ func gravity_mult() -> float:
 
 func _ready() -> void:
 	player = Global.players[player_number]
-	#set_collision_mask_value(2, team_one)
-	#set_collision_mask_value(3, not team_one)
-	#set_collision_layer_value(2, team_one)
-	#set_collision_layer_value(3, not team_one)
-	print("mask:", collision_mask)
-	
 	match type:
 		Global.ProjectileType.HIGH_VELOCITY:
 			SFX.play("shoot_high")
@@ -114,7 +108,7 @@ func _on_body_entered(body: Node3D) -> void:
 	moving = false
 
 
-var max_dist : float = 10.0;
+var max_dist : float = 20.0;
 #var falloff : float = 2.;
 @export var falloff : Curve;
 

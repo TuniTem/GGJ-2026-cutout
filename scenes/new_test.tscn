@@ -4,15 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://art/3D/levels/battleground/battleground.tscn" id="2_dqn74"]
 [ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://scenes/crosshair.tscn" id="3_dqn74"]
 
+[sub_resource type="Curve" id="Curve_dqn74"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.6154616, 0.0, 0, 0]
+point_count = 2
+
 [node name="NewTest" type="Node3D" unique_id=707393687]
 
 [node name="Player" parent="." unique_id=606600753 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, 0)
 crosshair = NodePath("../Crosshair")
 
-[node name="Player2" parent="." unique_id=666396625 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, -1.4638186)
+[node name="Player2" parent="." unique_id=937476476 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.272226, 11.513176, 0)
 crosshair = NodePath("../Crosshair")
+controller_assist_curve = SubResource("Curve_dqn74")
 
 [node name="BattleGround" parent="." unique_id=996328523 instance=ExtResource("2_dqn74")]
 

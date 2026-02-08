@@ -177,7 +177,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("41_72doe")
 }],
-"loop": true,
+"loop": false,
 "name": &"Shoot",
 "speed": 24.0
 }, {
@@ -418,9 +418,8 @@ grow_vertical = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=1294292947]
 position = Vector2(19.000004, 19.99999)
-scale = Vector2(3.992, 3.992)
+scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_4keta")
 animation = &"Walk"
 autoplay = "Idle"
-frame = 4
-frame_progress = 0.49307704
+frame_progress = 0.27728173

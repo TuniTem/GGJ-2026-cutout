@@ -16,41 +16,6 @@ data = PackedVector3Array(24.4991, 20, -50, -0.0008, -0.00029999999, -50, -0.000
 transparency = 1
 albedo_color = Color(1, 1, 1, 0)
 
-[sub_resource type="GDScript" id="GDScript_k0d8u"]
-script/source = "extends Node
-
-
-
-func _ready() -> void:
-	pass
-
-#var player_holes : Dictionary[int, Array]
-#const MAX_HOLES_PER_PLAYER = 10
-
-#func _on_create_explosion_hole(lifetime : float, position : Vector3):
-	#var hole = CSGSphere3D.new()
-	#hole.position = position
-	#hole.operation = CSGShape3D.OPERATION_SUBTRACTION
-	#
-	#var tween = create_tween()
-	#tween.tween_method(hole, \"radius\", 30., 1.)
-	#tween.tween_method(hole, \"radius\", 0, lifetime)
-	#tween.tween_callback(hole.queue_free)
-	#pass
-
-#func _on_create_floor_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
-	#create_pillar(CSGShape3D.OPERATION_SUBTRACTION, Vector3(8, 999, 8), player_number, position, direction)
-	#pass
-#
-#func _on_create_vertical_pillar(player_number : int, position : Vector3, direction : Vector3) -> void:
-	#create_pillar(CSGShape3D.OPERATION_UNION, Vector3(5, 25, 5), player_number, position, direction)
-	#pass
-#
-#func _on_create_wall_hole(player_number : int, position : Vector3, direction : Vector3) -> void:
-	#pass
-	
-"
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xbnlr"]
 sky_top_color = Color(1, 1, 1, 1)
 sky_curve = 1e-05
@@ -250,9 +215,6 @@ mesh = ExtResource("2_cv4vl")
 surface_material_override/1 = SubResource("StandardMaterial3D_xbnlr")
 
 [node name="BulletParent" parent="." unique_id=1790441051 instance=ExtResource("3_l57hg")]
-
-[node name="CutoutManager" type="Node" parent="." unique_id=804179181]
-script = SubResource("GDScript_k0d8u")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2067059043]
 environment = SubResource("Environment_uj0mu")
