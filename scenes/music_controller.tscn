@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://1x87uomlu2bq"]
 
 [ext_resource type="Script" uid="uid://dj4lbjnskwcgo" path="res://scripts/music_controller.gd" id="1_626dp"]
+[ext_resource type="AudioBusLayout" uid="uid://5y5oa3g4rrpn" path="res://audio/bus_layout.tres" id="2_ftu3d"]
 [ext_resource type="AudioStream" uid="uid://cym5t1nlcyxbu" path="res://audio/music/RAVE STYLE - MUSIC 2 BASIC.mp3" id="2_nj8bd"]
+[ext_resource type="Script" uid="uid://b3ysetbg00u5d" path="res://GodotUtils/Nodes/AudioImplementation/volume_property.gd" id="3_3sy7t"]
 [ext_resource type="AudioStream" uid="uid://c3qtdfj73v2gh" path="res://audio/music/RAVE STYLE - MUSIC 2 ADV.mp3" id="3_6tkak"]
 [ext_resource type="AudioStream" uid="uid://bhr7nhlcsy7u1" path="res://audio/music/RAVE STYLE DARK WORLD - MUSIC - 138BPM.mp3" id="4_aba1o"]
 [ext_resource type="AudioStream" uid="uid://db53du2gb3qmb" path="res://audio/music/RAVE STYLE LIGHT WORLD - MUSIC.mp3" id="5_3sy7t"]
+[ext_resource type="Script" uid="uid://brj3tglxkc85e" path="res://GodotUtils/Nodes/AudioImplementation/rhythm_notifier.gd" id="8_nudl1"]
 
 [sub_resource type="Animation" id="Animation_45i4s"]
 length = 0.001
@@ -43,8 +46,10 @@ _data = {
 &"slow": SubResource("Animation_2c4pe")
 }
 
-[node name="MusicController" type="Node" unique_id=262820294]
+[node name="MusicController" type="Node" unique_id=262820294 node_paths=PackedStringArray("tempo")]
 script = ExtResource("1_626dp")
+bus_layout = ExtResource("2_ftu3d")
+tempo = NodePath("Tempo")
 
 [node name="Basic" type="AudioStreamPlayer" parent="." unique_id=2101597486]
 unique_name_in_owner = true
@@ -52,6 +57,8 @@ stream = ExtResource("2_nj8bd")
 volume_db = -19.0
 pitch_scale = 1.21
 bus = &"Music"
+script = ExtResource("3_3sy7t")
+vol_modifier = 0.4835
 
 [node name="Adv" type="AudioStreamPlayer" parent="." unique_id=674358494]
 unique_name_in_owner = true
@@ -59,26 +66,38 @@ stream = ExtResource("3_6tkak")
 volume_db = -19.0
 pitch_scale = 1.21
 bus = &"Music"
+script = ExtResource("3_3sy7t")
+vol_modifier = 0.4835
 
 [node name="Light" type="AudioStreamPlayer" parent="." unique_id=2053009825]
 unique_name_in_owner = true
 volume_db = -19.0
 pitch_scale = 1.21
 bus = &"Music"
+script = ExtResource("3_3sy7t")
+vol_modifier = 0.4835
 
 [node name="MaskOutDark" type="AudioStreamPlayer" parent="." unique_id=870052813]
 unique_name_in_owner = true
 stream = ExtResource("4_aba1o")
 volume_db = -17.5
-pitch_scale = 1.23
 bus = &"Music"
+script = ExtResource("3_3sy7t")
+vol_modifier = 0.4835
 
 [node name="MaskOutLight" type="AudioStreamPlayer" parent="." unique_id=66938714]
 unique_name_in_owner = true
 stream = ExtResource("5_3sy7t")
 volume_db = -19.0
-pitch_scale = 1.21
 bus = &"Music"
+script = ExtResource("3_3sy7t")
+vol_modifier = 0.4835
 
 [node name="Slow" type="AnimationPlayer" parent="." unique_id=1469513325]
 libraries/ = SubResource("AnimationLibrary_imobk")
+
+[node name="Tempo" type="Node" parent="." unique_id=1714454206 node_paths=PackedStringArray("audio_stream_player")]
+script = ExtResource("8_nudl1")
+audio_stream_player = NodePath("../MaskOutDark")
+
+[connection signal="beat" from="Tempo" to="." method="_on_beat"]

@@ -122,9 +122,9 @@ func _init() -> void:
 	player_number = Global.get_player_number(self)
 	#set_collision_layer_value(player_number + 1, true)
 	
-	print(collision_layer)
+	#print(collision_layer)
 	device_id = Global.request_controller_id(self)
-	print(device_id)
+	#print(device_id)
 	
 	if device_id == -1:
 		using_controller = false
@@ -171,7 +171,7 @@ const SUFFOCATE_TIME = 10.0
 
 const VOLUME_MAX_VELOCITY = 40.0
 func _physics_process(delta: float) -> void:
-	print(velocity.length())
+	#print(velocity.length())
 	Debug.draw_vector3(velocity, global_position, self, "velocity")
 	if player_number != 0: return
 	#Debug.push(get_look_dir())
@@ -186,7 +186,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	charge = 1.0
-	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)):
+	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)) and Util.input_group == "default":
 		if active_projectile and active_projectile.inactive < 0:
 			SFX.play("explode")
 			active_projectile.explode()
@@ -232,7 +232,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			dir = Vector2(Input.get_action_strength("forward_" + str(device_id)) - Input.get_action_strength("backward_" + str(device_id)), 
 			(Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))) * gravity_mult()).normalized()
-			
+		
+		if Util.input_group != "default": dir = Vector2.ZERO
+		
 		if dir.length() > DEADZOME:
 			vel2D += dir.rotated(rotation.y + PI) * delta * ACCEL
 			if (is_on_ceiling() and gravity_switched) or (is_on_floor() and not gravity_switched):
@@ -285,7 +287,7 @@ func _physics_process(delta: float) -> void:
 		#flip_anim.play("swap_up")
 	
 	
-	if using_controller:
+	if using_controller and Util.input_group == "default":
 		look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
 		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id)))
 			
@@ -320,7 +322,7 @@ func get_look_dir():
 
 var shot : bool = false
 func _input(event: InputEvent) -> void:
-	if is_dead: return
+	if is_dead or Util.input_group != "default": return
 	#print(event.device)
 	if not using_controller:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -418,9 +420,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("jump"):	
 		is_jump_pressed = false
 	
-	if event.is_action_pressed("test"):
-		mouse_captured = !mouse_captured
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
+	#if event.is_action_pressed("test"):
+		#mouse_captured = !mouse_captured
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if mouse_captured else Input.MOUSE_MODE_VISIBLE
 	
 	if event.is_action_pressed("switch_velocity"):
 		projectile_mode = Global.ProjectileType.HIGH_VELOCITY if projectile_mode == Global.ProjectileType.LOW_VELOCITY else Global.ProjectileType.LOW_VELOCITY

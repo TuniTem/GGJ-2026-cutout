@@ -1,28 +1,136 @@
 [gd_scene format=3 uid="uid://du80g1drnos2i"]
 
 [ext_resource type="Script" uid="uid://bmkey81pwk6ec" path="res://scripts/pause_menu.gd" id="1_50142"]
-[ext_resource type="Theme" uid="uid://de64jctvmqrfk" path="res://tres/themes/pause_theme.tres" id="2_avurv"]
 [ext_resource type="Shader" uid="uid://bdxe6w2ip2kfk" path="res://shaders/ui_blur.gdshader" id="2_ejwgg"]
 [ext_resource type="PackedScene" uid="uid://d87ma4k3epkr" path="res://scenes/main_menu.tscn" id="2_npydk"]
-[ext_resource type="Texture2D" uid="uid://m887eomrj2vi" path="res://art/ui/menu/panel_background.png" id="3_fob5h"]
 [ext_resource type="AudioStream" uid="uid://b5qd03mwlp5qm" path="res://audio/sfx/UI/UI - SCROLL.wav" id="3_j3kxr"]
 [ext_resource type="AudioStream" uid="uid://b3fwhfjc2hnl2" path="res://audio/sfx/UI/UI - SELECT 2.wav" id="4_vovkw"]
-[ext_resource type="FontFile" uid="uid://n78tuhqiigdc" path="res://art/fonts/ferritecore/FerriteCoreDX-Display.otf" id="8_fijdv"]
+[ext_resource type="FontVariation" uid="uid://bfj6wvk5xse25" path="res://art/fonts/ferritecore/FerriteWide.tres" id="5_cmnsq"]
+[ext_resource type="FontFile" uid="uid://cg25361svqw8w" path="res://art/fonts/ferritecore/FerriteCoreDX-Regular.otf" id="6_4hnlu"]
+[ext_resource type="Script" uid="uid://qa71qhfxeruu" path="res://GodotUtils/Tools/ui_parallax_controller.gd" id="6_ofnjo"]
 [ext_resource type="Texture2D" uid="uid://fon24sa63yn4" path="res://art/ui/cursor/grabber.PNG" id="9_lpidc"]
 [ext_resource type="Script" uid="uid://cguosb7oljeie" path="res://scripts/audio_slider.gd" id="10_b1mq0"]
+[ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://art/fonts/ferritecore/FerriteJagged.tres" id="10_cmnsq"]
+[ext_resource type="Script" uid="uid://dlbh1rhj8carv" path="res://GodotUtils/Tools/UIParallax/parallax_node2d.gd" id="11_1rgno"]
+[ext_resource type="Texture2D" uid="uid://cwdp6jyjogm72" path="res://art/ui/game/win screen/Splat.png" id="11_cmnsq"]
+[ext_resource type="Material" uid="uid://dhuyfmied3785" path="res://tres/mats/PauseFX.tres" id="13_1rgno"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fob5h"]
 shader = ExtResource("2_ejwgg")
 shader_parameter/radius = 6.0
 shader_parameter/strength = 1.0
 
-[sub_resource type="FontVariation" id="FontVariation_reb5t"]
-base_font = ExtResource("8_fijdv")
-spacing_glyph = 4
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofnjo"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.08078333, 0.08078336, 0.080783255, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rgno"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hnlu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3o3g3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5b1d"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_1rgno"]
+default_font = ExtResource("5_cmnsq")
+Button/colors/font_color = Color(0.4274925, 0.4274934, 0.4274927, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0.34781694, 0.34781697, 0.3478169, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 36
+Button/styles/disabled = SubResource("StyleBoxFlat_ofnjo")
+Button/styles/focus = SubResource("StyleBoxFlat_1rgno")
+Button/styles/hover = SubResource("StyleBoxFlat_4hnlu")
+Button/styles/normal = SubResource("StyleBoxFlat_3o3g3")
+Button/styles/pressed = SubResource("StyleBoxFlat_h5b1d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avs0h"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_jcxce"]
 line_spacing = 3.029
-font = SubResource("FontVariation_reb5t")
+font = ExtResource("5_cmnsq")
 font_size = 33
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
@@ -49,11 +157,45 @@ content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0, 0, 0, 1)
 
-[node name="PauseMenu" type="CanvasLayer" unique_id=349166431]
+[sub_resource type="LabelSettings" id="LabelSettings_4hnlu"]
+paragraph_spacing = 2.399
+font = ExtResource("10_cmnsq")
+font_size = 101
+font_color = Color(1, 1, 1, 0.5019608)
+stacked_outline_count = 2
+stacked_outline_1/size = -183
+stacked_outline_1/color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_avs0h"]
+paragraph_spacing = 2.399
+font = ExtResource("10_cmnsq")
+font_size = 83
+stacked_outline_count = 2
+stacked_outline_1/size = 30
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1rgno"]
+random_pitch = 1.1211661
+streams_count = 1
+stream_0/stream = ExtResource("3_j3kxr")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4hnlu"]
+random_pitch = 1.4093207
+streams_count = 1
+stream_0/stream = ExtResource("4_vovkw")
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=349166431 node_paths=PackedStringArray("button_hover_sfx", "button_click_sfx")]
 script = ExtResource("1_50142")
 level_to_load = ExtResource("2_npydk")
-button_hover_sfx = ExtResource("3_j3kxr")
-button_click_sfx = ExtResource("4_vovkw")
+button_hover_sfx = NodePath("ButtonHover")
+button_click_sfx = NodePath("ButtonClick")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1490438199]
+material = SubResource("ShaderMaterial_fob5h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Control" type="Control" parent="." unique_id=1545034039]
 layout_mode = 3
@@ -62,49 +204,194 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_avurv")
-
-[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1490438199]
-z_index = -1
-material = SubResource("ShaderMaterial_fob5h")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_fob5h")
+theme = SubResource("Theme_1rgno")
+script = ExtResource("6_ofnjo")
+parallax_intensity = 4.1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=22129075]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 351.0
-offset_top = 159.0
-offset_right = -351.0
-offset_bottom = -159.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -219.5
+offset_right = 516.0
+offset_bottom = 219.5
 grow_vertical = 2
+theme_override_constants/margin_left = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1436775297]
 layout_mode = 2
-theme_override_constants/separation = 78
+theme_override_constants/separation = 22
 
-[node name="ResumeButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=862367984]
+[node name="Resume" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=862367984]
 layout_mode = 2
-size_flags_vertical = 3
-text = "Resume"
+text = " "
 
-[node name="ResetLevelButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=521305017]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Reset Level"
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Resume" unique_id=932378298]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.0
+offset_right = 96.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[wave amp=10.0]RESUME"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MainMenuButton" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=607935970]
+[node name="QuitGame" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1232304540]
 layout_mode = 2
-size_flags_vertical = 3
-text = "Main Menu"
+text = " "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/QuitGame" unique_id=1356123759]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.0
+offset_right = 96.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[wave amp=10.0]QUIT GAME"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Host" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1086119437]
+unique_name_in_owner = true
+layout_mode = 2
+text = " "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Host" unique_id=399433989]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.0
+offset_right = 96.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[wave amp=10.0]HOST LOBBY"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Copy" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1672533333]
+unique_name_in_owner = true
+layout_mode = 2
+text = " "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Copy" unique_id=1378328242]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.0
+offset_right = 96.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[wave amp=10.0]HOST LOBBY"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Join" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=396920069]
+layout_mode = 2
+text = " "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Join" unique_id=1581152360]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -20.0
+offset_right = 96.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 33
+bbcode_enabled = true
+text = "[wave amp=10.0]JOIN LOBBY"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/Join" unique_id=1603914656]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="LobbyCode" type="LineEdit" parent="Control/MarginContainer/VBoxContainer/Join/MarginContainer" unique_id=1308316227]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme_override_constants/caret_width = 3
+theme_override_fonts/font = ExtResource("6_4hnlu")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/read_only = SubResource("StyleBoxFlat_avs0h")
+theme_override_styles/focus = SubResource("StyleBoxFlat_avs0h")
+placeholder_text = " > Paste lobby code..."
+caret_blink = true
+caret_force_displayed = true
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1583858627]
 layout_mode = 2
@@ -160,13 +447,94 @@ value = 0.5
 script = ExtResource("10_b1mq0")
 bus = "SFX"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1742004907]
+[node name="Control2" type="Control" parent="Control" unique_id=1992179245]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
 
-[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/ResetLevelButton" to="." method="_on_reset_level_button_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/ResetLevelButton" to="." method="_on_reset_level_button_pressed"]
-[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_mouse_entered"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[node name="BigText" type="Label" parent="Control/Control2" unique_id=944832704]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = -517.8304
+offset_top = -25.858017
+offset_right = 18.169617
+offset_bottom = 96.14198
+rotation = 0.2944084
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_4hnlu")
+script = ExtResource("11_1rgno")
+parallax_layer = 6
+
+[node name="SmallText" type="Label" parent="Control/Control2" unique_id=519579728]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = -473.83038
+offset_top = -2.858017
+offset_right = -32.830322
+offset_bottom = 97.14198
+rotation = 0.2944084
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_avs0h")
+script = ExtResource("11_1rgno")
+
+[node name="Splat" type="Sprite2D" parent="Control/Control2" unique_id=1548989168]
+unique_name_in_owner = true
+z_index = -1
+position = Vector2(-227, 28)
+rotation = 0.45710424
+scale = Vector2(0.6379239, 0.6379239)
+texture = ExtResource("11_cmnsq")
+script = ExtResource("11_1rgno")
+parallax_layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=694475544]
+z_index = -6
+material = ExtResource("13_1rgno")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="." unique_id=718733850]
+stream = SubResource("AudioStreamRandomizer_1rgno")
+volume_db = -24.3195
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="." unique_id=562622666]
+stream = SubResource("AudioStreamRandomizer_4hnlu")
+volume_db = -17.5443
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/Resume" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/QuitGame" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/Host" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/Copy" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Copy" to="." method="_on_copy_pressed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/Join" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="text_submitted" from="Control/MarginContainer/VBoxContainer/Join/MarginContainer/LobbyCode" to="." method="_on_lobby_code_text_submitted"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer/HSlider" to="." method="_on_mouse_entered"]
 [connection signal="value_changed" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer/HSlider" to="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer/HSlider" method="_on_value_changed"]
+[connection signal="mouse_entered" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2/HSlider3" to="." method="_on_mouse_entered"]
 [connection signal="value_changed" from="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2/HSlider3" to="Control/MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer2/HSlider3" method="_on_value_changed"]

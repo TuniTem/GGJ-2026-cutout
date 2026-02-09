@@ -22,7 +22,7 @@ controller_assist_curve = SubResource("Curve_dqn74")
 [node name="BattleGround" parent="." unique_id=996328523 instance=ExtResource("2_dqn74")]
 
 [node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("3_dqn74")]
-position = Vector2(764, 303)
+position = Vector2(1, 1)
 rotation = 0.0
 ROTATION = 0.0
 FREE_ROTATION = 0.0

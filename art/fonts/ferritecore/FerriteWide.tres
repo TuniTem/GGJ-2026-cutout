@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" format=3 uid="uid://bfj6wvk5xse25"]
+
+[ext_resource type="FontFile" uid="uid://n78tuhqiigdc" path="res://art/fonts/ferritecore/FerriteCoreDX-Display.otf" id="1_a8f5k"]
+
+[resource]
+base_font = ExtResource("1_a8f5k")
+spacing_glyph = 4
