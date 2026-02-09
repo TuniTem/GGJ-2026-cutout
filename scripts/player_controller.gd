@@ -3,9 +3,9 @@ extends CharacterBody3D
 
 var ui : Control
 
-var player_number : int = -1
+#var player_number : int = -1
 var using_controller : bool = false
-var device_id: int = -1
+#var device_id: int = -1
 var song_leader : bool = false
 
 const PROJECTILE = preload("uid://dgpicqgfhtwwf")
@@ -118,15 +118,15 @@ var structure_buffer : Buffer
 @onready var animaman: AnimationTree = $Ecliplso/ElipsoAnim/animaman
 
 func _init() -> void:
-	Global.players.append(self)
-	player_number = Global.get_player_number(self)
+	Global.player = self
+	#player_number = Global.get_player_number(self)
 	#set_collision_layer_value(player_number + 1, true)
 	
 	#print(collision_layer)
-	device_id = Global.request_controller_id(self)
+	#device_id = Global.request_controller_id(self)
 	#print(device_id)
 	
-	if device_id == -1:
+	if Input.get_connected_joypads().size() == 0:
 		using_controller = false
 
 func _ready() -> void:
@@ -137,16 +137,18 @@ func _ready() -> void:
 	structure_buffer = Buffer.new(MAX_STRUCTURES, Buffer.Type.NODE_METHOD)
 	structure_buffer.set_method("kill")
 	
-	var mask = 20 - player_number
-	camera.set_cull_mask_value(mask, false)
+	#var mask = 20 - player_number
+	#camera.set_cull_mask_value(mask, false)
 	
-	for child : MeshInstance3D in eclipso_skeleton.get_children():# + lunaire_skeleton.get_children():
-		child.set_layer_mask_value(1, false)
-		child.set_layer_mask_value(mask, true)
+	#for child : MeshInstance3D in eclipso_skeleton.get_children():# + lunaire_skeleton.get_children():
+		#child.set_layer_mask_value(1, false)
+		#child.set_layer_mask_value(mask, true)
 
 var skeleton : Skeleton3D
 
 func set_team_colors(team : Global.Team):
+	eclipso_skin.hide()
+	return
 	if team == Global.Team.Dark:
 		eclipso_skin.show()
 		lunaire_skin.hide()
@@ -170,10 +172,13 @@ var suffocate_timer : float = SUFFOCATE_TIME
 const SUFFOCATE_TIME = 10.0
 
 const VOLUME_MAX_VELOCITY = 40.0
+
+var previous_position : Vector3 = Vector3.ZERO
+var previous_rotation : Vector3
 func _physics_process(delta: float) -> void:
 	#print(velocity.length())
 	Debug.draw_vector3(velocity, global_position, self, "velocity")
-	if player_number != 0: return
+	#if player_number != 0: return
 	#Debug.push(get_look_dir())
 	
 	#sfx
@@ -186,7 +191,8 @@ func _physics_process(delta: float) -> void:
 	
 	
 	charge = 1.0
-	if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)) and Util.input_group == "default":
+	#if Input.is_action_just_pressed("primary_" + str(device_id if device_id != -1 else 0)) and Util.input_group == "default":
+	if Input.is_action_just_pressed("primary_0") and Util.input_group == "default":
 		if active_projectile and active_projectile.inactive < 0:
 			SFX.play("explode")
 			active_projectile.explode()
@@ -230,8 +236,10 @@ func _physics_process(delta: float) -> void:
 			dir = Vector2(Input.get_action_strength("forward") - Input.get_action_strength("backward"), 
 			(Input.get_action_strength("left") - Input.get_action_strength("right")) * gravity_mult()).normalized()
 		else:
-			dir = Vector2(Input.get_action_strength("forward_" + str(device_id)) - Input.get_action_strength("backward_" + str(device_id)), 
-			(Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))) * gravity_mult()).normalized()
+				#dir = Vector2(Input.get_action_strength("forward_" + str(device_id)) - Input.get_action_strength("backward_" + str(device_id)), 
+			#(Input.get_action_strength("left_" + str(device_id)) - Input.get_action_strength("right_" + str(device_id))) * gravity_mult()).normalized()
+			dir = Vector2(Input.get_action_strength("forward_0") - Input.get_action_strength("backward_0"), 
+			(Input.get_action_strength("left_0") - Input.get_action_strength("right_0")) * gravity_mult()).normalized()
 		
 		if Util.input_group != "default": dir = Vector2.ZERO
 		
@@ -288,8 +296,10 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if using_controller and Util.input_group == "default":
-		look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
-		Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id)))
+		#look_dir = -Vector2((Input.get_action_strength("look_left_" + str(device_id)) - Input.get_action_strength("look_right_" + str(device_id))) * gravity_mult(),
+		#Input.get_action_strength("look_up_" + str(device_id)) - Input.get_action_strength("look_down_" + str(device_id)))
+		look_dir = -Vector2((Input.get_action_strength("look_left_0") - Input.get_action_strength("look_right_0")) * gravity_mult(),
+		Input.get_action_strength("look_up_0") - Input.get_action_strength("look_down_0"))
 			
 		if not Util.fzero(look_dir.length()):
 			var delta_look_dir = look_dir * SENSITIVITY * delta * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0) * 5.0
@@ -302,6 +312,17 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerpf(camera.fov, FOV * ZOOM_AMMOUNT, delta * ZOOM_SPEED)
 	else:
 		camera.fov = lerpf(camera.fov, FOV, delta * ZOOM_SPEED)
+	
+	
+	if previous_position != global_position:
+		Net.send_staggered_packet(Net.SendType.ALL_EXCLUSIVE, Net.PacketType.POSITION, global_position, "position", self, 2)
+		Net.send_staggered_packet(Net.SendType.ALL_EXCLUSIVE, Net.PacketType.VELOCITY, velocity,  "velocity", self, 2)
+	
+	if previous_rotation != global_rotation:
+		Net.send_staggered_packet(Net.SendType.ALL_EXCLUSIVE, Net.PacketType.LOOK_DIR, global_rotation, "rotation", self, 2)
+	
+	previous_position = global_position
+	previous_rotation = global_rotation
 
 func jump():
 	SFX.play("jump")
@@ -329,8 +350,8 @@ func _input(event: InputEvent) -> void:
 			var delta_look_dir = event.relative * SENSITIVITY * 0.005 * (ZOOM_SENSITIVITY_EFFECT if zoom else 1.0)
 			rotation.y += -delta_look_dir.x * gravity_mult()
 			camera.rotation.x = clamp(camera.rotation.x - delta_look_dir.y, Y_CLAMP[0], Y_CLAMP[1])
-	else:
-		if device_id != event.device: return
+	#else:
+		#if device_id != event.device: return
 		
 		#dir = Vector2(event.get_action_strength("forward_" + str(device_id)) - event.get_action_strength("backward_" + str(device_id)), 
 			#event.get_action_strength("left_" + str(device_id)) - event.get_action_strength("right_" + str(device_id))).normalized()
@@ -463,7 +484,7 @@ func shoot():
 	inst.type = projectile_mode
 	
 	inst.model_start_pos = model_projectile_spawn.global_position
-	inst.player_number = player_number
+	#inst.player_number = player_number
 	inst.init_vel = velocity
 	
 	# aim assist
@@ -475,10 +496,9 @@ func shoot():
 		var inital_shoot_direction : Vector3 = camera.global_position.direction_to(actual_projectile_spawn.global_position)
 		var global_player_positions : Array[Vector3]
 		var player_velocities : Array[Vector3]
-		for player : Player in Global.players:
-			if player != self:
-				global_player_positions.append(player.global_position)
-				player_velocities.append(player.velocity)
+		for player : CharacterBody3D in Global.ghost_players:
+			global_player_positions.append(player.global_position)
+			player_velocities.append(player.internal_velicity)
 		
 		if global_player_positions.size() != 0:
 			inst.direction = Util.projectile_aim_assist3d(

@@ -19,8 +19,9 @@ func _ready() -> void:
 	ring2.scale.x = size.x + EXPAND_MARGIN 
 	ring2.scale.z = size.z + EXPAND_MARGIN 
 	
-	
-	for player in Global.players:
+	var combined : Array = Global.ghost_players
+	combined.append(Global.player)
+	for player : CharacterBody3D in combined:
 		var pos : Vector3 = player.global_position
 		var loc : Vector3 = global_position
 		

@@ -19,6 +19,7 @@ enum PacketType {
 	HANDSHAKE,
 	LEAVE,
 	POSITION,
+	VELOCITY,
 	LOOK_DIR,
 	GAMESTATE,
 	NET_DATA
@@ -59,7 +60,7 @@ var steam_username : String = ""
 
 # NETWORK DEBUG SETTINGS
 const PRINT_PACKET_DEBUG = true
-const PRINT_PACKET_DEBUG_BLACKLIST : Array[PacketType] = [PacketType.POSITION, PacketType.LOOK_DIR]
+const PRINT_PACKET_DEBUG_BLACKLIST : Array[PacketType] = []# PacketType.POSITION, PacketType.LOOK_DIR
 
 const ARTIFICIAL_LATENCY = false
 const PERCENT_PACKET_DROP = 1
@@ -144,8 +145,8 @@ func _on_lobby_joined(id : int, perms : int, locked : int, response : int):
 		send_network_handshake()
 		
 		# remove this if ur not doing a gamestate sync
-		gamestate_recived = false
-		send(SendType.ALL_EXCLUSIVE, PacketType.GAMESTATE, {"type": "request"}, true)
+		#gamestate_recived = false
+		#send(SendType.ALL_EXCLUSIVE, PacketType.GAMESTATE, {"type": "request"}, true)
 	
 func _on_session_request(id):
 	var requester : String = Steam.getFriendPersonaName(id)
@@ -155,7 +156,6 @@ func send_network_handshake():
 	send(SendType.ALL, PacketType.HANDSHAKE, steam_username, true)
 
 func send_network_leave():
-	print("leave")
 	send(SendType.ALL_EXCLUSIVE, PacketType.LEAVE, steam_username, true)
 
 func get_lobby_players():
@@ -267,8 +267,8 @@ func read_packet(channel : int = 0, override_packet : Array = []):
 				if not player_net_data.has(sender):
 					player_net_data[sender] = NET_DATA_DEFAULT.duplicate(true)
 				
-				if sender != steam_id: # and not Global.get_puppet_player(sender) (add your own check here)
-					pass # Global.create_puppet_player(sender) (create a puppet player)
+				if sender != steam_id and not Global.get_ghost_player(sender):
+					Global.create_ghost_player(sender)
 				
 				player_joined.emit(sender)
 				return
@@ -279,7 +279,7 @@ func read_packet(channel : int = 0, override_packet : Array = []):
 				player_net_data.erase(sender)
 				
 				if sender != steam_id:
-					pass # Global.remove_puppet_player(sender) (delete puppet player)
+					Global.remove_ghost_player(sender)
 				
 				player_left.emit(sender)
 				return
@@ -292,108 +292,24 @@ func read_packet(channel : int = 0, override_packet : Array = []):
 				net_data_update.emit(sender, packet_data[0], packet_data[1])
 				return
 			
-			PacketType.GAMESTATE: # you could remove this if your game doesnt need it
-				# example object state:
-				#func serialize(requester_id):
-					#var out : Dictionary = {
-						#"scene": "res://Scenes/Machines/pump.tscn",
-						#"parent": "machine_holder",
-						#"properties": [
-							#["position", position], 
-							#["rotation", rotation], 
-							#["pressure", pressure],
-							#["battery_power", battery_power],
-							#["quality", quality],
-							#["functional", functional],
-							#["increase_variation", increase_variation],
-							#["variation_mult", variation_mult],
-							#["variation_target", variation_target],
-							#["variation_speed", variation_speed],
-							#["is_serialized_instance", true]
-						#]
-					#}
-				
-				
-				match packet_data["type"]:
-					"request":
-						clean_seralized_objects()
-						var gamestate : Array = []
-						for object : Callable in serialized_objects:
-							if object.is_valid():
-								gamestate.append(object.call(sender))
-						
-						send(SendType.ONE, PacketType.GAMESTATE, {"type": "respond", "gamestate": gamestate}, true, sender)
-					
-					"respond":
-						if not gamestate_recived:
-							gamestate_recived = true
-							
-							var gamestate : Array = packet_data["gamestate"]
-							# Global.reset_objects() (clear all existing objects)
-							#loop over all object serializations in the recived gamestate
-							for object in gamestate:
-								# does it exist?
-								if object != {}:
-									# is the object a scene or an absolute path to a particular node?
-									if object.has("scene"):
-										# instantiate the scene of the serialized object
-										var inst = load(object["scene"]).instantiate()
-										# loop thru all serialized properties of that object to set the state
-										for property : Array in object["properties"]:
-											# check for different flags that could be put at the start 
-											# to indicate different ways to handle the data
-											match property[0]:
-												"node":
-													# set the property of a specific node in this scene
-													inst.get_node(property[1]).set(property[2], property[3])
-												
-												"func", "func_abs":
-													# run a function with args in this scene
-													var args : Array = []
-													for arg in range(property.size() - 3):
-														var to_add = property[arg + 3]
-														if to_add is String:
-															var split = to_add.split(":")
-															match split[0]:
-																"node":
-																	args.append(inst.get_node(split[1])) # my tab indentation level peaked here, probably the most ive done xD
-																
-																_:
-																	args.append(to_add)
-														else: args.append(to_add)
-													var call = Callable(inst.get_node(property[1]) if property[0] == "func" else get_node(property[1]), property[2])
-													if args.size() != 0: call.callv(args)
-													else: call.call()
-												
-												# feel free to add more custom interperiters to the serialization here
-												_:
-													# set propperty in the instantiated scene
-													inst.set(property[0], property[1])
-										
-										#Global.get(object["parent"]).add_child(inst) (instanciate the scene at location object["parent"] relitive to something, add your own implementation)
-										
-									elif object.has("path"):
-										for property : Array in object["properties"]:
-											get_node(object["path"]).set(property[0], property[1])
-										
-								
-							# add logic for what should happen after all serialized data is recived/processed
-							#Global.trans.switch_scene(packet_data["area"])
-							#Global.trans.fake_trans_to_level("from_black_one_way")
-				return
-							
 			
 		
-		var puppet_player = null # Global.get_puppet_player(sender) (get your ghost player using the steam id)
-		
+		var puppet_player = Global.get_ghost_player(sender)
+		print(puppet_player)
 		# interpolated packets go here
 		if puppet_player:
 			match packet_type:
 				PacketType.POSITION:
-					push_to_interpolate_buffer("position", packet_data, packet_number, packet_timestamp, puppet_player)
+					puppet_player.global_position = packet_data
+					#push_to_interpolate_buffer("position", packet_data, packet_number, packet_timestamp, puppet_player)
 
 				PacketType.LOOK_DIR:
-					push_to_interpolate_buffer("rotation", packet_data, packet_number, packet_timestamp, puppet_player)
+					puppet_player.global_rotation = packet_data
+					#push_to_interpolate_buffer("rotation", packet_data, packet_number, packet_timestamp, puppet_player)
+				
+				PacketType.VELOCITY:
+					puppet_player.internal_velocity = packet_data
+					#push_to_interpolate_buffer("velocity", packet_data, packet_number, packet_timestamp, puppet_player)
 
 
 const DEFAULT_BUFFER_READ_THERSHOLD = 5
@@ -559,6 +475,10 @@ func _interpolate_values(delta : float):
 								
 								TYPE_NIL:
 									print("Null interpolated value: ", interpolated_properties.find_key(property))
+								
+								TYPE_ARRAY: #THIS IS BAD DONT KEEP THIS IN TEMPLATES MAYBE DO A RECURSIVE FUNCTION INSTEAD
+									property["value"][0] = property["previous_value"][0].lerp(curr_buffer[1][0], progress)
+									property["value"][1] = property["previous_value"][1].lerp(curr_buffer[1][1], progress)
 									
 								_: 
 									printerr("Unknown value type: " + str(typeof(property["value"])))

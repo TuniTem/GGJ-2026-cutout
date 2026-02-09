@@ -3,26 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://4mrowe64i7fu" path="res://scenes/player.tscn" id="1_e4de6"]
 [ext_resource type="PackedScene" uid="uid://c2gi6vj24lt6m" path="res://art/3D/levels/battleground/battleground.tscn" id="2_dqn74"]
 [ext_resource type="PackedScene" uid="uid://dvmggulbuak6s" path="res://scenes/crosshair.tscn" id="3_dqn74"]
-
-[sub_resource type="Curve" id="Curve_dqn74"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.6154616, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Script" uid="uid://cmrfnibdc3nrf" path="res://scripts/player_holder.gd" id="4_clu8d"]
 
 [node name="NewTest" type="Node3D" unique_id=707393687]
-
-[node name="Player" parent="." unique_id=606600753 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, 0)
-crosshair = NodePath("../Crosshair")
-
-[node name="Player2" parent="." unique_id=937476476 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.272226, 11.513176, 0)
-crosshair = NodePath("../Crosshair")
-controller_assist_curve = SubResource("Curve_dqn74")
 
 [node name="BattleGround" parent="." unique_id=996328523 instance=ExtResource("2_dqn74")]
 
 [node name="Crosshair" parent="." unique_id=110965933 instance=ExtResource("3_dqn74")]
-position = Vector2(1, 1)
+position = Vector2(575.5, 418)
 rotation = 0.0
 ROTATION = 0.0
 FREE_ROTATION = 0.0
@@ -30,3 +18,10 @@ CROSS_MAX_LENGTH = 8.5814
 CROSS_LINE_MULT = Array[float]([0.0, 1.0, 0.0])
 SQUARE_SIZE = 16.9289
 SQUARE_DRAW_DIST = 7.3684
+
+[node name="PlayerHolder" type="Node3D" parent="." unique_id=879597831]
+script = ExtResource("4_clu8d")
+
+[node name="Player" parent="PlayerHolder" unique_id=606600753 node_paths=PackedStringArray("crosshair") instance=ExtResource("1_e4de6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.61008, 11.513176, 0)
+crosshair = NodePath("../../Crosshair")

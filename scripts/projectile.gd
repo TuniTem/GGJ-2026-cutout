@@ -43,7 +43,7 @@ func gravity_mult() -> float:
 	return -1.0 if gravity_switched else 1.0
 
 func _ready() -> void:
-	player = Global.players[player_number]
+	player = Global.player
 	match type:
 		Global.ProjectileType.HIGH_VELOCITY:
 			SFX.play("shoot_high")
@@ -114,13 +114,11 @@ var max_dist : float = 20.0;
 
 # for all of these keep in min that "up/down" is relitive
 func explode(): # forces all players within a radius away
-	for each_player : Player in Global.players:
-		var dir = global_position - each_player.global_position;
-		var force_mag = falloff.sample(clamp(dir.length()-max_dist, 0.0, 1.0))
-		print("inpt ", clamp(dir.length()-max_dist, 0.0, 1.0))
-		each_player.add_force(-dir.normalized() * force_mag * 60.0)
-		queue_free()
-	pass
+	var dir = global_position - Global.player.global_position;
+	var force_mag = falloff.sample(clamp(dir.length()-max_dist, 0.0, 1.0))
+	print("inpt ", clamp(dir.length()-max_dist, 0.0, 1.0))
+	Global.player.add_force(-dir.normalized() * force_mag * 60.0)
+	queue_free()
 
 
 #func create_wall_hole(): # make an inteirior raycast inside the in direction of [vel], create a boolian csgcube that goes from the projectriles pos to the raycast end, if no raycast run explode()  
