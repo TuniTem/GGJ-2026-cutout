@@ -1,14 +1,17 @@
 extends Node
 
+const BASE_PLAYER = preload("uid://4mrowe64i7fu")
+
 enum ProjectileType {
 	HIGH_VELOCITY,
 	LOW_VELOCITY
 }
 
-signal start_splitscreen
-signal game_start
-signal game_win
-signal player_died(team : Global.Team)
+#signal start_splitscreen
+#signal game_start
+#signal game_win
+#signal player_died(team : Global.Team)
+
 
 var projectile_parent : Node3D
 
@@ -32,6 +35,7 @@ func set_score(team1 : int, team2 : int):
 		player.game_ui.get_node("Eclipso").text = str(team2) + "/10"
 
 func _ready() -> void:
+	game_start()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	update_controllers()
 	print(avalible_controllers)
@@ -49,3 +53,15 @@ func request_controller_id(player : CharacterBody3D):
 		return avalible_controllers[player_num]
 	else:
 		return -1
+
+var last_team = 0
+func spawn_player(spawnpoint : Vector3, parent : Node) -> Player:
+	var player = BASE_PLAYER.instantiate() as Player
+	player.team_one = !last_team
+	last_team = player.team_one
+	parent.add_child(player)
+	return player
+
+func game_start():
+	MusicController.prep_group("mask_out")
+	

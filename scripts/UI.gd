@@ -8,6 +8,7 @@ var dead : bool = false:
 		dead = val
 @onready var swap: ColorRect = $SWAP
 @onready var timer: RichTextLabel = $timer
+@export var win_screen: Control
 
 func set_anim(to : String):
 	animations.play(to)

@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
 		
 
 func kill_player(plr : Player):
-	Global.player_died.emit(Global.Team.Light if team_one else Global.Team.Dark)
+	#Global.player_died.emit(Global.Team.Light if team_one else Global.Team.Dark)
 	plr.kill()
 
 

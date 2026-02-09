@@ -102,6 +102,8 @@ const MAX_STRUCTURES = 3
 @export var enable_aim_assist : bool = true
 @export var aim_assit_kbm : bool = true
 @export var speed_based : bool = true
+@export var speed_assist_max : float = 50
+@export var speed_assist_curve : Curve
 @export var controller_assist_curve : Curve
 @export var keyboard_assist_curve : Curve
 @export_range(0.0, 20.0, 0.1) var max_assist_angle_degrees : float
@@ -128,6 +130,8 @@ func _init() -> void:
 		using_controller = false
 
 func _ready() -> void:
+	MusicController.fade("mask_out_light" if position.y > 0.0 else "mask_out_dark", 1.0, 1.0, true)
+	
 	scale = Vector3.ONE * 1.5
 	skeleton = eclipso_skeleton
 	structure_buffer = Buffer.new(MAX_STRUCTURES, Buffer.Type.NODE_METHOD)
@@ -167,9 +171,11 @@ const SUFFOCATE_TIME = 10.0
 
 const VOLUME_MAX_VELOCITY = 40.0
 func _physics_process(delta: float) -> void:
+	print(velocity.length())
+	Debug.draw_vector3(velocity, global_position, self, "velocity")
 	if player_number != 0: return
 	#Debug.push(get_look_dir())
-	Debug.draw_vector3(velocity, global_position, self, "velocity")
+	
 	#sfx
 	SFX.param_volume(self, "wind", velocity.length() / VOLUME_MAX_VELOCITY)
 	
@@ -266,13 +272,15 @@ func _physics_process(delta: float) -> void:
 	
 	if position.y < 0 and not gravity_switched:
 		gravity_switched = true
-		Util.tween(self, "rotation:z", rotation.z - PI, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
+		Util.tween(self, "rotation:z",-PI, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
 		rotate_y(PI)
+		MusicController.switch_song("mask_out_dark")
 		#flip_anim.play("swap_down")
 	
 	if position.y > 0 and gravity_switched:
+		MusicController.switch_song("mask_out_light")
 		gravity_switched = false
-		Util.tween(self, "rotation:z", rotation.z - PI, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
+		Util.tween(self, "rotation:z", 0.0, 1.0, Tween.EASE_OUT, Tween.TRANS_CUBIC)
 		rotate_y(PI)
 		#flip_anim.play("swap_up")
 	
@@ -426,7 +434,8 @@ func add_force(force: Vector3):
 
 var is_dead : bool = false
 func kill():
-	print_stack()
+	#print_stack()
+	game_ui.win_screen.play_win(team_one)
 	global_position = Vector3(0.0, 50.0, 0.0) * (float(team_one) * 2 - 1)
 	#if not is_dead:
 		#is_dead = true
@@ -479,7 +488,9 @@ func shoot():
 				max_assist_angle_degrees, # max correction angle
 				true, # target must be visible
 				0.3, # allow people to shoot directly at moving targets, even if thats dumb, I dont wanna snap an unled target to a led one
-				controller_assist_curve if using_controller else keyboard_assist_curve # curve to modulate how the assist works
+				controller_assist_curve if using_controller else keyboard_assist_curve, # curve to modulate how the assist works
+				speed_assist_max,
+				speed_assist_curve if speed_based else null
 			)
 	Debug.draw_vector3(inst.direction * 3.0, inst.position, self, "", Color.YELLOW)
 	Debug.draw_vector3(camera.global_position.direction_to(actual_projectile_spawn.global_position) * 3.0, inst.position, self, "", Color.GREEN)

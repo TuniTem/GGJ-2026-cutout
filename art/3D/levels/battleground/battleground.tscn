@@ -32,6 +32,19 @@ background_mode = 2
 sky = SubResource("Sky_k0d8u")
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 10.6
+ssao_enabled = true
+ssao_intensity = 2.01
+ssao_power = 1.552897
+ssao_horizon = 0.0
+ssil_enabled = true
+ssil_radius = 3.65
+ssil_intensity = 16.0
+ssil_sharpness = 0.46
+ssil_normal_rejection = 0.0
+adjustment_enabled = true
+adjustment_brightness = 0.85
+adjustment_contrast = 0.925
+adjustment_saturation = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l57hg"]
 transparency = 2

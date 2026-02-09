@@ -58,6 +58,7 @@
 [ext_resource type="Texture2D" uid="uid://4ix1ty8toyiq" path="res://art/ui/game/first person anims/Walk/0015.png" id="56_o3clb"]
 [ext_resource type="Texture2D" uid="uid://v6irp802ephp" path="res://art/ui/game/first person anims/Walk/0016.png" id="57_5cjuc"]
 [ext_resource type="Texture2D" uid="uid://bk4x072d8l7uh" path="res://art/ui/game/first person anims/Walk/0017.png" id="58_srm6m"]
+[ext_resource type="PackedScene" uid="uid://crekgrf0q0tww" path="res://scenes/win_screen.tscn" id="59_w3xai"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pylni"]
 shader = ExtResource("3_7hrjk")
@@ -238,7 +239,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="GameUI" type="Control" unique_id=1136848425]
+[node name="GameUI" type="Control" unique_id=1136848425 node_paths=PackedStringArray("win_screen")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -246,6 +247,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dcmab")
+win_screen = NodePath("WinScreen")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1127743935]
@@ -423,3 +425,8 @@ sprite_frames = SubResource("SpriteFrames_4keta")
 animation = &"Walk"
 autoplay = "Idle"
 frame_progress = 0.27728173
+
+[node name="WinScreen" parent="." unique_id=1816981019 instance=ExtResource("59_w3xai")]
+visible = false
+z_index = 110
+layout_mode = 1

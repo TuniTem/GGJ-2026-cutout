@@ -47,7 +47,6 @@
 [ext_resource type="AudioStream" uid="uid://db42d86enx8pw" path="res://audio/sfx/elements/GRAVITY SWITCH.wav" id="43_3xokm"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5t01i"]
-playback_mode = 2
 streams_count = 13
 stream_0/stream = ExtResource("2_v17bm")
 stream_1/stream = ExtResource("12_5h8qd")
@@ -64,7 +63,6 @@ stream_11/stream = ExtResource("5_e54hq")
 stream_12/stream = ExtResource("6_2bd0h")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l284g"]
-playback_mode = 2
 streams_count = 7
 stream_0/stream = ExtResource("14_pytyn")
 stream_1/stream = ExtResource("15_yej68")
@@ -178,28 +176,35 @@ script = ExtResource("1_swcnf")
 [node name="EclipsoWin" type="AudioStreamPlayer" parent="." unique_id=999859652]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_5t01i")
+volume_db = -8.0
+bus = &"Eclipso"
 
-[node name="LunaireWin" type="AudioStreamPlayer" parent="." unique_id=1330295297]
+[node name="LunaireWin" type="AudioStreamPlayer" parent="." unique_id=870072872]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_l284g")
+volume_db = -8.5
+bus = &"SFX"
 
 [node name="Footstep" type="AudioStreamPlayer" parent="." unique_id=1716174472]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_seic1")
 volume_db = -22.0855
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Countdown" type="AudioStreamPlayer" parent="." unique_id=331000524]
 unique_name_in_owner = true
 stream = ExtResource("22_voti4")
 volume_db = -16.7835
 pitch_scale = 1.17
+bus = &"SFX"
 
 [node name="ShootLowPower" type="AudioStreamPlayer" parent="." unique_id=1053627837]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_sonwn")
 volume_db = -16.7835
 max_polyphony = 6
+bus = &"SFX"
 
 [node name="ShootHighPower" type="AudioStreamPlayer" parent="." unique_id=704918805]
 unique_name_in_owner = true
@@ -207,6 +212,7 @@ stream = SubResource("AudioStreamRandomizer_jkth7")
 volume_db = -20.9023
 pitch_scale = 1.38
 max_polyphony = 6
+bus = &"SFX"
 
 [node name="GrowPillar" type="AudioStreamPlayer" parent="." unique_id=1499285772]
 unique_name_in_owner = true
@@ -214,6 +220,7 @@ stream = SubResource("AudioStreamRandomizer_kwij1")
 volume_db = -11.3894
 pitch_scale = 1.51
 max_polyphony = 6
+bus = &"SFX"
 
 [node name="CreateHole" type="AudioStreamPlayer" parent="." unique_id=1237556275]
 unique_name_in_owner = true
@@ -221,6 +228,7 @@ stream = SubResource("AudioStreamRandomizer_2qyx8")
 volume_db = -15.275
 pitch_scale = 1.49
 max_polyphony = 6
+bus = &"SFX"
 
 [node name="ProjectileExplode" type="AudioStreamPlayer" parent="." unique_id=319959933]
 unique_name_in_owner = true
@@ -228,18 +236,21 @@ stream = SubResource("AudioStreamRandomizer_nd6xr")
 volume_db = -3.171
 pitch_scale = 1.2
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Scope" type="AudioStreamPlayer" parent="." unique_id=894898221]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_v17bm")
 volume_db = -14.2989
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Bounce" type="AudioStreamPlayer" parent="." unique_id=668656314]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_u73mm")
 volume_db = -19.0637
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Jump" type="AudioStreamPlayer" parent="." unique_id=719602153]
 unique_name_in_owner = true
@@ -247,18 +258,21 @@ stream = SubResource("AudioStreamRandomizer_53mpv")
 volume_db = -19.0637
 pitch_scale = 2.79
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Land" type="AudioStreamPlayer" parent="." unique_id=355560648]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_c8tfm")
 volume_db = -23.1824
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Dash" type="AudioStreamPlayer" parent="." unique_id=720519115]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_rj4sr")
 volume_db = -17.3714
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Slide" type="AudioStreamPlayer" parent="." unique_id=17699092]
 unique_name_in_owner = true
@@ -266,6 +280,7 @@ stream = SubResource("AudioStreamRandomizer_e54hq")
 volume_db = -7.0744
 pitch_scale = 0.94
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="QuickStop" type="AudioStreamPlayer" parent="." unique_id=136278198]
 unique_name_in_owner = true
@@ -273,6 +288,7 @@ stream = SubResource("AudioStreamRandomizer_2bd0h")
 volume_db = -15.1601
 pitch_scale = 3.71
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Crashout" type="AudioStreamPlayer" parent="." unique_id=992722246]
 unique_name_in_owner = true
@@ -280,11 +296,13 @@ stream = SubResource("AudioStreamRandomizer_2bd0h")
 volume_db = -15.1601
 pitch_scale = 1.75
 max_polyphony = 5
+bus = &"SFX"
 
 [node name="Wind" type="AudioStreamPlayer" parent="." unique_id=1973944065]
 unique_name_in_owner = true
 stream = ExtResource("40_fjisg")
 volume_db = -13.6601
+bus = &"SFX"
 script = ExtResource("41_5gu1s")
 vol_modifier = 0.25
 
@@ -293,3 +311,4 @@ unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_pytyn")
 volume_db = -11.5561
 max_polyphony = 5
+bus = &"SFX"

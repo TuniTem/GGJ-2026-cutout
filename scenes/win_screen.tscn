@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://xntp5so7aj2r" path="res://art/fonts/ferritecore/FerriteCoreDX-Light.otf" id="2_2l6cc"]
 [ext_resource type="Texture2D" uid="uid://ddelalex8ntwl" path="res://art/ui/game/win screen/Eclipso.png" id="2_e41g7"]
 [ext_resource type="FontVariation" uid="uid://bd5eajiwacsph" path="res://art/fonts/ferritecore/FerriteJagged.tres" id="4_6s1kg"]
+[ext_resource type="Shader" uid="uid://efyc5aev14j0" path="res://GodotUtils/Shaders/SSDistort/comb2.gdshader" id="7_qnnn4"]
+[ext_resource type="Texture2D" uid="uid://dym6awystmniq" path="res://trt45V.png" id="8_doie2"]
 
 [sub_resource type="FontVariation" id="FontVariation_0lrm4"]
 base_font = ExtResource("2_2l6cc")
@@ -277,15 +279,33 @@ _data = {
 &"in": SubResource("Animation_qnnn4")
 }
 
-[node name="WinScreen" type="Node2D" unique_id=1472979118]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6ob7"]
+shader = ExtResource("7_qnnn4")
+shader_parameter/brightness = 0.999999977648
+shader_parameter/contrast = 2.55999994277888
+shader_parameter/intensity = 0.02000000095
+shader_parameter/edge_width = 1.0
+shader_parameter/noise_ammount = 2.02999995462544
+
+[node name="WinScreen" type="Control" unique_id=1816981019]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_6s1kg")
 
 [node name="Splat" type="Sprite2D" parent="." unique_id=753806343]
 modulate = Color(1, 1, 1, 0)
+z_index = 2
 position = Vector2(489, 306)
 texture = ExtResource("1_0lrm4")
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=1853904509]
+z_index = 4
+layout_mode = 0
 offset_left = -9.0
 offset_top = 1685.0
 offset_right = 3210.0
@@ -301,6 +321,8 @@ text = "ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! "
 label_settings = SubResource("LabelSettings_6s1kg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1286753261]
+z_index = 4
+layout_mode = 0
 offset_left = -1010.0
 offset_top = -1100.0
 offset_right = 2209.0
@@ -316,16 +338,18 @@ text = "ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! ECLIPSO !! "
 label_settings = SubResource("LabelSettings_6s1kg")
 
 [node name="Eclipso" type="Sprite2D" parent="." unique_id=1286069524]
+z_index = 3
 position = Vector2(483, 282)
 scale = Vector2(0.8333333, 0.8333333)
 texture = ExtResource("2_e41g7")
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=1433945076]
-z_index = 2
+z_index = 4
 clip_contents = false
+layout_mode = 0
 offset_left = 498.0
 offset_top = 297.0
-offset_right = 1481.009
+offset_right = 1481.0125
 offset_bottom = 455.99976
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -360,4 +384,18 @@ label_settings = SubResource("LabelSettings_o8vhx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=599444345]
 libraries/ = SubResource("AnimationLibrary_doie2")
-autoplay = &"in"
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1113364754]
+z_index = 1
+material = SubResource("ShaderMaterial_r6ob7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Trt45v" type="Sprite2D" parent="." unique_id=1255150268]
+visible = false
+position = Vector2(571, 328)
+texture = ExtResource("8_doie2")

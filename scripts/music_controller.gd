@@ -47,7 +47,7 @@ func switch_song(to : String, time : float = 1.0):
 		fade(to, 1.0, time, true)
 
 func fade(song : String, volume_linear : float, time : float = 1.0, take_current : bool = false,  stop : bool = false):
-	if volume_linear > 0.0 and not music[song].playing: music[song].play()
+	if not music[song].playing: music[song].play()
 	var tween : Tween = create_tween()
 	tween.tween_property(music[song], "volume_linear", volume_linear, time)
 	if take_current : curr_song = song
